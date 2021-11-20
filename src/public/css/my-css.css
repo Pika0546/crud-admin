@@ -1,0 +1,78 @@
+
+.my-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    min-height: 100%;
+   
+}
+
+.my-wrapper > div{
+    flex-shrink: 0;
+}
+
+.my-footer{
+    flex-shrink: 0;
+}
+.my-main{
+    flex-grow: 1;
+    flex-shrink: 0;
+}
+
+.my-status-option{
+    cursor: pointer;
+}
+
+.my-status-option-list{
+    z-index: 100000;
+}
+
+.my-status-option a{
+    padding: 2px 4px !important;
+}
+
+.my-edit-img{
+    max-width:300px ;
+    width: 100%;
+}
+
+.my-product-img{
+    max-width:300px ;
+    width: 100%;
+}
+
+.modal-header .close{
+    padding: 0;
+    margin: 0;
+}
+
+@media (max-width: 767px){
+    .add-product a {
+        display: block;
+    }
+}
+
+
+.dropdown-toggle::after{
+    display: none;
+}
+
+.navbar-nav{
+    display: block;
+}
+
+.my-attribute-input-color {
+    display: block;
+    width: 20px;
+    height: 20px;
+    border: none;
+    color: rgba(0, 0, 0, 0) !important;
+}
+
+.my-attribute-input{
+    border: none;
+    font-size: 14px;
+    color: #303030;
+    font-family: 'Roboto', sans-serif;
+    outline: none;
+}

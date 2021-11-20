@@ -1,0 +1,386 @@
+{{#section 'head'}}
+<meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Categories</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- favicon
+		============================================ -->
+    <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico">
+    <!-- Google Fonts
+		============================================ -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
+    <!-- Bootstrap CSS
+		============================================ -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <!-- Bootstrap CSS
+		============================================ -->
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <!-- owl.carousel CSS
+		============================================ -->
+    <link rel="stylesheet" href="/css/owl.carousel.css">
+    <link rel="stylesheet" href="/css/owl.theme.css">
+    <link rel="stylesheet" href="/css/owl.transitions.css">
+    <!-- animate CSS
+		============================================ -->
+    <link rel="stylesheet" href="/css/animate.css">
+    <!-- normalize CSS
+		============================================ -->
+    <link rel="stylesheet" href="/css/normalize.css">
+    <!-- meanmenu icon CSS
+		============================================ -->
+    <link rel="stylesheet" href="/css/meanmenu.min.css">
+    <!-- main CSS
+		============================================ -->
+    <link rel="stylesheet" href="/css/main.css">
+        <!-- dropzone CSS
+		============================================ -->
+    <link rel="stylesheet" href="/css/dropzone/dropzone.css">
+    <!-- educate icon CSS
+		============================================ -->
+    <link rel="stylesheet" href="/css/educate-custon-icon.css">
+    <!-- morrisjs CSS
+		============================================ -->
+    <link rel="stylesheet" href="/css/morrisjs/morris.css">
+    <!-- mCustomScrollbar CSS
+		============================================ -->
+    <link rel="stylesheet" href="/css/scrollbar/jquery.mCustomScrollbar.min.css">
+    <!-- metisMenu CSS
+		============================================ -->
+    <link rel="stylesheet" href="/css/metisMenu/metisMenu.min.css">
+    <link rel="stylesheet" href="/css/metisMenu/metisMenu-vertical.css">
+    <!-- calendar CSS
+		============================================ -->
+    <link rel="stylesheet" href="/css/calendar/fullcalendar.min.css">
+    <link rel="stylesheet" href="/css/calendar/fullcalendar.print.min.css">
+    <!-- x-editor CSS
+		============================================ -->
+    <link rel="stylesheet" href="/css/editor/select2.css">
+    <link rel="stylesheet" href="/css/editor/datetimepicker.css">
+    <link rel="stylesheet" href="/css/editor/bootstrap-editable.css">
+    <link rel="stylesheet" href="/css/editor/x-editor-style.css">
+    <!-- normalize CSS
+        ============================================ -->
+    <link rel="stylesheet" href="/css/data-table/bootstrap-table.css">
+    <link rel="stylesheet" href="/css/data-table/bootstrap-editable.css">
+        <!-- modals CSS
+		============================================ -->
+    <link rel="stylesheet" href="/css/modals.css">
+    <!-- forms CSS
+		============================================ -->
+    <link rel="stylesheet" href="/css/form/all-type-forms.css">
+    <!-- style CSS
+		============================================ -->
+    <link rel="stylesheet" href="/style.css">
+    <!-- responsive CSS
+		============================================ -->
+    <link rel="stylesheet" href="/css/responsive.css">
+    <!-- modernizr JS
+		============================================ -->
+    <link rel="stylesheet" href="/css/my-css.css">
+    <script src="/js/vendor/modernizr-2.8.3.min.js"></script>
+{{/section}}
+
+<div class="product-status mg-b-15">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="product-status-wrap">
+                    <h4>All Categories</h4>
+                    <div class="add-product">
+                        <a href="#" data-toggle="modal" data-target="#addCategoryModal">Add Category</a>
+                    </div>
+                    <div class="asset-inner">
+                        <table>
+                            <tr>
+                                <th>No</th>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>Number of Products</th>
+                                <th>Action</th>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td><img src="/img/categories/t-shirt.png" alt="" /></td>
+                                <td>T-shirt</td>
+                                <td>100</td>
+                                <td>
+                                    <a href="#" data-toggle="modal" data-target="#editCategoryModal" data-categoryname="T-Shirt" style="color: black;"><button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
+                                    <button title="Delete" style="display: none;"  class="pd-setting-ed" data-toggle="modal" data-target="#DangerModalalert"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td><img src="/img/categories/backpack.png" alt="" /></td>
+                                <td>Backpack</td>
+                                <td>100</td>
+                                <td>
+                                    <a href="#" data-toggle="modal" data-target="#editCategoryModal" data-categoryname="Backpack" style="color: black;"><button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
+                                    <button title="Delete" style="display: none;"  class="pd-setting-ed" data-toggle="modal" data-target="#DangerModalalert"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td><img src="/img/categories/sneaker.png" alt="" /></td>
+                                <td>Sneaker</td>
+                                <td>100</td>
+                                <td>
+                                    <a href="#" data-toggle="modal" data-target="#editCategoryModal" data-categoryname="Sneaker" style="color: black;"><button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
+                                    <button title="Delete" style="display: none;"  class="pd-setting-ed" data-toggle="modal" data-target="#DangerModalalert"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td><img src="/img/categories/cap.png" alt="" /></td>
+                                <td>Cap</td>
+                                <td>100</td>
+                                <td>
+                                    <a href="#" data-toggle="modal" data-target="#editCategoryModal" data-categoryname="Cap" style="color: black;"><button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
+                                    <button title="Delete" style="display: none;"  class="pd-setting-ed" data-toggle="modal" data-target="#DangerModalalert"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td><img src="/img/categories/pant.png" alt="" /></td>
+                                <td>Pant</td>
+                                <td>0</td>
+                                <td>
+                                    <a href="#" data-toggle="modal" data-target="#editCategoryModal" data-categoryname="Pant" style="color: black;"><button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
+                                    <button title="Delete" class="pd-setting-ed" data-toggle="modal" data-target="#DangerModalalert"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div id="DangerModalalert" class="modal modal-edu-general FullColor-popup-DangerModal fade" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-close-area modal-close-df">
+                                    <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
+                                </div>
+                                <div class="modal-body">
+                                    <span class="educate-icon educate-danger modal-check-pro information-icon-pro"></span>
+                                    <h2>Delete this Category?</h2>
+                                    <!-- <p>If you delete this product, they can not access the shop's website anymore.</p> -->
+                                </div>
+                                <div class="modal-footer danger-md">
+                                    <a data-dismiss="modal" href="#">Cancel</a>
+                                    <a href="/categories">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="custom-pagination">
+                        <ul class="pagination">
+                            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+ <div id="addCategoryModal" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header header-color-modal bg-color-1">
+                <h4 class="modal-title">Add a new Category</h4>
+                <div class="modal-close-area modal-close-df">
+                    <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
+                </div>
+            </div>
+            <div class="modal-body" style="padding: 0; text-align: left">
+                <div style="padding: 20px; background-color: white; margin: 20px;">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div id="dropzone1" class="pro-ad addcoursepro" > 
+                                <form  action="/upload" class="dropzone dropzone-custom needsclick addcourse"  id="demo1-upload">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="addCategoryNameBox">Category's name</label>
+                                                <input id="addCategoryNameBox" name="coursename" type="text" class="form-control" placeholder="Category Name">
+                                            </div>
+                                            <div class="form-group alert-up-pd">
+                                                <label for="addCategoryNameBox">Category's Icon</label>
+                                                <div class="dz-message needsclick download-custom">
+                                                    <i class="fa fa-download edudropnone" aria-hidden="true"></i>
+                                                    <h2 class="edudropnone">Drop image here or click to upload.</h2>
+                                                    <input name="imageico" class="hd-pro-img" type="text" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a data-dismiss="modal" href="#">Cancel</a>
+                <a href="/categories">Submit</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+ <div id="editCategoryModal" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header header-color-modal bg-color-1">
+                <h4 class="modal-title">Edit Category</h4>
+                <div class="modal-close-area modal-close-df">
+                    <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
+                </div>
+            </div>
+            <div class="modal-body" style="padding: 0; text-align: left">
+                <div style="padding: 20px; background-color: white; margin: 20px;">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div id="dropzone1" class="pro-ad addcoursepro" > 
+                                <form  action="/upload" class="dropzone dropzone-custom needsclick addcourse"  id="demo1-upload">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label for="editCategoryNameBox">Category's name</label>
+                                                <input id="editCategoryNameBox" name="coursename" type="text" class="form-control" placeholder="Category Name">
+                                            </div>
+                                            <div class="form-group alert-up-pd">
+                                                <label for="addCategoryNameBox">Category's Icon</label>
+                                                <div class="dz-message needsclick download-custom">
+                                                    <i class="fa fa-download edudropnone" aria-hidden="true"></i>
+                                                    <h2 class="edudropnone">Drop image here or click to upload.</h2>
+                                                    <p class="edudropnone" style="text-align: center;"><span class="note needsclick">(If no file selected, the old icon will be remain.)</span></p>
+                                                    <input name="imageico" class="hd-pro-img" type="text" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a data-dismiss="modal" href="#">Cancel</a>
+                <a href="/categories">Save</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+ <!-- jquery
+    ============================================ -->
+<script src="/js/vendor/jquery-1.12.4.min.js"></script>
+<!-- bootstrap JS
+    ============================================ -->
+<script src="/js/bootstrap.min.js"></script>
+<!-- wow JS
+    ============================================ -->
+<script src="/js/wow.min.js"></script>
+<!-- price-slider JS
+    ============================================ -->
+<script src="/js/jquery-price-slider.js"></script>
+<!-- meanmenu JS
+    ============================================ -->
+<script src="/js/jquery.meanmenu.js"></script>
+<!-- owl.carousel JS
+    ============================================ -->
+<script src="/js/owl.carousel.min.js"></script>
+<!-- sticky JS
+    ============================================ -->
+<script src="/js/jquery.sticky.js"></script>
+<!-- scrollUp JS
+    ============================================ -->
+<script src="/js/jquery.scrollUp.min.js"></script>
+<!-- counterup JS
+    ============================================ -->
+<script src="/js/counterup/jquery.counterup.min.js"></script>
+<script src="/js/counterup/waypoints.min.js"></script>
+<script src="/js/counterup/counterup-active.js"></script>
+<!-- mCustomScrollbar JS
+    ============================================ -->
+<script src="/js/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="/js/scrollbar/mCustomScrollbar-active.js"></script>
+<!-- metisMenu JS
+    ============================================ -->
+<script src="/js/metisMenu/metisMenu.min.js"></script>
+<script src="/js/metisMenu/metisMenu-active.js"></script>
+<!-- data table JS
+    ============================================ -->
+<script src="/js/data-table/bootstrap-table.js"></script>
+<script src="/js/data-table/tableExport.js"></script>
+<script src="/js/data-table/data-table-active.js"></script>
+<script src="/js/data-table/bootstrap-table-editable.js"></script>
+<script src="/js/data-table/bootstrap-editable.js"></script>
+<script src="/js/data-table/bootstrap-table-resizable.js"></script>
+<script src="/js/data-table/colResizable-1.5.source.js"></script>
+<script src="/js/data-table/bootstrap-table-export.js"></script>
+<!--  editable JS
+    ============================================ -->
+<script src="/js/editable/jquery.mockjax.js"></script>
+<script src="/js/editable/mock-active.js"></script>
+<script src="/js/editable/select2.js"></script>
+<script src="/js/editable/moment.min.js"></script>
+<script src="/js/editable/bootstrap-datetimepicker.js"></script>
+<script src="/js/editable/bootstrap-editable.js"></script>
+<script src="/js/editable/xediable-active.js"></script>
+<!-- Chart JS
+    ============================================ -->
+<script src="/js/chart/jquery.peity.min.js"></script>
+<script src="/js/peity/peity-active.js"></script>
+<!-- tab JS
+    ============================================ -->
+<script src="/js/tab.js"></script>
+<!-- morrisjs JS
+    ============================================ -->
+<script src="/js/morrisjs/raphael-min.js"></script>
+<script src="/js/morrisjs/morris.js"></script>
+<script src="/js/morrisjs/morris-active.js"></script>
+<!-- morrisjs JS
+    ============================================ -->
+<script src="/js/sparkline/jquery.sparkline.min.js"></script>
+<script src="/js/sparkline/jquery.charts-sparkline.js"></script>
+<script src="/js/sparkline/sparkline-active.js"></script>
+<!-- calendar JS
+    ============================================ -->
+<script src="/js/calendar/moment.min.js"></script>
+<script src="/js/calendar/fullcalendar.min.js"></script>
+<script src="/js/calendar/fullcalendar-active.js"></script>
+    <!-- form validate JS
+		============================================ -->
+    <script src="/js/form-validation/jquery.form.min.js"></script>
+    <script src="/js/form-validation/jquery.validate.min.js"></script>
+    <script src="/js/form-validation/form-active.js"></script>
+    <!-- dropzone JS
+		============================================ -->
+    <script src="/js/dropzone/dropzone.js"></script>
+<!-- plugins JS
+    ============================================ -->
+<script src="/js/plugins.js"></script>
+<!-- main JS
+    ============================================ -->
+<script src="/js/main.js"></script>
+<!-- tawk chat JS
+    ============================================ -->
+<!-- <script src="/js/tawk-chat.js"></script> -->
+
+<script>
+    $(document).ready(function(){
+        $('#editCategoryModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var recipient = button.data('categoryname') // Extract info from data-* attributes
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        var modal = $(this)
+        modal.find('.modal-body #editCategoryNameBox').val(recipient);
+        })
+    })
+</script>
