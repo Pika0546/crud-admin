@@ -50,7 +50,7 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     sequelize,
     tableName: 'user',
-    timestamps: false,
+    timestamps: true,
     paranoid: true,
     timestamp: true,
     indexes: [

@@ -42,7 +42,7 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     sequelize,
     tableName: 'orderdetail',
-    timestamps: false,
+    timestamps: true,
     paranoid: true,
     timestamp: true,
     indexes: [

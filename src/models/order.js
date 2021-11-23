@@ -43,7 +43,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       allowNull: true
     },
-    Address: {
+    address: {
       type: DataTypes.STRING(50),
       allowNull: false
     },
@@ -74,7 +74,7 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     sequelize,
     tableName: 'order',
-    timestamps: false,
+    timestamps: true,
     paranoid: true,
     timestamp: true,
     indexes: [

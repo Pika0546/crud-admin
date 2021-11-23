@@ -3,6 +3,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Edit Product</title>
     <meta name="description" content="">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- favicon
 		============================================ -->
@@ -89,7 +90,6 @@
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="add-product">
-                  
                     <a href="#" style="color: black; position: relative; background: transparent; padding: 0px"><button data-toggle="modal" data-target="#DangerModalalert" title="Edit" class="pd-setting-ed"><i class="fa fa-trash-o" aria-hidden="true"></i></button></a>
                     <!-- <button title="Delete" class="pd-setting-ed" data-toggle="modal" data-target="#DangerModalalert" style="color: black; position: relative; background: transparent; padding: 0px"><i class="fa fa-trash-o" aria-hidden="true"></i></button> -->
                 </div>
@@ -104,82 +104,71 @@
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div class="review-content-section">
-                                        <form action="#" id="demo1-upload">
+                                        <form class="needs-validation" method="post" action="/products/update" name="editProductForm" id="edit-product-form" novalidate> 
                                             <div class="row">
                                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                                     <label>Name:</label>
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control" required="" placeholder="Name" value="Luxury Crazy Bunny">
-                                                    </div>
+                                                        <input name="editNameBox" type="text" class="form-control" value="Luxury Crazy Bunny" required>
+														<div class="invalid-feedback">
+															Please provide a valid name.
+														</div>
+													</div>
                                                     <label>Brand:</label>
                                                     <div class="form-group">
-                                                        <select class="form-control">
-                                                            <option selected="">Crazy Bunny</option>
-                                                            <option>Moustache Monster</option>
-                                                            <option>Crazy Rockpanda</option>
-                                                            <option>Zombie Popsicle</option>
-                                                            <option>Devil Monster</option>
-                                                            </select>
+                                                        <select name="editBrandBox" class="form-control">
+                                                            <option value="1" selected="">Crazy Bunny</option>
+                                                            <option value="2">Moustache Monster</option>
+                                                            <option value="3">Crazy Rockpanda</option>
+                                                            <option value="4">Zombie Popsicle</option>
+														</select>
                                                     </div>
                                                     <label>Category:</label>
                                                     <div class="form-group">
-                                                        <select class="form-control">
-                                                            <option selected="">T-Shirt</option>
-                                                            <option>Backpack</option>
-                                                            <option>Cap</option>
-                                                            <option>Sneaker</option>
+                                                        <select name="editCateBox" class="form-control">
+                                                            <option value="1" selected="">T-Shirt</option>
+                                                            <option value="2">Backpack</option>
+                                                            <option value="3">Cap</option>
+                                                            <option value="4">Sneaker</option>
                                                             </select>
                                                     </div>
                                                     <label>Created date:</label>
-                                                    <!-- <div class="form-group data-custon-pick" id="data_2">
-                                                        <div class="input-group date">
-                                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                                            <input name="birthdate" type="text" class="form-control" value="16/11/2021" readonly="">
-                                                        </div>
-                                                    </div> -->
                                                     <div class="form-group">
-                                                        <input name="birthdate" type="text" class="form-control" value="16/11/2021" readonly="">
+                                                        <input name="birthdate" type="text" class="form-control" required value="16/11/2021" readonly="">
                                                     </div>
                                                     <label>Quantity sold:</label>
                                                     <div class="form-group">
-                                                        <input type="number" class="form-control" required="" value="11200" readonly="">
+                                                        <input  type="number" class="form-control" required value="11200" readonly="">
                                                     </div>
-                                                    <!-- <div class="form-group">
-                                                        <input type="text" class="form-control" placeholder="Course Duration" value="6 Months">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control" placeholder="Course Price" value="$400">
-                                                    </div> -->
+
                                                 </div>
                                                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                                     <label>Gender:</label>
                                                     <div class="form-group">
-                                                        <select class="form-control">
-                                                            <option selected="">Men</option>
-                                                            <option>Women</option>
-                                                            <option>Unisex</option>
+                                                        <select required name="editGenderBox" class="form-control">
+                                                            <option value="1" selected="">Men</option>
+                                                            <option value="2">Women</option>
+                                                            <option value="3">Unisex</option>
                                                         </select>
                                                     </div>
                                                     <label>Summary description:</label>
                                                     <div class="form-group res-mg-t-15">
-                                                        <input type="text" class="form-control" required="" value="Lorem ipsum dolor sit amet of">
-                                                    </div>
+                                                        <input name="editSubDesBox" type="text" class="form-control"  value="Lorem ipsum dolor sit amet of">
+														<div class="invalid-feedback">
+															Please provide a valid description.
+														</div>
+													</div>
                                                     <label>Full description:</label>
                                                     <div class="form-group edit-ta-resize">
-                                                        <textarea name="description" required="">Lorem ipsum dolor sit amet of, consectetur adipiscing elitable. Vestibulum tincidunt est vitae ultrices accumsan.</textarea>
-                                                    </div>
+                                                        <textarea name="editDesBox" class="form-control" required>Lorem ipsum dolor sit amet of, consectetur adipiscing elitable. Vestibulum tincidunt est vitae ultrices accumsan.</textarea>
+														<div class="invalid-feedback">
+															Please provide a valid description.
+														</div>
+													</div>
                                                     <div class="form-group edit-ta-resize">
-                                                        <input type="checkbox" class="i-checks" checked> Mark as <b>Featured Product</b>
+                                                        <input name="editFeatureBox" id="proFeature" type="checkbox" class="i-checks"/>
+														<label for="proFeature">Mark as Feature Product</label> 
                                                     </div>
-                                                    <!-- <div class="checkbox col-lg-12">
-                                                        <input type="checkbox" class="i-checks" checked> Sigh up for our newsletter
-                                                    </div> -->
-                                                    <!-- <div class="form-group">
-                                                        <input type="text" class="form-control" placeholder="Course Professor" value="Selima sha">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control" placeholder="Year" value="1 Year">
-                                                    </div> -->
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -190,7 +179,7 @@
                                                             <a href="#" data-toggle="modal" data-target="#addAttributesModal">Add Attributes</a>
                                                         </div>
                                                         <div class="asset-inner">
-                                                            <table>
+                                                            <table id="product-attri-table">
                                                                 <tr>
                                                                     <th>No</th>
                                                                     <th>Color</th>
@@ -201,152 +190,38 @@
                                                                 </tr>
                                                                 <tr>
                                                                     <td>1</td>
-                                                                    <td><button style="background-color: #39f5dc; width: 20px; height: 20px;" disabled=""></button></td>
-                                                                    <td>Small</td>
-                                                                    <td>35</td>
-                                                                    <td>1500</td>
+                                                                    <td><input name="colors[]" class="my-attribute-input my-attribute-input-color" style="background: #39f5dc" readonly type="text" value="#39f5dc" /></td>
+                                                                    <td><input name="sizes[]" class="my-attribute-input" readonly type="text" value="Small" /></td>
+                                                                    <td><input name="quantity[]" class="my-attribute-input" readonly type="number" value="35"/></td>
+                                                                    <td><input name="price[]" class="my-attribute-input" readonly type="number" value="100" /></td>
                                                                     <td>
-                                                                        <a href="#" data-toggle="modal" data-target="#editAttributesModal" data-color="#39f5dc" data-size="Small" data-quantity="35" data-price="1500" style="color: black;"><button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
-                                                                        <button data-toggle="tooltip" title="Trash" class="pd-setting-ed"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                                                        <a href="#" data-id="1" data-toggle="modal" data-target="#editAttributesModal" data-color="#39f5dc" data-size="Small" data-quantity="35" data-price="1500" style="color: black;"><button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
+																		<button onClick="removeRow(1)" data-toggle="tooltip" title="Trash" class="pd-setting-ed" style="color: black; cursor:pointer"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>2</td>
-                                                                    <td><button style="background-color: #39f5dc; width: 20px; height: 20px;" disabled=""></td>
-                                                                    <td>Medium</td>
-                                                                    <td>40</td>
-                                                                    <td>1540</td>
+                                                                    <td><input name="colors[]" class="my-attribute-input my-attribute-input-color" style="background: #39f5dc" readonly type="text" value="#39f5dc" /></td>
+                                                                    <td><input name="sizes[]" class="my-attribute-input" readonly type="text" value="Small" /></td>
+                                                                    <td><input name="quantity[]" class="my-attribute-input" readonly type="number" value="35"/></td>
+                                                                    <td><input name="price[]" class="my-attribute-input" readonly type="number" value="100" /></td>
                                                                     <td>
-                                                                        <a href="#" data-toggle="modal" data-target="#editAttributesModal" data-color="#39f5dc" data-size="Medium" data-quantity="40" data-price="1540" style="color: black;"><button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
-                                                                        <button data-toggle="tooltip" title="Trash" class="pd-setting-ed"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                                                        <a href="#" data-id="2" data-toggle="modal" data-target="#editAttributesModal" data-color="#39f5dc" data-size="Small" data-quantity="35" data-price="1500" style="color: black;"><button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
+																		<button onClick="removeRow(2)" data-toggle="tooltip" title="Trash" class="pd-setting-ed" style="color: black; cursor:pointer"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>3</td>
-                                                                    <td><button style="background-color: #f57539; width: 20px; height: 20px;" disabled=""></td>
-                                                                    <td>Medium</td>
-                                                                    <td>30</td>
-                                                                    <td>1560</td>
+                                                                    <td><input  name="colors[]" class="my-attribute-input my-attribute-input-color" style="background: #39f5dc" readonly type="text" value="#39f5dc" /></td>
+                                                                    <td><input name="sizes[]" class="my-attribute-input" readonly type="text" value="Small" /></td>
+                                                                    <td><input name="quantity[]" class="my-attribute-input" readonly type="number" value="35"/></td>
+                                                                    <td><input name="price[]" class="my-attribute-input" readonly type="number" value="100" /></td>
                                                                     <td>
-                                                                        <a href="#" data-toggle="modal" data-target="#editAttributesModal" data-color="#f57539" data-size="Medium" data-quantity="30" data-price="1560" style="color: black;"><button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
-                                                                        <button data-toggle="tooltip" title="Trash" class="pd-setting-ed"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                                                        <a href="#" data-id="3" data-toggle="modal" data-target="#editAttributesModal" data-color="#39f5dc" data-size="Small" data-quantity="35" data-price="1500" style="color: black;"><button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
+																		<button onClick="removeRow(3)" data-toggle="tooltip" title="Trash" class="pd-setting-ed" style="color: black; cursor:pointer"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
                                                                     </td>
                                                                 </tr>
                                                             </table>
-                                                        </div>
-                                                        <!-- <div class="custom-pagination">
-                                                            <nav aria-label="Page navigation example">
-                                                                <ul class="pagination">
-                                                                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                                                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                                                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                                                                </ul>
-                                                            </nav>
-                                                        </div> -->
-                                                        <div id="addAttributesModal" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
-                                                            <div class="modal-dialog">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header header-color-modal bg-color-1">
-                                                                        <h4 class="modal-title" style="color: white;">Add Attributes</h4>
-                                                                        <div class="modal-close-area modal-close-df">
-                                                                            <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="modal-body" style="padding: 0; text-align: left">
-                                                                        <div style="padding: 20px; background-color: white; margin: 20px;">
-                                                                            <div class="row">
-                                                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                                                    <div class="row">
-                                                                                        <div class="col-lg-6">
-                                                                                            <div class="form-group">
-                                                                                                <!-- <input id="addColorBox" name="coursename" type="text" class="form-control" placeholder="Brand Name"> -->
-                                                                                                <div class="colorpicker-inner ts-forms mg-b-23">
-                                                                                                    <div class="tsbox">
-                                                                                                        <label class="label"><b>Color:</b></label>
-                                                                                                        <label class="color-group" for="hex">
-                                                                                                            <input type="text" placeholder="#ff0000" id="hex" readonly>
-                                                                                                        </label>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div class="form-group">
-                                                                                                <label for="addSizeBox">Size:</label>
-                                                                                                <input id="addSizeBox" name="coursename" type="text" required="" class="form-control" placeholder="Size">
-                                                                                            </div>
-                                                                                        </div>
-                                                                                        <div class="col-lg-6">
-                                                                                            <div class="form-group">
-                                                                                                <label for="addQuantityBox">Quantity:</label>
-                                                                                                <input id="addQuantityBox" name="coursename" type="text" required="" class="form-control" placeholder="Quantity">
-                                                                                            </div>
-                                                                                            <div class="form-group">
-                                                                                                <label for="addPriceBox">Price ($):</label>
-                                                                                                <input id="addPriceBox" name="coursename" type="text" required="" class="form-control" placeholder="Price">
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                        <a data-dismiss="modal" href="#">Cancel</a>
-                                                                        <a data-dismiss="modal" href="#">Add</a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        
-                                                          <div id="editAttributesModal" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
-                                                            <div class="modal-dialog">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header header-color-modal bg-color-1">
-                                                                        <h4 class="modal-title" style="color: white;">Edit Attributes</h4>
-                                                                        <div class="modal-close-area modal-close-df">
-                                                                            <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="modal-body" style="padding: 0; text-align: left">
-                                                                        <div style="padding: 20px; background-color: white; margin: 20px;">
-                                                                            <div class="row">
-                                                                                <div class="col-lg-6">
-                                                                                    <div class="form-group">
-                                                                                        <!-- <input id="addColorBox" name="coursename" type="text" class="form-control" placeholder="Brand Name"> -->
-                                                                                        <div class="colorpicker-inner ts-forms mg-b-23">
-                                                                                            <div class="tsbox">
-                                                                                                <label class="label"><b>Color:</b></label>
-                                                                                                <label class="color-group" for="hex1">
-                                                                                                        <input type="text"  placeholder="#ff0000" id="hex1" readonly>
-                                                                                                    </label>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="form-group">
-                                                                                        <label for="editSizeBox">Size:</label>
-                                                                                        <input id="editSizeBox" name="coursename" type="text" required="" class="form-control" placeholder="Size">
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-lg-6">
-                                                                                    <div class="form-group">
-                                                                                        <label for="editQuantityBox">Quantity:</label>
-                                                                                        <input id="editQuantityBox" name="coursename" type="text" required="" class="form-control" placeholder="Quantity">
-                                                                                    </div>
-                                                                                    <div class="form-group">
-                                                                                        <label for="editPriceBox">Price ($):</label>
-                                                                                        <input id="editPriceBox" name="coursename" type="text" required="" class="form-control" placeholder="Price">
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                        <a data-dismiss="modal" href="#">Cancel</a>
-                                                                        <a data-dismiss="modal" href="#">Save</a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -361,6 +236,131 @@
                                             </div>
                                         </form>
                                     </div>
+									<div id="addAttributesModal" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header header-color-modal bg-color-1">
+													<h4 class="modal-title" style="color: white;">Add Attributes</h4>
+													<div class="modal-close-area modal-close-df">
+														<a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
+													</div>
+												</div>
+												<form class="needs-validation" onsubmit="return onAddAtribute()" name="add-modal" novalidate>
+													<div class="modal-body" style="padding: 0; text-align: left">
+														<div style="padding: 20px; background-color: white; margin: 20px;">
+														<div class="row">
+																<div class="col-lg-6">
+																	<div class="form-group">
+																		<div class="colorpicker-inner ts-forms mg-b-23">
+																			<div class="tsbox">
+																				<label class="label"><b>Color:</b></label>
+																				<label class="color-group" for="hex">
+																					<input required name="proColorModal" class=" form-control" type="text" value="#ff0000" id="hex" readonly="">
+																						<div class="invalid-feedback">
+																							Please provide a valid color.
+																						</div>
+																				</label>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="form-group">
+																		<label for="addSizeBox">Size:</label>
+																		<input required name="proSizeModal" id="addSizeBox" name="coursename" type="text"  class="form-control" placeholder="Size">
+																		<div class="invalid-feedback">
+																			Please provide a valid size.
+																		</div>
+																	</div>
+																</div>
+																<div class="col-lg-6">
+																	<div class="form-group">
+																		<label for="addQuantityBox">Quantity:</label>
+																		<input required name="proQuantityModal" id="addQuantityBox" name="coursename" type="number" min="0" class="form-control" placeholder="Quantity">
+																		<div class="invalid-feedback">
+																			Please provide a valid quantity.
+																		</div>
+																	</div>
+																	<div class="form-group">
+																		<label for="addPriceBox">Price ($):</label>
+																		<input required name="proPriceModal" id="addPriceBox" name="coursename" type="number" min="0"  class="form-control" placeholder="Price">
+																		<div class="invalid-feedback">
+																			Please provide a valid price.
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="modal-footer">
+														<button class="btn btn-primary waves-effect waves-light" type="button" data-dismiss="modal">Cancel</button>
+														<button class="btn btn-primary waves-effect waves-light" type="submit">Add</button>
+													</div>
+												</form>
+											</div>
+										</div>
+									</div>
+									
+									<div id="editAttributesModal" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header header-color-modal bg-color-1">
+													<h4 class="modal-title" style="color: white;">Edit Attributes</h4>
+													<div class="modal-close-area modal-close-df">
+														<a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
+													</div>
+												</div>
+												<form class="needs-validation" onsubmit="return onEditAtribute()" name="edit-modal" novalidate>
+													<div class="modal-body" style="padding: 0; text-align: left">
+														<div style="padding: 20px; background-color: white; margin: 20px;">
+															<div class="row">
+																<div class="col-lg-6">
+																	<div class="form-group">
+																		<div class="colorpicker-inner ts-forms mg-b-23">
+																			<div class="tsbox">
+																				<label class="label"><b>Color:</b></label>
+																				<label class="color-group" for="hex1">
+																					<input required name="proEditColor" type="text" placeholder="#ff0000" id="hex1" readonly="">
+																					<div class="invalid-feedback">
+																						Please provide a valid color.
+																					</div>
+																				</label>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="form-group">
+																		<label for="editSizeBox">Size:</label>
+																		<input required name="proEditSize" id="editSizeBox" name="coursename" type="text"  class="form-control" placeholder="Size">
+																		<div class="invalid-feedback">
+																			Please provide a valid size.
+																		</div>
+																	</div>
+																</div>
+																<div class="col-lg-6">
+																	<div class="form-group">
+																		<label for="editQuantityBox">Quantity:</label>
+																		<input required name="proEditQuantity" id="editQuantityBox" name="coursename" type="number" min="0"  class="form-control" placeholder="Quantity">
+																		<div class="invalid-feedback">
+																			Please provide a valid Quantity.
+																		</div>
+																	</div>
+																	<div class="form-group">
+																		<label for="editPriceBox">Price ($):</label>
+																		<input required name="proEditPrice" id="editPriceBox" name="coursename" type="number" min="0" class="form-control" placeholder="Price">
+																		<div class="invalid-feedback">
+																			Please provide a valid Quantity.
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="modal-footer">
+													<button class="btn btn-primary waves-effect waves-light" type="button" data-dismiss="modal">Cancel</button>
+													<button class="btn btn-primary waves-effect waves-light" type="submit">Update</button>
+												</div>
+												</form>
+											</div>
+										</div>
+									</div>
                                 </div>
                             </div>
                         </div>
@@ -696,36 +696,109 @@
     <!-- tawk chat JS
 		============================================ -->
     <!-- <script src="/js/tawk-chat.js"></script> -->
-    <script>
+   <script>
+		let attriRowId;
         $(document).ready(function(){
+            const myAddProductForm = document.forms["add-product-form"];
+          
             $('#editAttributesModal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget) // Button that triggered the modal
-            var recipient1 = button.data('color') // Extract info from data-* attributes
-            var recipient2 = button.data('size')
-            var recipient3 = button.data('quantity')
-            var recipient4 = button.data('price')
-            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-            var modal = $(this);
-             $("#hex1").spectrum({
-				color: recipient1,
-				preferredFormat: "hex",
-				showInput: true,
-			});
+                const button = $(event.relatedTarget) ;// Button that triggered the modal
+                const recipient1 = button.data('color'); // Extract info from data-* attributes
+                const recipient2 = button.data('size');
+                const recipient3 = button.data('quantity');
+                const recipient4 = button.data('price');
+				attriRowId = button.data("id");
+                const modal = $(this);
+                $("#hex1").spectrum({
+                    color: recipient1,
+                    preferredFormat: "hex",
+                    showInput: true,
+                });
 
-            modal.find('.modal-body #hex1').val(recipient1);
-            $("#hex1").css({
-                display: "block",
+                modal.find('.modal-body #hex1').val(recipient1);
+                $("#hex1").css({
+                    display: "block",
+                });
+                modal.find('.modal-body #editSizeBox').val(recipient2);
+                modal.find('.modal-body #editQuantityBox').val(recipient3);
+                modal.find('.modal-body #editPriceBox').val(recipient4);
             });
-            modal.find('.modal-body #editSizeBox').val(recipient2);
-            modal.find('.modal-body #editQuantityBox').val(recipient3);
-            modal.find('.modal-body #editPriceBox').val(recipient4);
-            //modal.find('.modal-body #hex1').spectrum.color.val(recipient1);
-            // $("#hex1").spectrum({
-			// 	color: "#f00",
-			// 	preferredFormat: "hex",
-			// 	showInput: true
-			// });
-            })
-        })
+
+			// Fetch all the forms we want to apply custom Bootstrap validation styles to
+			var forms = document.getElementsByClassName('needs-validation');
+			// Loop over them and prevent submission
+			var validation = Array.prototype.filter.call(forms, function(form) {
+				form.addEventListener('submit', function(event) {
+				if (form.checkValidity() === false) {
+					event.preventDefault();
+					event.stopPropagation();
+				}else{
+				}
+				
+				form.classList.add('was-validated');
+				}, false);
+			});
+			
+			
+		});
+
+		function removeRow(row){
+			const attriTable = document.getElementById("product-attri-table");
+			attriTable.deleteRow(row);
+		}
+		function onEditAtribute(){
+			let editAttriForm = document.forms["edit-modal"];
+			if(editAttriForm.checkValidity()){
+				let colors = document.getElementsByName("colors[]");
+				let sizes = document.getElementsByName("sizes[]");
+				let prices = document.getElementsByName("price[]");
+				let quantity = document.getElementsByName("quantity[]");
+				let colorBox = editAttriForm["proColorModal"];
+				let sizeBox = editAttriForm["proSizeModal"];
+				let priceBox = editAttriForm["proPriceModal"];
+				let quantityBox = editAttriForm["proQuantityModal"];
+				colors[attriRowId-1].value = colorBox.value;
+				sizes[attriRowId-1].value = sizeBox.value;
+				prices[attriRowId-1].value = priceBox.value;
+				quantity[attriRowId-1].value = quantityBox.value;
+				$("#editAttributesModal").modal('hide');
+			}
+			return false;
+		}
+
+		function onAddAtribute(){
+			let addAttriForm = document.forms["add-modal"];
+			console.log("add");
+			if(addAttriForm.checkValidity()){
+				let colorBox = addAttriForm["proColorModal"];
+				let sizeBox = addAttriForm["proSizeModal"];
+				let priceBox = addAttriForm["proPriceModal"];
+				let quantityBox = addAttriForm["proQuantityModal"];
+				const attriTable = $("#product-attri-table");	
+				const newRow = `
+				<tr>
+					<td>` + $("#product-attri-table tr").length + `</td>
+					<td> <input name="colors[]" class="my-attribute-input my-attribute-input-color" style="background: ${colorBox.value}" readonly type="text" value=${colorBox.value} /></td>
+					<td> <input name="sizes[]" class="my-attribute-input" readonly type="text" value=${sizeBox.value} /></td>
+					<td> <input name="quantity[]" class="my-attribute-input" readonly type="number" value=${quantityBox.value} /></td>
+					<td> <input name="price[]" class="my-attribute-input" readonly type="number" value=${priceBox.value} /></td>
+					<td> 
+						<a href="#" data-toggle="modal" data-target="#editAttributesModal" data-id=${ $("#product-attri-table tr").length} data-color=${colorBox.value} data-size=${sizeBox.value} data-quantity=${quantityBox.value} data-price=${priceBox.value} style="color: black; cursor:pointer;"><button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
+						<button onClick="removeRow(${$("#product-attri-table tr").length})" data-toggle="tooltip" title="Trash" class="pd-setting-ed" style="color: black; cursor:pointer"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+					</td>
+				</tr>	
+				`;
+				{{!-- <tr>
+					<th>No</th>
+					<th>Color</th>
+					<th>Size</th>
+					<th>Quantity</th>
+					<th>Price ($)</th>
+					<th>Setting</th>
+				</tr> --}}
+				attriTable.append(newRow);
+				$("#addAttributesModal").modal('hide');
+			}
+			return false;
+		}
     </script>

@@ -26,7 +26,7 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     sequelize,
     tableName: 'brand',
-    timestamps: false,
+    timestamps: true,
     paranoid: true,
     timestamp: true,
     indexes: [

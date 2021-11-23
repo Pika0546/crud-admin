@@ -98,14 +98,14 @@
                              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <label>Name:</label>
                                 <div class="form-group">
-                                    <input name="product-name" type="text" class="form-control"  placeholder="Name" value="" required>
+                                    <input name="proName" type="text" class="form-control"  placeholder="Name" value="" required>
 									<div class="invalid-feedback">
 										Please provide a valid name.
 									</div>
 								</div>
                                 <label>Brand:</label>
                                 <div class="form-group">
-                                    <select name="pro-brand" class="form-control">
+                                    <select name="proBrand" class="form-control">
                                         <option value="1" selected="">Crazy Bunny</option>
                                         <option value="2">Moustache Monster</option>
                                         <option value="3">Crazy Rockpanda</option>
@@ -115,7 +115,7 @@
                                 </div>
                                 <label>Category:</label>
                                 <div class="form-group">
-                                    <select name="pro-cate" class="form-control">
+                                    <select name="proCate" class="form-control">
                                         <option value="1" selected="">T-Shirt</option>
                                         <option value="2">Backpack</option>
                                         <option value="3">Cap</option>
@@ -126,7 +126,7 @@
                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <label>Gender:</label>
                                 <div class="form-group">
-                                    <select name="pro-gender" class="form-control">
+                                    <select name="proGender" class="form-control">
                                         <option value="1" selected="">Men</option>
                                         <option value="2">Women</option>
                                         <option value="0">Unisex</option>
@@ -134,7 +134,7 @@
                                 </div>
                                 <label>Summary description:</label>
                                 <div class="form-group res-mg-t-15">
-                                    <input name="pro-des" type="text" class="form-control"  value="" required>
+                                    <input name="proDes" type="text" class="form-control"  value="" required>
 									<div class="invalid-feedback">
 										Please provide a valid description.
 									</div>
@@ -147,11 +147,35 @@
                                     </div>
                                 </div>
                                 <div class="form-group edit-ta-resize">
-                                    <input name="pro-feature" type="checkbox"  class="i-checks"> Mark as <b>Featured Product</b>
-								                </div>
+                                    <input name="proFeature" id="proFeature" type="checkbox" class="i-checks"/>
+									<label for="proFeature">Mark as Feature Product</label> 
+								</div>
                             </div>
                         </div>
+                        
                         <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="product-status-wrap drp-lst" style="padding-left: 0; padding-right: 0">
+                                    <h4>Attributes List</h4>
+                                    <div class="add-product">
+                                        <a href="#" data-toggle="modal" data-target="#addAttributesModal" style="cursor: pointer">Add Attributes</a>
+                                    </div>
+                                    <div class="asset-inner">
+                                        <table id="add-product-status-table">
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Color</th>
+                                                <th>Size</th>
+                                                <th>Quantity</th>
+                                                <th>Price ($)</th>
+                                                <th>Setting</th>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+						<div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div class="review-content-section">
                                     <div class="row">
@@ -167,28 +191,6 @@
                                         </div>
                                     </div>
                                     <div class="previews"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <div class="product-status-wrap drp-lst" style="padding-left: 0; padding-right: 0">
-                                    <h4>Attributes List</h4>
-                                    <div class="add-product">
-                                        <a href="#" data-toggle="modal" data-target="#addAttributesModal">Add Attributes</a>
-                                    </div>
-                                    <div class="asset-inner">
-                                        <table id="add-product-status-table">
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Color</th>
-                                                <th>Size</th>
-                                                <th>Quantity</th>
-                                                <th>Price ($)</th>
-                                                <th>Setting</th>
-                                            </tr>
-                                        </table>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -222,9 +224,9 @@
                                                     <div class="tsbox">
                                                         <label class="label"><b>Color:</b></label>
                                                         <label class="color-group" for="hex">
-                                                            <input required name="pro-color-modal" class=" form-control" type="text" value="#ff0000" id="hex" readonly="">
+                                                            <input required name="proColorModal" class=" form-control" type="text" value="#ff0000" id="hex" readonly="">
 																<div class="invalid-feedback">
-																	Please provide a valid description.
+																	Please provide a valid color.
 																</div>
                                                         </label>
                                                     </div>
@@ -232,23 +234,23 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="addSizeBox">Size:</label>
-                                                <input required name="pro-size-modal" id="addSizeBox" name="coursename" type="text"  class="form-control" placeholder="Size">
+                                                <input required name="proSizeModal" id="addSizeBox" name="coursename" type="text"  class="form-control" placeholder="Size">
 												 <div class="invalid-feedback">
-													Please provide a valid description.
+													Please provide a valid size.
 												</div>
 											</div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <label for="addQuantityBox">Quantity:</label>
-                                                <input required name="pro-quantity-modal" id="addQuantityBox" name="coursename" type="number" min="0" class="form-control" placeholder="Quantity">
+                                                <input required name="proQuantityModal" id="addQuantityBox" name="coursename" type="number" min="0" class="form-control" placeholder="Quantity">
                                            		<div class="invalid-feedback">
 													Please provide a valid quantity.
 												</div>
 										    </div>
                                             <div class="form-group">
                                                 <label for="addPriceBox">Price ($):</label>
-                                                <input required name="pro-price-modal" id="addPriceBox" name="coursename" type="number" min="0"  class="form-control" placeholder="Price">
+                                                <input required name="proPriceModal" id="addPriceBox" name="coursename" type="number" min="0"  class="form-control" placeholder="Price">
                                             	<div class="invalid-feedback">
 													Please provide a valid price.
 												</div>
@@ -275,42 +277,56 @@
                                     <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
                                 </div>
                             </div>
-                            <div class="modal-body" style="padding: 0; text-align: left">
-                                <div style="padding: 20px; background-color: white; margin: 20px;">
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <div class="form-group">
-                                                <div class="colorpicker-inner ts-forms mg-b-23">
-                                                    <div class="tsbox">
-                                                        <label class="label"><b>Color:</b></label>
-                                                        <label class="color-group" for="hex1">
-                                                                <input required name="pro-edit-color" type="text" placeholder="#ff0000" id="hex1" readonly="">
-                                                            </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="editSizeBox">Size:</label>
-                                                <input required name="pro-edit-size" id="editSizeBox" name="coursename" type="text"  class="form-control" placeholder="Size">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="form-group">
-                                                <label for="editQuantityBox">Quantity:</label>
-                                                <input required name="pro-edit-quantity" id="editQuantityBox" name="coursename" type="text"  class="form-control" placeholder="Quantity">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="editPriceBox">Price ($):</label>
-                                                <input required name="pro-edit-price" id="editPriceBox" name="coursename" type="text"  class="form-control" placeholder="Price">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <a data-dismiss="modal" href="#">Cancel</a>
-                                <a data-dismiss="modal" href="#">Save</a>
-                            </div>
+							<form class="needs-validation" onsubmit="return onEditAtribute()" name="edit-modal" novalidate>
+								<div class="modal-body" style="padding: 0; text-align: left">
+									<div style="padding: 20px; background-color: white; margin: 20px;">
+										<div class="row">
+											<div class="col-lg-6">
+												<div class="form-group">
+													<div class="colorpicker-inner ts-forms mg-b-23">
+														<div class="tsbox">
+															<label class="label"><b>Color:</b></label>
+															<label class="color-group" for="hex1">
+																<input required name="proEditColor" type="text" placeholder="#ff0000" id="hex1" readonly="">
+																<div class="invalid-feedback">
+																	Please provide a valid color.
+																</div>
+															</label>
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+													<label for="editSizeBox">Size:</label>
+													<input required name="proEditSize" id="editSizeBox" name="coursename" type="text"  class="form-control" placeholder="Size">
+													<div class="invalid-feedback">
+														Please provide a valid size.
+													</div>
+												</div>
+											</div>
+											<div class="col-lg-6">
+												<div class="form-group">
+													<label for="editQuantityBox">Quantity:</label>
+													<input required name="proEditQuantity" id="editQuantityBox" name="coursename" type="number" min="0"  class="form-control" placeholder="Quantity">
+													<div class="invalid-feedback">
+														Please provide a valid Quantity.
+													</div>
+												</div>
+												<div class="form-group">
+													<label for="editPriceBox">Price ($):</label>
+													<input required name="proEditPrice" id="editPriceBox" name="coursename" type="number" min="0" class="form-control" placeholder="Price">
+													<div class="invalid-feedback">
+														Please provide a valid Quantity.
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="modal-footer">
+                                  <button class="btn btn-primary waves-effect waves-light" type="button" data-dismiss="modal">Cancel</button>
+                                  <button class="btn btn-primary waves-effect waves-light" type="submit">Update</button>
+                              </div>
+							</form>
                         </div>
                     </div>
                 </div>
@@ -424,16 +440,17 @@
 		============================================ -->
     <!-- <script src="/js/tawk-chat.js"></script> -->
     <script>
+		let attriRowId;
         $(document).ready(function(){
             const myAddProductForm = document.forms["add-product-form"];
-            
+          
             $('#editAttributesModal').on('show.bs.modal', function (event) {
-                const button = $(event.relatedTarget) // Button that triggered the modal
-                const recipient1 = button.data('color') // Extract info from data-* attributes
-                const recipient2 = button.data('size')
-                const recipient3 = button.data('quantity')
-                const recipient4 = button.data('price')
-            
+                const button = $(event.relatedTarget) ;// Button that triggered the modal
+                const recipient1 = button.data('color'); // Extract info from data-* attributes
+                const recipient2 = button.data('size');
+                const recipient3 = button.data('quantity');
+                const recipient4 = button.data('price');
+				attriRowId = button.data("id");
                 const modal = $(this);
                 $("#hex1").spectrum({
                     color: recipient1,
@@ -456,13 +473,10 @@
 			var validation = Array.prototype.filter.call(forms, function(form) {
 				form.addEventListener('submit', function(event) {
 				if (form.checkValidity() === false) {
-					console.log("fail")
 					event.preventDefault();
 					event.stopPropagation();
 				}else{
-					console.log("OK");
 				}
-				event.preventDefault();
 				
 				form.classList.add('was-validated');
 				}, false);
@@ -470,28 +484,53 @@
 			
 			
 		});
+
+		function removeRow(row){
+			const attriTable = document.getElementById("add-product-status-table");
+			attriTable.deleteRow(row);
+		}
+		function onEditAtribute(){
+			let editAttriForm = document.forms["edit-modal"];
+			if(editAttriForm.checkValidity()){
+				let colors = document.getElementsByName("colors[]");
+				let sizes = document.getElementsByName("sizes[]");
+				let prices = document.getElementsByName("price[]");
+				let quantity = document.getElementsByName("quantity[]");
+				let colorBox = editAttriForm["proEditColor"];
+				let sizeBox = editAttriForm["proEditSize"];
+				let priceBox = editAttriForm["proEditPrice"];
+				let quantityBox = editAttriForm["proEditQuantity"];
+				colors[attriRowId-1].value = colorBox.value;
+				sizes[attriRowId-1].value = sizeBox.value;
+				prices[attriRowId-1].value = priceBox.value;
+				quantity[attriRowId-1].value = quantityBox.value;
+				$("#editAttributesModal").modal('hide');
+			}
+			return false;
+		}
+
 		function onAddAtribute(){
-				let addAttriForm = document.forms["add-modal"];
-				if(addAttriForm.checkValidity()){
-					let colorBox = addAttriForm["pro-color-modal"];
-				let sizeBox = addAttriForm["pro-size-modal"];
-				let priceBox = addAttriForm["pro-price-modal"];
-				let quantityBox = addAttriForm["pro-quantity-modal"];
+			let addAttriForm = document.forms["add-modal"];
+			if(addAttriForm.checkValidity()){
+				let colorBox = addAttriForm["proColorModal"];
+				let sizeBox = addAttriForm["proSizeModal"];
+				let priceBox = addAttriForm["proPriceModal"];
+				let quantityBox = addAttriForm["proQuantityModal"];
 				const attriTable = $("#add-product-status-table");	
 				const newRow = `
 				<tr>
 					<td>` + $("#add-product-status-table tr").length + `</td>
-					<td> <input class="my-attribute-input my-attribute-input-color" style="background: ${colorBox.value}" readonly type="text" value=${colorBox.value} /></td>
-					<td> <input class="my-attribute-input" readonly type="text" value=${sizeBox.value} /></td>
-					<td> <input class="my-attribute-input" readonly type="text" value=${quantityBox.value} /></td>
-					<td> <input class="my-attribute-input" readonly type="text" value=${priceBox.value} /></td>
+					<td> <input name="colors[]" class="my-attribute-input my-attribute-input-color" style="background: ${colorBox.value}" readonly type="text" value=${colorBox.value} /></td>
+					<td> <input name="sizes[]" class="my-attribute-input" readonly type="text" value=${sizeBox.value} /></td>
+					<td> <input name="quantity[]" class="my-attribute-input" readonly type="number" value=${quantityBox.value} /></td>
+					<td> <input name="price[]" class="my-attribute-input" readonly type="number" value=${priceBox.value} /></td>
 					<td> 
-						  <a href="#" data-toggle="modal" data-target="#editAttributesModal" data-color=${colorBox.value} data-size=${sizeBox.value} data-quantity=${quantityBox.value} data-price=${priceBox.value} style="color: black;"><button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
-						<button data-toggle="tooltip" title="Trash" class="pd-setting-ed"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+						<a href="#" data-toggle="modal" data-target="#editAttributesModal" data-id=${ $("#add-product-status-table tr").length} data-color=${colorBox.value} data-size=${sizeBox.value} data-quantity=${quantityBox.value} data-price=${priceBox.value} style="color: black; cursor:pointer;"><button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
+						<button onClick="removeRow(${$("#add-product-status-table tr").length})" data-toggle="tooltip" title="Trash" class="pd-setting-ed" style="color: black; cursor:pointer"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
 					</td>
 				</tr>	
 				`;
-				 {{!-- <tr>
+				{{!-- <tr>
 					<th>No</th>
 					<th>Color</th>
 					<th>Size</th>
@@ -501,26 +540,26 @@
 				</tr> --}}
 				attriTable.append(newRow);
 				$("#addAttributesModal").modal('hide');
-				}
-				return false;
 			}
+			return false;
+		}
     </script>
-    <script>
+    {{!-- <script>
         Dropzone.options.uploadForm = { // The camelized version of the ID of the form element
             // The configuration we've talked about above
             autoProcessQueue: false,
             uploadMultiple: true,
             parallelUploads: 100,
-            maxFiles: 100,
+            maxFiles: 2,
             // The setting up of the dropzone
             init: function() {
                 var myDropzone = this;
                 // First change the button to actually tell Dropzone to process the queue.
                 this.element.querySelector("button[type=submit]").addEventListener("click", function(e) {
-					// Make sure that the form isn't actually being sent.
-					e.preventDefault();
-					e.stopPropagation();
-					myDropzone.processQueue();
+                    // Make sure that the form isn't actually being sent.
+                    e.preventDefault();
+                    e.stopPropagation();
+                    myDropzone.processQueue();
                 });
                 // Listen to the sendingmultiple event. In this case, it's the sendingmultiple event instead
                 // of the sending event because uploadMultiple is set to true.
@@ -539,4 +578,4 @@
             }
             
             }
-    </script>
+    </script> --}}

@@ -99,63 +99,20 @@
                                 <th>Number of Products</th>
                                 <th>Action</th>
                             </tr>
-                            <tr>
-                                <td>1</td>
-                                <td><img src="/img/brands/cb.png" alt="" /></td>
-                                <td>Crazy Bunny</td>
-                                <td>100</td>
-                                <td>
-                                    <a href="#" data-toggle="modal" data-target="#editBrandModal" data-brandname="Crazy Bunny" style="color: black;"><button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
-                                    
-                                    <a href="/products" style="color: black;"><button data-toggle="tooltip" title="See products" class="pd-setting-ed"><span class="educate-icon educate-course icon-wrap" aria-hidden="true"></span></button></a>
-                                    <button title="Delete" style="display: none;"  class="pd-setting-ed" data-toggle="modal" data-target="#DangerModalalert"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td><img src="/img/brands/mm.png" alt="" /></td>
-                                <td>Moustache Monster</td>
-                                <td>90</td>
-                                <td>
-                                    <a href="#" data-toggle="modal" data-target="#editBrandModal" data-brandname="Moustache Monster" style="color: black;"><button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
-                                    <a href="/products" style="color: black;"><button data-toggle="tooltip" title="See products" class="pd-setting-ed"><span class="educate-icon educate-course icon-wrap" aria-hidden="true"></span></button></a>
+                            {{#each brands}}
+                                <tr>
+                                    <td>{{this.brandID}}</td>
+                                    <td><img src="{{this.brandImage}}" alt="{{this.brandName}}" /></td>
+                                    <td>{{this.brandName}}</td>
+                                    <td>{{this.quantity}}</td>
+                                    <td>
+                                        <a href="#" data-toggle="modal" data-target="#editBrandModal" data-brandname="{{this.brandName}}" style="color: black;"><button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
+                                        <a href="/products/{{this.brandSlug}}" style="color: black;"><button data-toggle="tooltip" title="See products" class="pd-setting-ed"><span class="educate-icon educate-course icon-wrap" aria-hidden="true"></span></button></a>
+                                        <button title="Delete" style="display: none;" data-id={{this.brandID}} class="pd-setting-ed" data-toggle="modal" data-target="#DangerModalalert"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                    </td>
+                                </tr>
+                            {{/each}}
 
-                                    <button title="Delete" style="display: none;"  class="pd-setting-ed" data-toggle="modal" data-target="#DangerModalalert"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td><img src="/img/brands/cr.png" alt="" /></td>
-                                <td>Crazy RockPanda</td>
-                                <td>90</td>
-                                <td>
-                                    <a href="#" data-toggle="modal" data-target="#editBrandModal" data-brandname="Crazy RockPanda" style="color: black;"><button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
-                                    <a href="/products" style="color: black;"><button data-toggle="tooltip" title="See products" class="pd-setting-ed"><span class="educate-icon educate-course icon-wrap" aria-hidden="true"></span></button></a>
-                                    <button title="Delete" style="display: none;"  class="pd-setting-ed" data-toggle="modal" data-target="#DangerModalalert"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td><img src="/img/brands/zp.png" alt="" /></td>
-                                <td>Zombie Popsicle</td>
-                                <td>90</td>
-                                <td>
-                                    <a href="#" data-toggle="modal" data-target="#editBrandModal" data-brandname="Zombie Popsicle" style="color: black;"><button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
-                                    <a href="/products" style="color: black;"><button data-toggle="tooltip" title="See products" class="pd-setting-ed"><span class="educate-icon educate-course icon-wrap" aria-hidden="true"></span></button></a>
-                                    <button title="Delete" style="display: none;"  class="pd-setting-ed" data-toggle="modal" data-target="#DangerModalalert"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td><img src="/img/brands/dm.png" alt="" /></td>
-                                <td>Devil Monster</td>
-                                <td>0</td>
-                                <td>
-                                    <a href="#" data-toggle="modal" data-target="#editBrandModal" data-brandname="Devil Monster" style="color: black;"><button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
-                                    
-                                    <button title="Delete"   class="pd-setting-ed" data-toggle="modal" data-target="#DangerModalalert"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                                </td>
-                            </tr>
                         </table>
                     </div>
                     <div id="DangerModalalert" class="modal modal-edu-general FullColor-popup-DangerModal fade" role="dialog">
@@ -176,15 +133,34 @@
                             </div>
                         </div>
                     </div>
-                    <div class="custom-pagination">
-                        <ul class="pagination">
-                            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                        </ul>
-                    </div>
+                       
+                    {{#if paginationArray}}
+                        <form method="get" action="/brands">
+                            <ul class="my-pagination">
+                                <li class="my-page-item">
+                                    <input onchange='this.form.submit();' style="display: none;" id="page-{{this.page}}" value="{{sum currentPage -1}}" type="radio" name="page"/>
+                                    <label for="page-{{this.page}}"  class="my-page-button">Prev</label>
+                                </li>
+                                {{#each paginationArray }}
+                                    {{#if this.isCurrent}}
+                                        <li class="my-page-item">
+                                            <input onchange='this.form.submit();' style="display: none;" id="page-{{this.page}}" value="{{this.page}}" type="radio" name="page"/>
+                                            <label for="page-{{this.page}}"  class="my-page-link my-current-page">{{this.page}}</label>
+                                        </li>
+                                    {{else}}
+                                        <li class="my-page-item">
+                                            <input onchange='this.form.submit();' style="display: none;" id="page-{{this.page}}" value="{{this.page}}" type="radio" name="page"/>
+                                            <label for="page-{{this.page}}"  class="my-page-link">{{this.page}}</label>
+                                        </li>
+                                    {{/if}}
+                                {{/each}}
+                                <li class="my-page-item">
+                                    <input onchange='this.form.submit();' style="display: none;" id="page-{{this.page}}" value="{{sum currentPage 1}}" type="radio" name="page"/>
+                                    <label for="page-{{this.page}}"  class="my-page-button">Next</label>
+                                </li>
+                            </ul>
+                        </form>
+                    {{/if}}
                 </div>
             </div>
         </div>

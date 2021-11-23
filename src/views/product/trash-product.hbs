@@ -1,7 +1,7 @@
 {{#section 'head'}}
   <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Products</title>
+    <title>Trash Products</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- favicon
@@ -87,11 +87,8 @@
                         - Gender
                         <a href="#" id="group2" data-type="select" data-pk="1" data-value="0" data-source="/genders" data-title="Select group">All</a>
                     </h4>
-                    <div class="add-product">
-                        <a href="/products/add">Add Product</a>
-                    </div>
                     <div>
-                        <a href="/products/bin"><i class="fa fa-trash-o" aria-hidden="true" style="margin-right: 5px;"></i>Trash Can</a>
+                        <a href="/products"><span class="educate-icon educate-course icon-wrap" aria-hidden="true" style="margin-right: 5px;"></span>Products</a>
                     </div>
                     <div class="asset-inner">
                         <table>
@@ -114,12 +111,8 @@
                                 <td>Women</td>
                                 <td>110</td>
                                 <td>
-                                    {{!-- thay số 1 trong href dưới này bằng id của product --}}
-                                    <a href="/products/view/1" style="color: black;"><button data-toggle="tooltip" title="Details" class="pd-setting-ed"><i class="fa fa-info-circle" aria-hidden="true"></i></button></a>
-                                    
-                                    {{!-- thay số 1 trong href dưới này bằng id của product --}}
-                                    <a href="/products/edit/1" style="color: black;"><button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
-                                    <button title="Delete" class="pd-setting-ed" data-toggle="modal" data-target="#DangerModalalert"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                     {{!-- thay số 1 trong data-id dưới này bằng id của product --}}
+                                    <button title="Restore" class="pd-setting-ed" data-id="1" data-toggle="modal" data-target="#DangerModalalert"><i class="fa fa-share"></i></button>
                                 </td>
                             </tr>
                             <tr>
@@ -131,9 +124,7 @@
                                 <td>Men</td>
                                 <td>70</td>
                                 <td>
-                                    <a href="/products/view/1" style="color: black;"><button data-toggle="tooltip" title="Details" class="pd-setting-ed"><i class="fa fa-info-circle" aria-hidden="true"></i></button></a>
-                                    <a href="/products/edit/1" style="color: black;"><button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
-                                    <button title="Delete" class="pd-setting-ed" data-toggle="modal" data-target="#DangerModalalert"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                    <button title="Restore" class="pd-setting-ed" data-id="2" data-toggle="modal" data-target="#DangerModalalert"><i class="fa fa-share"></i></button>
                                 </td>
                             </tr>
                             <tr>
@@ -145,9 +136,8 @@
                                 <td>Women</td>
                                 <td>50</td>
                                 <td>
-                                    <a href="/products/view/1" style="color: black;"><button data-toggle="tooltip" title="Details" class="pd-setting-ed"><i class="fa fa-info-circle" aria-hidden="true"></i></button></a>
-                                    <a href="/products/edit/1" style="color: black;"><button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
-                                    <button title="Delete" class="pd-setting-ed" data-toggle="modal" data-target="#DangerModalalert"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                    
+                                    <button title="Restore" class="pd-setting-ed" data-id="3" data-toggle="modal" data-target="#DangerModalalert"><i class="fa fa-share"></i></button>
                                 </td>
                             </tr>
                             <tr>
@@ -155,14 +145,11 @@
                                 <td><img src="/img/items/31.png" alt="" /></td>
                                 <td>Cool Bunny Sneaker</td>
                                 <td>Crazy Bunny</td>
-                                
                                 <td>Sneaker</td>
                                 <td>Unisex</td>
                                 <td>10</td>
                                 <td>
-                                    <a href="/products/view/1" style="color: black;"><button data-toggle="tooltip" title="Details" class="pd-setting-ed"><i class="fa fa-info-circle" aria-hidden="true"></i></button></a>
-                                    <a href="/products/edit/1" style="color: black;"><button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
-                                    <button title="Delete" class="pd-setting-ed" data-toggle="modal" data-target="#DangerModalalert"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                    <button title="Restore" class="pd-setting-ed" data-id="4" data-toggle="modal" data-target="#DangerModalalert"><i class="fa fa-share"></i></button>
                                 </td>
                             </tr>
                             <tr>
@@ -174,9 +161,8 @@
                                 <td>Men</td>
                                 <td>80</td>
                                 <td>
-                                    <a href="/products/view/1" style="color: black;"><button data-toggle="tooltip" title="Details" class="pd-setting-ed"><i class="fa fa-info-circle" aria-hidden="true"></i></button></a>
-                                    <a href="/products/edit/1" style="color: black;"><button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
-                                    <button title="Delete" class="pd-setting-ed" data-toggle="modal" data-target="#DangerModalalert"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                    <button title="Restore" class="pd-setting-ed" data-id="5" data-toggle="modal" data-target="#DangerModalalert"><i class="fa fa-share"></i></button>
+
                                 </td>
                             </tr>
                         </table>
@@ -189,12 +175,12 @@
                                 </div>
                                 <div class="modal-body">
                                     <span class="educate-icon educate-danger modal-check-pro information-icon-pro"></span>
-                                    <h2>Delete this product?</h2>
+                                    <h2>Restore this product?</h2>
                                     <!-- <p>If you delete this product, they can not access the shop's website anymore.</p> -->
                                 </div>
                                 <div class="modal-footer danger-md">
                                     <a data-dismiss="modal" href="#">Cancel</a>
-                                    <a href="/products">Delete</a>
+                                    <a >OK</a>
                                 </div>
                             </div>
                         </div>
