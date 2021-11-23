@@ -5,7 +5,17 @@ class ProductController{
 
     //[GET] /
     allProduct(req, res, next){
-        res.render('product/all-product');
+        ProductService.list(5, 1)
+        .then(result=>{
+            res.render('product/all-product', {
+                product: result,
+            });
+        })
+        .catch(err=>{
+            console.log(err);
+            next();
+        })
+        
     }
 
      //[GET] /trash
@@ -15,7 +25,7 @@ class ProductController{
 
     //[GET] /add
     addProduct(req, res, next){
-        ProductService.insert();
+        //ProductService.insert();
         res.render('product/add-product');
     }
 
@@ -54,7 +64,7 @@ class ProductController{
             }
         });
         const productImg = [{proID: null, proImage:null }]
-        ProductService.storeProduct(product, productDetail, productImg);
+        //ProductService.storeProduct(product, productDetail, productImg);
 
         res.redirect("/products");
     }

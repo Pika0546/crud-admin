@@ -42,6 +42,7 @@ class BrandController{
                 currentPage,
                 paginationArray,
             });
+            //1 2 3 4 5
         })
         .catch(err=>{
             console.log(err);
