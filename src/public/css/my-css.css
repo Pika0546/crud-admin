@@ -163,6 +163,11 @@
     padding: 0 !important;
 }
 
+#create-category-form{
+    cursor: unset !important;
+    padding: 0 !important;
+}
+
 #edit-brand-form{
     cursor: unset !important;
 }

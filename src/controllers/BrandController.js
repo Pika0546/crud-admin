@@ -1,4 +1,3 @@
-const brand = require('../models/brand');
 const BrandService = require('../services/BrandService');
 const Util = require('../utilities/Util');
 
