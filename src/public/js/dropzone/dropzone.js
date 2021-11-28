@@ -1146,6 +1146,7 @@
         return;
       }
       if (this.options.uploadMultiple) {
+       
         return this.processFiles(queuedFiles.slice(0, parallelUploads - processingLength));
       } else {
         while (i < parallelUploads) {

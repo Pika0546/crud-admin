@@ -8,7 +8,7 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: true
     },
     f_userName: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(255),
       allowNull: false
     },
     f_password: {
@@ -16,19 +16,19 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     },
     f_lastname: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(255),
       allowNull: false
     },
     f_firstname: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(255),
       allowNull: false
     },
     f_address: {
-      type: DataTypes.STRING(500),
+      type: DataTypes.STRING(255),
       allowNull: false
     },
     f_email: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(255),
       allowNull: false
     },
     f_phone: {

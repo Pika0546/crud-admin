@@ -32,11 +32,11 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     sumary: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(255),
       allowNull: false
     },
     com: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(255),
       allowNull: false
     }
   }, {

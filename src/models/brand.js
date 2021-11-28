@@ -8,15 +8,15 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: true
     },
     brandName: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(255),
       allowNull: false
     },
     brandSlug: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(255),
       allowNull: false
     },
     brandImage: {
-      type: DataTypes.STRING(60),
+      type: DataTypes.STRING(255),
       allowNull: false
     },
     quantity: {

@@ -1,21 +1,10 @@
 const ProductService = require('../services/ProductService');
 const Util = require('../utilities/Util');
-
 class ProductController{
 
     //[GET] /
     allProduct(req, res, next){
-        ProductService.list(5, 1)
-        .then(result=>{
-            res.render('product/all-product', {
-                product: result,
-            });
-        })
-        .catch(err=>{
-            console.log(err);
-            next();
-        })
-        
+        res.render('product/all-product');
     }
 
      //[GET] /trash
@@ -39,9 +28,27 @@ class ProductController{
         res.render('product/edit-product');
     }
 
-    //[PUT] /add/course
+    //[PUT] /add/product
     store(req, res, next){
-        const product = {
+        if(!req.files || req.files.length < 1){
+            res.status(400);
+            res.render('404', {
+                layout:false,
+            });
+            return;
+        }
+        req.files.forEach(file => {
+            if(!file.mimetype.startsWith('image/')){
+                res.status(415);
+                res.render('404', {
+                    layout:false,
+                });
+                return;
+            }else{
+               
+            }
+        });
+         const product = {
             proName: req.body.proName,
             proSlug:Util.getDataSlug(req.body.proName),
             description: req.body.proDes,
@@ -54,19 +61,19 @@ class ProductController{
             sex: parseInt(req.body.proGender),
             isFeature: req.body.proFeature ? true : false,
         }
-        const productDetail = req.body["colors[]"].map((item, index)=>{
+
+        const productDetail = req.body.colors.map((item, index)=>{
             return {
                 proID: null,
-                quantity: parseInt(req.body["quantity[]"][index]),
+                quantity: parseInt(req.body.quantity[index]),
                 color: item,
-                size: req.body["sizes[]"][index],
-                price: req.body["price[]"][index]
+                size: req.body.sizes[index],
+                price: req.body.price[index]
             }
         });
-        const productImg = [{proID: null, proImage:null }]
-        //ProductService.storeProduct(product, productDetail, productImg);
-
-        res.redirect("/products");
+        const fileImage = req.files;
+        ProductService.storeProduct(product, productDetail, fileImage);
+        res.send("/products");
     }
 
 }

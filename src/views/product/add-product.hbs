@@ -93,12 +93,12 @@
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div id="dropzone1" class="pro-ad" style="padding: 20px; background-color: white;">
-                     <form action="/products/store" name="add-product-form" method="post" id="create-product-form"  class="dropzone dropzone-custom needsclick dz-clickable needs-validation" novalidate>
+                     <form action="/products/store" name="add-product-form" method="post" id="create-product-form" enctype="multipart/form-data" class="dropzone dropzone-custom needsclick dz-clickable needs-validation" novalidate>
                         <div class="row">
                              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <label>Name:</label>
                                 <div class="form-group">
-                                    <input name="proName" type="text" class="form-control"  placeholder="Name" value="" required>
+                                    <input name="proName" type="text" maxlength="255" class="form-control"  placeholder="Name" value="" required>
 									<div class="invalid-feedback">
 										Please provide a valid name.
 									</div>
@@ -134,14 +134,14 @@
                                 </div>
                                 <label>Summary description:</label>
                                 <div class="form-group res-mg-t-15">
-                                    <input name="proDes" type="text" class="form-control"  value="" required>
+                                    <input name="proDes" type="text" maxlength="255" class="form-control"  value="" required>
 									<div class="invalid-feedback">
 										Please provide a valid description.
 									</div>
 								</div>
                                 <label>Full description:</label>
                                 <div class="form-group edit-ta-resize">
-                                    <textarea name="description" required></textarea>
+                                    <textarea maxlength="255" name="description" class="form-control" required></textarea>
                                     <div class="invalid-feedback">
                                       Please provide a valid description.
                                     </div>
@@ -172,6 +172,9 @@
                                             </tr>
                                         </table>
                                     </div>
+									<div class="attri-empty-feedback" style="color: #dc3545;font-size: 80%; visibility:hidden;">
+										Please add at least one attribute.
+									</div>
                                 </div>
                             </div>
                         </div>
@@ -190,7 +193,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="previews"></div>
+                                    <!-- this is were the previews should be shown. -->
+									<div class="file-empty-feedback" style="color: #dc3545;font-size: 80%; visibility:hidden">
+										Please add at least one photo.
+									</div>
+  									<div class="dropzone-previews" id="imagePreviewContainer"></div>
                                 </div>
                             </div>
                         </div>
@@ -224,7 +231,7 @@
                                                     <div class="tsbox">
                                                         <label class="label"><b>Color:</b></label>
                                                         <label class="color-group" for="hex">
-                                                            <input required name="proColorModal" class=" form-control" type="text" value="#ff0000" id="hex" readonly="">
+                                                            <input required name="proColorModal" class=" form-control" type="text" maxlength="255" value="#ff0000" id="hex" readonly="">
 																<div class="invalid-feedback">
 																	Please provide a valid color.
 																</div>
@@ -234,7 +241,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="addSizeBox">Size:</label>
-                                                <input required name="proSizeModal" id="addSizeBox" name="coursename" type="text"  class="form-control" placeholder="Size">
+                                                <input required name="proSizeModal" id="addSizeBox" name="coursename" type="text" maxlength="255"  class="form-control" placeholder="Size">
 												 <div class="invalid-feedback">
 													Please provide a valid size.
 												</div>
@@ -287,7 +294,7 @@
 														<div class="tsbox">
 															<label class="label"><b>Color:</b></label>
 															<label class="color-group" for="hex1">
-																<input required name="proEditColor" type="text" placeholder="#ff0000" id="hex1" readonly="">
+																<input required name="proEditColor" type="text" maxlength="255" placeholder="#ff0000" id="hex1" readonly="">
 																<div class="invalid-feedback">
 																	Please provide a valid color.
 																</div>
@@ -297,7 +304,7 @@
 												</div>
 												<div class="form-group">
 													<label for="editSizeBox">Size:</label>
-													<input required name="proEditSize" id="editSizeBox" name="coursename" type="text"  class="form-control" placeholder="Size">
+													<input required name="proEditSize" id="editSizeBox" name="coursename" type="text" maxlength="255"  class="form-control" placeholder="Size">
 													<div class="invalid-feedback">
 														Please provide a valid size.
 													</div>
@@ -335,7 +342,7 @@
     </div>
 </div>
 
-<!-- jquery
+	<!-- jquery
 		============================================ -->
     <script src="/js/vendor/jquery-1.12.4.min.js"></script>
     <!-- bootstrap JS
@@ -441,7 +448,54 @@
     <!-- <script src="/js/tawk-chat.js"></script> -->
     <script>
 		let attriRowId;
+		let myDropzone;
+		function paramNameForSend() {
+			return "images";
+		}
+		
         $(document).ready(function(){
+			Dropzone.options.createProductForm = { // The camelized version of the ID of the form element
+				// The configuration we've talked about above
+				autoProcessQueue: false,
+				uploadMultiple: true,
+				parallelUploads: 100,
+				maxFiles: 2,
+				acceptedFiles: "image/*",
+				addRemoveLinks: true,
+				paramName: paramNameForSend,
+				previewsContainer: document.querySelector('#imagePreviewContainer'),
+				// The setting up of the dropzone
+				init: function() {
+					myDropzone = this;
+					// First change the button to actually tell Dropzone to process the queue.
+					{{!-- this.element.querySelector("button[type=submit]").addEventListener("click", function(e) {
+						// Make sure that the form isn't actually being sent.
+						if(myDropzone.checkValidity()){
+							e.preventDefault();
+							e.stopPropagation();		
+							
+						}
+					}); --}}
+					// Listen to the sendingmultiple event. In this case, it's the sendingmultiple event instead
+					// of the sending event because uploadMultiple is set to true.
+					this.on("sendingmultiple", function() {
+					// Gets triggered when the form is actually being sent.
+					// Hide the success button or the complete form.
+						console.log("Sending");
+					});
+					this.on("successmultiple", function(files, response) {
+					// Gets triggered when the files have successfully been sent.
+					// Redirect user or notify of success.
+					 window.location = response;
+						console.log("Success");
+						console.log(files); 
+					});
+					this.on("errormultiple", function(files, response) {
+					// Gets triggered when there was an error sending the files.
+					// Maybe show form again, and notify user of error
+					}); 
+				}
+			}	
             const myAddProductForm = document.forms["add-product-form"];
           
             $('#editAttributesModal').on('show.bs.modal', function (event) {
@@ -468,20 +522,36 @@
             });
 
 			// Fetch all the forms we want to apply custom Bootstrap validation styles to
-			var forms = document.getElementsByClassName('needs-validation');
+			const forms = document.getElementsByClassName('needs-validation');
 			// Loop over them and prevent submission
-			var validation = Array.prototype.filter.call(forms, function(form) {
+			const validation = Array.prototype.filter.call(forms, function(form) {
 				form.addEventListener('submit', function(event) {
-				if (form.checkValidity() === false) {
 					event.preventDefault();
+				if (form.checkValidity() === false) {
 					event.stopPropagation();
+					
 				}else{
+					if(form.classList.contains("dropzone")){
+						if($("#add-product-status-table tr").length < 2){
+							document.querySelector(".attri-empty-feedback").style.visibility="visible";
+						}
+						else{
+							document.querySelector(".attri-empty-feedback").style.visibility="hidden";
+							if(myDropzone.getQueuedFiles().length > 0){
+								console.log("oke");
+								document.querySelector(".file-empty-feedback").style.visibility="hidden";
+								myDropzone.processQueue();
+							}
+							else{
+								document.querySelector(".file-empty-feedback").style.visibility="visible";
+							}
+						}
+					}
 				}
-				
 				form.classList.add('was-validated');
 				}, false);
 			});
-			
+
 			
 		});
 
@@ -520,8 +590,8 @@
 				const newRow = `
 				<tr>
 					<td>` + $("#add-product-status-table tr").length + `</td>
-					<td> <input name="colors[]" class="my-attribute-input my-attribute-input-color" style="background: ${colorBox.value}" readonly type="text" value=${colorBox.value} /></td>
-					<td> <input name="sizes[]" class="my-attribute-input" readonly type="text" value=${sizeBox.value} /></td>
+					<td> <input name="colors[]" class="my-attribute-input my-attribute-input-color" style="background: ${colorBox.value}" readonly type="text" maxlength="255" value=${colorBox.value} /></td>
+					<td> <input name="sizes[]" class="my-attribute-input" readonly type="text" maxlength="255" value=${sizeBox.value} /></td>
 					<td> <input name="quantity[]" class="my-attribute-input" readonly type="number" value=${quantityBox.value} /></td>
 					<td> <input name="price[]" class="my-attribute-input" readonly type="number" value=${priceBox.value} /></td>
 					<td> 
@@ -539,43 +609,14 @@
 					<th>Setting</th>
 				</tr> --}}
 				attriTable.append(newRow);
+				document.querySelector(".attri-empty-feedback").style.visibility="hidden";
 				$("#addAttributesModal").modal('hide');
 			}
 			return false;
 		}
+    
+	
+	</script>
+    <script>
+
     </script>
-    {{!-- <script>
-        Dropzone.options.uploadForm = { // The camelized version of the ID of the form element
-            // The configuration we've talked about above
-            autoProcessQueue: false,
-            uploadMultiple: true,
-            parallelUploads: 100,
-            maxFiles: 2,
-            // The setting up of the dropzone
-            init: function() {
-                var myDropzone = this;
-                // First change the button to actually tell Dropzone to process the queue.
-                this.element.querySelector("button[type=submit]").addEventListener("click", function(e) {
-                    // Make sure that the form isn't actually being sent.
-                    e.preventDefault();
-                    e.stopPropagation();
-                    myDropzone.processQueue();
-                });
-                // Listen to the sendingmultiple event. In this case, it's the sendingmultiple event instead
-                // of the sending event because uploadMultiple is set to true.
-                this.on("sendingmultiple", function() {
-                // Gets triggered when the form is actually being sent.
-                // Hide the success button or the complete form.
-                });
-                this.on("successmultiple", function(files, response) {
-                // Gets triggered when the files have successfully been sent.
-                // Redirect user or notify of success.
-                });
-                this.on("errormultiple", function(files, response) {
-                // Gets triggered when there was an error sending the files.
-                // Maybe show form again, and notify user of error
-                });
-            }
-            
-            }
-    </script> --}}

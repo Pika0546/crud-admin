@@ -11,7 +11,7 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     proImage: {
-      type: DataTypes.STRING(60),
+      type: DataTypes.STRING(255),
       allowNull: false,
       primaryKey: true
     }
