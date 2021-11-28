@@ -27,7 +27,7 @@ class BrandService{
             
             blobWriter.on('finish', () => {
                 const storage = getStorage();
-                const myPro = [getDownloadURL(ref(storage, fileName)),  models.brand.findOne({where:{brandName: brand.brandName}})];
+                const myPro = [getDownloadURL(ref(storage, fileName)),  models.brand.findOne({where:{brandName: brand.brandName},paranoid: false})];
                 Promise.all(myPro)
                 .then(([url, result])=>{
                     brand.brandImage = url;
