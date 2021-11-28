@@ -41,7 +41,17 @@ class CategoryService{
             
             blobWriter.on('finish', () => {
                 const storage = getStorage();
-                const myPro = [getDownloadURL(ref(storage, fileName)),  models.category.findOne({where:{catName: category.catName},paranoid: false})];
+                const myPro = [getDownloadURL(ref(storage, fileName)),  models.category.findOne({
+                    where:{
+                        [Op.and]:[
+                            {catName: category.catName},
+                            {catUD: {
+                                [Op.ne]: id
+                            }}
+                        ]
+                    }
+                    ,paranoid: false
+                    })];
                 Promise.all(myPro)
                 .then(([url, result])=>{
                     category.catImage = url;
@@ -77,12 +87,22 @@ class CategoryService{
                 
                 blobWriter.on('finish', () => {
                     const storage = getStorage();
-                    const myPro = [getDownloadURL(ref(storage, fileName)),  models.category.findOne({where:{catName: category.catName}})];
+                    const myPro = [getDownloadURL(ref(storage, fileName)),  models.category.findOne({
+                        where:{
+                            [Op.and]:[
+                                {catName: category.catName},
+                                {catUD: {
+                                    [Op.ne]: category.catID
+                                }}
+                            ]
+                        }
+                        ,paranoid: false
+                        })];
                     Promise.all(myPro)
                     .then(([url, result])=>{
                         category.catImage = url;
                         if(result){
-                            category.catSlug += "-"+ category.id;
+                            category.catSlug += "-"+ category.catid;
                         }
                         resolve( models.category.update({
                             catName: category.catName,

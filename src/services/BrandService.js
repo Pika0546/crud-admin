@@ -56,7 +56,17 @@ class BrandService{
             
             blobWriter.on('finish', () => {
                 const storage = getStorage();
-                const myPro = [getDownloadURL(ref(storage, fileName)),  models.brand.findOne({where:{brandName: brand.brandName},paranoid: false})];
+                const myPro = [getDownloadURL(ref(storage, fileName)),   models.brand.findOne({
+                                                                                                where:{
+                                                                                                    [Op.and]:[
+                                                                                                        {brandName: brand.brandName},
+                                                                                                        {brandID: {
+                                                                                                            [Op.ne]: id
+                                                                                                        }}
+                                                                                                    ]
+                                                                                                }
+                                                                                                ,paranoid: false
+                                                                                                })];
                 Promise.all(myPro)
                 .then(([url, result])=>{
                     brand.brandImage = url;
@@ -93,12 +103,22 @@ class BrandService{
                 
                 blobWriter.on('finish', () => {
                     const storage = getStorage();
-                    const myPro = [getDownloadURL(ref(storage, fileName)),  models.brand.findOne({where:{brandName: brand.brandName}})];
+                    const myPro = [getDownloadURL(ref(storage, fileName)),  models.brand.findOne({
+                                                                                                    where:{
+                                                                                                        [Op.and]:[
+                                                                                                            {brandName: brand.brandName},
+                                                                                                            {brandID: {
+                                                                                                                [Op.ne]: brand.brandID
+                                                                                                            }}
+                                                                                                        ]
+                                                                                                    }
+                                                                                                    ,paranoid: false
+                                                                                                    })];
                     Promise.all(myPro)
                     .then(([url, result])=>{
                         brand.brandImage = url;
                         if(result){
-                            brand.brandSlug += "-"+ brand.id;
+                            brand.brandSlug += "-"+ brand.brandID;
                         }
                         resolve( models.brand.update({
                             brandName: brand.brandName,
@@ -145,14 +165,34 @@ class BrandService{
            
         }
         else{
-            return models.brand.update({
-                brandName: brand.brandName,
-                brandSlug:  brand.brandSlug,
-            },{
-                where: {
-                    brandID: brand.brandID
+            return models.brand.findOne({
+                where:{
+                    [Op.and]:[
+                        {brandName: brand.brandName},
+                        {brandID: {
+                            [Op.ne]: brand.brandID
+                        }}
+                    ]
                 }
+                ,paranoid: false
             })
+            .then(result=>{
+                if(result){
+                    brand.brandSlug += "-"+ brand.brandID;
+                }
+                return models.brand.update({
+                    brandName: brand.brandName,
+                    brandSlug:  brand.brandSlug,
+                },{
+                    where: {
+                        brandID: brand.brandID
+                    }
+                })
+            })
+            .catch(err=>{
+                console.log(err);
+            });
+            
         }
     }
 
