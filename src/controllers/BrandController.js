@@ -2,19 +2,24 @@ const BrandService = require('../services/BrandService');
 const Util = require('../utilities/Util');
 
 const brandPerPage = 5;
-let currentPage = 1;
+
 const maximumPagination = 5;
+let currentPage = 1;
 let totalPage = 1;
-let totalBrands;
+let totalBrands = 0;
+let currentPageDel = 1;
+let totalPageDel = 1;
+let totalBrandsDel = 0;
 class BrandController{
     //[GET] /
     allBrand(req, res, next){
         //get page number
         const pageNumber = req.query.page;
+        const name = (req.query.name) ? req.query.name : null;
         currentPage = (pageNumber && !Number.isNaN(pageNumber)) ? parseInt(pageNumber) : 1;
         currentPage = (currentPage > 0) ? currentPage : 1;
         currentPage = (currentPage <= totalPage) ? currentPage : totalPage
-        Promise.all([ BrandService.list(brandPerPage, currentPage),  BrandService.totalBrand()])
+        Promise.all([ BrandService.list(brandPerPage, currentPage, name),  BrandService.totalBrand()])
         .then(([brands, total])=>{
             totalBrands = total;
             let paginationArray = [];
@@ -40,14 +45,34 @@ class BrandController{
             if(pageDisplace < 2){
                 paginationArray=[];
             }
-
-            res.render('brand/all-brand', {
-                brands, 
-                currentPage,
-                paginationArray,
-                prevPage: (currentPage > 1) ? currentPage - 1 : 1,
-                nextPage: (currentPage < totalPage) ? currentPage + 1 : totalPage,
+            const brandsLength = brands.length;
+            const countPro = brands.map(brand=>{
+                return BrandService.countBrandQuantity(brand.brandID);
             });
+
+            Promise.all(countPro)
+            .then(result=>{
+                console.log(result);
+                for(let i = 0 ; i < brandsLength; i++){
+                    brands[i].No = (currentPage -1)*brandPerPage + 1 + i;
+                    brands[i].quantity = result[i];
+                }
+                const foo = "haha"
+                res.render('brand/all-brand', {
+                    foo,
+                    brands,
+                    currentPage,
+                    searchQuery: name,
+                    paginationArray,
+                    prevPage: (currentPage > 1) ? currentPage - 1 : 1,
+                    nextPage: (currentPage < totalPage) ? currentPage + 1 : totalPage,
+                });
+            })
+            .catch(err=>{
+                console.log(err);
+                next();
+            })
+            
         })
         .catch(err=>{
             console.log(err);
@@ -169,6 +194,72 @@ class BrandController{
             next();
         })
     } 
+
+    //[GET] /
+    // deletedBrand(req, res, next){
+    //     //get page number
+    //     const pageNumber = req.query.page;
+    //     const name = (req.query.name) ? req.query.name : null;
+    //     currentPageDel = (pageNumber && !Number.isNaN(pageNumber)) ? parseInt(pageNumber) : 1;
+    //     currentPageDel = (currentPageDel > 0) ? currentPageDel : 1;
+    //     currentPageDel = (currentPageDel <= totalPageDel) ? currentPageDel : totalPageDel
+    //     Promise.all([ BrandService.getTrash(brandPerPage, currentPageDel, name), BrandService.totalTrashBrand(),BrandService.totalBrand() ])
+    //     .then(([brands, total, totalNotDeletedBrands])=>{
+    //         totalBrandsDel = total;
+    //         let paginationArray = [];
+    //         totalPageDel = Math.ceil(totalBrandsDel/brandPerPage);
+    //         let pageDisplace = Math.min(totalPageDel - currentPageDel + 2, maximumPagination);
+    //         if(currentPageDel === 1){
+    //             pageDisplace -= 1;
+    //         }
+    //         for(let i = 0 ; i < pageDisplace; i++){
+    //             if(currentPageDel === 1){
+    //                 paginationArray.push({
+    //                     page: currentPageDel + i,
+    //                     isCurrent:  (currentPageDel + i)===currentPageDel
+    //                 });
+    //             }
+    //             else{
+    //                 paginationArray.push({
+    //                     page: currentPageDel + i - 1,
+    //                     isCurrent:  (currentPageDel + i - 1)===currentPageDel
+    //                 });
+    //             }
+    //         }
+    //         if(pageDisplace < 2){
+    //             paginationArray=[];
+    //         }
+    //         const brandsLength = brands.length;
+    //         for(let i = 0 ; i < brandsLength; i++){
+    //             brands[i].No = (currentPageDel -1)*brandPerPage + 1 + i;
+    //         }
+    //         console.log("current: " + currentPageDel)
+    //         res.render('brand/trash-brand', {
+    //             totalNotDeletedBrands,
+    //             brands,
+    //             currentPageDel,
+    //             searchQuery: name,
+    //             paginationArray,
+    //             prevPage: (currentPageDel > 1) ? currentPageDel - 1 : 1,
+    //             nextPage: (currentPageDel < totalPage) ? currentPageDel + 1 : totalPageDel,
+    //         });
+    //     })
+    //     .catch(err=>{
+    //         console.log(err);
+    //         next();
+    //     })
+    // }
+
+    // //[DELETE]  /permantly-delete/:id
+    // permantlyDelete(req, res, next){
+    //     const id = req.params.id;
+    // }
+
+    // //[POST] /restore/:id
+    // restore(req, res, next){
+    //     const id = req.params.id;
+    // }
+
 }
 
 module.exports = new BrandController;

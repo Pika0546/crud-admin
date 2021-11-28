@@ -12,10 +12,11 @@ class CategoryController{
      allCategory(req, res, next){
         //get page number
         const pageNumber = req.query.page;
+        const name = (req.query.name) ? req.query.name : null;
         currentPage = (pageNumber && !Number.isNaN(pageNumber)) ? parseInt(pageNumber) : 1;
         currentPage = (currentPage > 0) ? currentPage : 1;
         currentPage = (currentPage <= totalPage) ? currentPage : totalPage
-        Promise.all([ CategoryService.list(catePerPage, currentPage),  CategoryService.totalCate()])
+        Promise.all([ CategoryService.list(catePerPage, currentPage, name),  CategoryService.totalCate()])
         .then(([cates, total])=>{
             totalCates = total;
             let paginationArray = [];
@@ -42,13 +43,31 @@ class CategoryController{
                 paginationArray=[];
             }
 
-            res.render('category/all-category', {
-                cates, 
-                currentPage,
-                paginationArray,
-                prevPage: (currentPage > 1) ? currentPage - 1 : 1,
-                nextPage: (currentPage < totalPage) ? currentPage + 1 : totalPage,
+            const catesLength = cates.length;
+            const countPro = cates.map(cate=>{
+                return CategoryService.countCateQuantity(cate.catID);
             });
+
+            Promise.all(countPro)
+            .then(result=>{
+                console.log(result);
+                for(let i = 0 ; i < catesLength; i++){
+                    cates[i].No = (currentPage -1)*catePerPage + 1 + i;
+                    cates[i].quantity = result[i];
+                }
+                res.render('category/all-category', {
+                    cates,
+                    currentPage,
+                    searchQuery: name,
+                    paginationArray,
+                    prevPage: (currentPage > 1) ? currentPage - 1 : 1,
+                    nextPage: (currentPage < totalPage) ? currentPage + 1 : totalPage,
+                });
+            })
+            .catch(err=>{
+                console.log(err);
+                next();
+            })
         })
         .catch(err=>{
             console.log(err);
@@ -111,7 +130,7 @@ class CategoryController{
 
     //[PUT] /edit/:id
     update(req, res, next){
-        let cat = req.params.id;
+        let catID = req.params.id;
         let catName = req.body.catName;
 
         let file;
@@ -129,7 +148,7 @@ class CategoryController{
             file = null;
         }
         const category = {
-            cat,
+            catID,
             catName,
             catSlug: Util.getDataSlug(catName)
         }

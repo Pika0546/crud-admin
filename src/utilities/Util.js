@@ -12,6 +12,12 @@ class Util{
         let tokens = str.split(" ");
         return tokens.join("-");
     }
+
+    getImageName(url){
+        const startIndex = url.search("/o/") + 3;
+        const endIndex = url.search("?");
+        return url.subString(startIndex, endIndex);
+    }
 }
 
 module.exports = new Util;

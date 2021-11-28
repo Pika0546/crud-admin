@@ -1,7 +1,7 @@
 const {models, testConnect, sequelize} = require('../models');
 const imagelink = require('../models/imagelink');
 const firebase = require('../firebase');
-const {getStorage, ref, getDownloadURL } = require('firebase/storage');
+const {getStorage, ref, getDownloadURL, deleteObject } = require('firebase/storage');
 const Util = require('../utilities/Util');
 
 class ProductService{
@@ -88,6 +88,8 @@ class ProductService{
         });
         return returnValue;
     }
+
+   
 }
 
 module.exports = new ProductService;

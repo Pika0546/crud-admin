@@ -172,6 +172,10 @@
     cursor: unset !important;
 }
 
+#edit-category-form{
+    cursor: unset !important;
+}
+
 #search-form button{
     position: absolute;
     top: 8px;
@@ -183,3 +187,10 @@
     border: none;
     outline: none;
 }
+
+.my-search-row{
+    padding: 20px;
+    background: #fff;
+    margin: 10px 0;
+}
+

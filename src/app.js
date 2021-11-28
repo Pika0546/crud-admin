@@ -25,6 +25,9 @@ app.engine('.hbs',
 				return a > b;
 			},
 			sum: function(a,b){
+				console.log(a);
+				console.log(b);
+				console.log(a+b);
 				return a + b;
 			}
 		}

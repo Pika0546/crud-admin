@@ -7,8 +7,8 @@ class ProductController{
         res.render('product/all-product');
     }
 
-     //[GET] /trash
-     trash(req, res, next){
+    //[GET] /trash
+    trash(req, res, next){
         res.render('product/trash-product');
     }
 
@@ -25,7 +25,7 @@ class ProductController{
 
     //[GET] /edit/:id
     editProduct(req, res, next){
-        res.render('product/edit-product');
+        res.render('product/edit-product')
     }
 
     //[PUT] /add/product
@@ -76,6 +76,20 @@ class ProductController{
         res.send("/products");
     }
 
+    //[PUT] /update/detail/:id
+    updateDetail(req, res, next){
+
+    }
+
+    //[PUT] /update/image/:id
+    updateImage(req, res, next){
+
+    }
+
+    //[PUT] /update/review/:id
+    updateReview(req, res, next){
+
+    }
 }
 
 module.exports = new ProductController;

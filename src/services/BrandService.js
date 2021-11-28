@@ -1,14 +1,43 @@
 const {models} = require('../models');
 const Util = require('../utilities/Util');
 const firebase = require('../firebase');
-const {getStorage, ref, getDownloadURL } = require('firebase/storage');
+const {getStorage, ref, getDownloadURL, deleteObject } = require('firebase/storage');
+
+
+const { Op } = require("sequelize");
 class BrandService{
-    list(limit, page){
-        return models.brand.findAll({offset: (page - 1)*limit, limit: limit, raw:true});
+    // list(limit, page){
+    //     return models.brand.findAll({offset: (page - 1)*limit, limit: limit, raw:true});
+    // }
+    list(limit, page, name){
+        if(name){
+            return models.brand.findAll({
+                offset: (page - 1)*limit, 
+                limit: limit, 
+                raw:true,
+                where:{
+                    brandName:{
+                        [Op.substring]: name
+                    }
+            }});
+        }else{
+            return models.brand.findAll({offset: (page - 1)*limit, limit: limit, raw:true});
+        }
     }
 
     totalBrand(){
         return models.brand.count();
+    }
+
+    totalTrashBrand(){
+        return models.brand.count({
+            paranoid: false,
+            where:{
+                deletedAt:{
+                    [Op.not]:null
+                }
+            }
+        });
     }
 
     store(id, brand, file){
@@ -45,6 +74,7 @@ class BrandService{
             blobWriter.end(file.buffer);
         });
     }
+
     update(brand, file){
         if(file){
             const fileName = "brand" + brand.brandID + "." + file.mimetype.split("/")[1];
@@ -130,21 +160,114 @@ class BrandService{
         return models.brand.destroy({
             where: {
                 brandID: brandID
-            }
+            },
+            force: true,
         });
     }
 
-    getTrash(limit, page){
-        return models.brand.findAll({offset: (page - 1)*limit, limit: limit, raw:true});
+    getTrash(limit, page, name){
+        if(name){
+            return models.brand.findAll({
+                offset: (page - 1)*limit, 
+                limit: limit, 
+                raw:true,
+                paranoid: false,
+                where:{
+                    deletedAt:{
+                        [Op.not]:null
+                    },
+                    brandName:{
+                        [Op.substring]: name
+                    }
+            }});
+        }else{
+            return models.brand.findAll({
+                paranoid: false, 
+                offset: (page - 1)*limit, 
+                limit: limit, 
+                raw:true,
+                where:{
+                    deletedAt:{
+                        [Op.not]:null
+                    }
+                }
+            });
+        }
     }
 
     isSameName(brandName){
         return models.brand.findOne({
             where:{
                 brandName: brandName
-            }
+            },
+            paranoid: false,
         });
     }
+
+    countBrandQuantity(id){
+        return models.product.count({
+            where:{
+                brandID: id
+            }
+        })
+    }
+    // permantlyDelete(id){
+    //     return models.brand.fineOne({
+    //         where:{
+    //             brandID: id
+    //         },
+    //         paranoid: false,
+    //     })
+    //     .then(brand=>{
+    //         const imageName = Util.getImageName(brand.brandImage);
+    //         return models.brand.destroy({
+    //             where: {
+    //                 brandID: id
+    //             },
+    //             force: true,
+    //         }).then(result=>{
+    //             console.log(result);
+    //             if(result){
+    //                 const storage = getStorage();
+    //                 const filename = "brand"
+    //                 // Create a reference to the file to delete
+    //                 const desertRef = ref(storage, '/' + imageName);
+    
+    //                 // Delete the file
+    //                 return deleteObject(desertRef)
+    //             }else{
+    //                 return null;
+    //             }
+    //         })
+    //     })
+    //     return models.brand.destroy({
+    //         where: {
+    //             brandID: id
+    //         },
+    //         force: true,
+    //     }).then(result=>{
+    //         console.log(result);
+    //         if(result){
+    //             const storage = getStorage();
+    //             const filename = "brand"
+    //             // Create a reference to the file to delete
+    //             const desertRef = ref(storage, 'images/desert.jpg');
+
+    //             // Delete the file
+    //             deleteObject(desertRef).then(() => {
+    //             // File deleted successfully
+    //             }).catch((error) => {
+    //             // Uh-oh, an error occurred!
+    //             });
+
+    //             return
+    //         }else{
+    //             return null;
+    //         }
+    //     })
+    // }
+
+
 }   
 
 module.exports = new BrandService;

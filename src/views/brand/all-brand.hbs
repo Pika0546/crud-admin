@@ -87,24 +87,33 @@
 <div class="product-status mg-b-15">
     <div class="container-fluid">
 		<div class="row">
-			<div class="breadcome-heading">
-				<form role="search" method="get" id="search-form" class="sr-input-func">
-					<input type="text" name="name" placeholder="Search..." class="search-int form-control">
-					<button type="submit"><i class="fa fa-search"></i></button>
-				</form>
+			<div class="col-lg-12 col-12">
+				<div class="breadcome-heading my-search-row">
+					<form role="search" method="get" id="search-form" class="sr-input-func">
+						<input type="text" name="name"
+							{{#if searchQuery}}
+								value={{searchQuery}}
+							{{/if}}					
+						placeholder="Search..." class="search-int form-control">
+						<button type="submit"><i class="fa fa-search"></i></button>
+					</form>
+				</div>
 			</div>
 		</div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="product-status-wrap">
-                    <h4>All Brands</h4>
+                    <h4 style="margin-bottom: 10px;">All Brands</h4>
+					{{!-- {{#if totalDeleted}}
+						<a style="margin-bottom: 20px; display: block" href="/brands/trash"> <i class="fa fa-trash-o" aria-hidden="true"></i> Deleted Brands({{totalDeleted}})</a>
+					{{/if}} --}}
                     <div class="add-product">
                         <a href="#" data-toggle="modal" data-target="#addBrandModal">Add Brand</a>
                     </div>
                     <div class="asset-inner">
                         <table>
                             <tr>
-                                <th>ID</th>
+                                <th>No</th>
                                 <th>Image</th>
                                 <th>Name</th>
                                 <th>Number of Products</th>
@@ -112,7 +121,7 @@
                             </tr>
                             {{#each brands}}
                                 <tr>
-                                    <td>{{this.brandID}}</td>
+                                    <td>{{this.No}}</td>
                                     <td><img src="{{this.brandImage}}" alt="{{this.brandName}}" /></td>
                                     <td>{{this.brandName}}</td>
                                     <td>{{this.quantity}}</td>
@@ -150,7 +159,14 @@
                     </div>
                        
                     {{#if paginationArray}}
-                        <form method="get" action="/brands">
+                        <form 	
+							method="get"
+							action="/brands"
+							
+						>
+							{{#if searchQuery}}
+								<input readonly type="text" name="name" style="display: none;" value="{{searchQuery}}"/>
+							{{/if}} 
                             <ul class="my-pagination">
                                 <li class="my-page-item">
                                     <input onchange='this.form.submit();' style="display: none;" id="page-prev" value="{{prevPage}}" type="radio" name="page"/>

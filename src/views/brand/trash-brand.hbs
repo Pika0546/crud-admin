@@ -85,14 +85,14 @@
 {{/section}}
 
 <div class="product-status mg-b-15">
-    <div class="container-fluid">
+    <div class="container-fluid">	
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="product-status-wrap">
-                    <h4>All Brands</h4>
-                    <div class="add-product">
-                        <a href="#" data-toggle="modal" data-target="#addBrandModal">Add Brand</a>
-                    </div>
+                    <h4>Deleted Brands</h4>
+                  	{{#if totalNotDeletedBrands}}
+						<a style="margin-bottom: 20px; display: block" href="/brands/trash"> <i class="fa fa-trash-o" aria-hidden="true"></i> Brands({{totalNotDeletedBrands}})</a>
+					{{/if}}
                     <div class="asset-inner">
                         <table>
                             <tr>
@@ -104,17 +104,13 @@
                             </tr>
                             {{#each brands}}
                                 <tr>
-                                    <td>{{this.brandID}}</td>
+                                    <td>{{this.No}}</td>
                                     <td><img src="{{this.brandImage}}" alt="{{this.brandName}}" /></td>
                                     <td>{{this.brandName}}</td>
                                     <td>{{this.quantity}}</td>
                                     <td>
-                                        <a href="#" data-toggle="modal" data-target="#editBrandModal" data-id="{{this.brandID}}" data-brandname="{{this.brandName}}" style="color: black;"><button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
-                                        {{#if this.quantity}}
-                                            <a href="/products/{{this.brandSlug}}" style="color: black;"><button data-toggle="tooltip" title="See products" class="pd-setting-ed"><span class="educate-icon educate-course icon-wrap" aria-hidden="true"></span></button></a>
-                                        {{else}}
-                                            <button title="Delete" data-id={{this.brandID}} class="pd-setting-ed" data-toggle="modal" data-target="#deleteBrandModal"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                                        {{/if}}
+										<button title="Restore" class="pd-setting-ed" data-id={{this.brandID}} data-toggle="modal" data-target="#restoreBrandModal"><i class="fa fa-share"></i></button>
+										<button title="Delete" data-id={{this.brandID}} class="pd-setting-ed" data-toggle="modal" data-target="#deleteBrandModal"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
                                     </td>
                                 </tr>
                             {{/each}}
@@ -129,7 +125,7 @@
                                 </div>
                                 <div class="modal-body">
                                     <span class="educate-icon educate-danger modal-check-pro information-icon-pro"></span>
-                                    <h2>Delete this brand?</h2>
+                                    <h2>Permantly Delete this brand?</h2>
                                     <!-- <p>If you delete this product, they can not access the shop's website anymore.</p> -->
                                 </div>
                                 <div class="modal-footer danger-md">
@@ -140,7 +136,25 @@
                             </div>
                         </div>
                     </div>
-                       
+					<div id="restoreBrandModal" class="modal modal-edu-general FullColor-popup-WarningModal fade" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-close-area modal-close-df">
+                                    <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
+                                </div>
+                                <div class="modal-body">
+                                    <span class="educate-icon educate-warning modal-check-pro information-icon-pro"></span>
+                                    <h2>Restore this brand?</h2>
+                                    <!-- <p>If you delete this product, they can not access the shop's website anymore.</p> -->
+                                </div>
+                                <div class="modal-footer danger-md">
+                                    <button class="btn btn-warning " type="button" data-dismiss="modal">Cancel</button>
+                    				<form method="post" id="restore-brand-form"></form>
+									<button class="btn btn-warning" id="submit-restore-form" type="button">Restore</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
                     {{#if paginationArray}}
                         <form method="get" action="/brands">
                             <ul class="my-pagination">
@@ -174,93 +188,6 @@
     </div>
 </div>
 
- <div id="addBrandModal" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header header-color-modal bg-color-1">
-                <h4 class="modal-title">Add a new Brand</h4>
-                <div class="modal-close-area modal-close-df">
-                    <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
-                </div>
-            </div>                                
-            <form  action="/brands/store" method="post" class="dropzone dropzone-custom needs-validation "  id="create-brand-form" novalidate>
-                <div class="modal-body" style="padding: 0; text-align: left">
-                    <div style="padding: 20px; background-color: white; ">
-                        <div class="row">
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <div class="form-group">
-                                    <label for="addBrandNameBox">Brand's name</label>
-                                    <input id="addBrandNameBox" name="brandName" type="text" class="form-control" required maxlength="255" placeholder="Brand Name">
-                                    <div class="invalid-feedback">
-										Please provide a valid name.
-									</div>
-                                </div>  
-                                <div class="form-group alert-up-pd pro-ad">
-                                    <label>Brand's logo</label>
-                                    <div class="dz-message needsclick download-custom">
-                                        <i class="fa fa-download edudropnone" aria-hidden="true"></i>
-                                        <h2 class="edudropnone">Drop image here or click to upload.</h2>
-                                    </div>
-                                </div>
-                                <div class="file-empty-feedback" style="color: #dc3545;font-size: 80%; visibility:hidden">
-										Please add at least one photo.
-								</div>
-                                <div id="imagePreviewContainer" class="dropzone-previews"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-primary waves-effect waves-light" type="button" data-dismiss="modal">Cancel</button>
-					<button class="btn btn-primary waves-effect waves-light" type="submit">Add</button>
-                </div>
-             </form>
-        </div>
-    </div>
-</div>
-
- <div id="editBrandModal" class="modal modal-edu-general default-popup-PrimaryModal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header header-color-modal bg-color-1">
-                <h4 class="modal-title">Edit Brand</h4>
-                <div class="modal-close-area modal-close-df">
-                    <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
-                </div>
-            </div>
-           <form action="/brands/edit" method="post" class="dropzone dropzone-custom needs-validation "  id="edit-brand-form" novalidate>
-                <div class="modal-body" style="padding: 0; text-align: left">
-                    <div style="padding: 20px; background-color: white;	">
-                        <div class="row">
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <div class="form-group">
-                                    <label for="editBrandNameBox">Brand's name</label>
-                                    <input id="editBrandNameBox" name="brandName" type="text" class="form-control" required maxlength="255" placeholder="Brand Name">
-                                    <div class="invalid-feedback">
-										Please provide a valid name.
-									</div>
-                                </div>  
-                                <div class="form-group alert-up-pd pro-ad">
-                                    <label>Brand's logo</label>
-                                    <div class="dz-message needsclick download-custom">
-                                        <i class="fa fa-download edudropnone" aria-hidden="true"></i>
-                                        <h2 class="edudropnone">Drop image here or click to upload.</h2>
-										<p class="edudropnone" style="text-align: center;"><span class="note needsclick">(If no file selected, the old logo will be remain.)</span></p>
-                                    </div>
-                                </div>
-                                <div id="editImagePreviews" class="dropzone-previews"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-primary waves-effect waves-light" type="button" data-dismiss="modal">Cancel</button>
-                    <button class="btn btn-primary waves-effect waves-light" type="submit">Save</button>
-                </div>
-             </form>
-        </div>
-    </div>
-</div>
 
  <!-- jquery
 		============================================ -->
@@ -369,126 +296,29 @@
 			return "images";    
 		}
     $(document).ready(function(){
-		let createDropzone = null;
-		let editDropzone = null;
+
 		const deleteForm = document.getElementById("delete-brand-form");
-        Dropzone.options.createBrandForm = { // The camelized version of the ID of the form element
-            // The configuration we've talked about above
-            autoProcessQueue: false,
-            uploadMultiple: false,
-            parallelUploads: 100,
-            maxFiles: 1,
-            acceptedFiles: "image/*",
-            addRemoveLinks: true,
-            paramName: paramNameForSend,
-            previewsContainer: document.querySelector('#imagePreviewContainer'),
-            // The setting up of the dropzone
-            init: function() {
-                createDropzone = this;
-                // First change the button to actually tell Dropzone to process the queue.
-               this.on("sendingmultiple", function() {
-					// Gets triggered when the form is actually being sent.
-					// Hide the success button or the complete form.
-						console.log("Sending");
-				});
-				this.on("success", function(files, response) {
-					// Gets triggered when the files have successfully been sent.
-					// Redirect user or notify of success.
-						window.location = response;
-						console.log("Success");
-				});
-				this.on("errormultiple", function(files, response) {
-					// Gets triggered when there was an error sending the files.
-					// Maybe show form again, and notify user of error
-				}); 
-            }
-        }	
-		 Dropzone.options.editBrandForm = { // The camelized version of the ID of the form element
-            // The configuration we've talked about above
-            autoProcessQueue: false,
-            uploadMultiple: false,
-            parallelUploads: 100,
-            maxFiles: 1,
-            acceptedFiles: "image/*",
-            addRemoveLinks: true,
-            paramName: paramNameForSend,
-            previewsContainer: document.querySelector('#editImagePreviews'),
-            // The setting up of the dropzone
-            init: function() {
-                editDropzone = this;
-                // First change the button to actually tell Dropzone to process the queue.
-				this.on("sendingmultiple", function() {
-					// Gets triggered when the form is actually being sent.
-					// Hide the success button or the complete form.
-						console.log("Sending");
-				});
-				this.on("success", function(files, response) {
-					// Gets triggered when the files have successfully been sent.
-					// Redirect user or notify of success.
-						window.location = response;
-						console.log("Success");
-				});
-				this.on("errormultiple", function(files, response) {
-					// Gets triggered when there was an error sending the files.
-					// Maybe show form again, and notify user of error
-				}); 
-            }
-        }	
-        $('#editBrandModal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget) // Button that triggered the modal
-            var recipient = button.data('brandname') // Extract info from data-* attributes
-            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-			let id = button.data('id');
-            var modal = $(this);
-			editDropzone.options.url='/brands/edit/' + id +'?_method=PUT';
-			modal.find('#edit-brand-form').attr('action', '/brands/edit/' + id +'?_method=PUT' );
-            modal.find('.modal-body #editBrandNameBox').val(recipient);
-        });
+		const restoreForm = document.getElementById("restore-brand-form");
 
 		 $('#deleteBrandModal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget) // Button that triggered the modal
             var id = button.data('id') // Extract info from data-* attributes
             var modal = $(this);
-			modal.find('#delete-brand-form').attr('action', '/brands/delete/' + id +'?_method=DELETE' );
+			modal.find('#delete-brand-form').attr('action', '/brands/permantly-detele/' + id +'?_method=DELETE' );
+        });
+		 $('#restoreBrandModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var id = button.data('id') // Extract info from data-* attributes
+            var modal = $(this);
+			modal.find('#restore-brand-form').attr('action', '/brands/restore/' + id +'?_method=POST' );
         });
 
 		document.getElementById("submit-delete-form").addEventListener('click', function(e){
 			deleteForm.submit();
 		});
 
-		// Fetch all the forms we want to apply custom Bootstrap validation styles to
-		const forms = document.getElementsByClassName('needs-validation');
-		// Loop over them and prevent submission
-		const validation = Array.prototype.filter.call(forms, function(form) {
-			form.addEventListener('submit', function(event) {
-				event.preventDefault();
-				if (form.checkValidity() === false) {
-					event.stopPropagation();
-					
-				}else{
-					if(form.id==="create-brand-form"){
-						if(createDropzone.getQueuedFiles().length > 0){
-							console.log("oke");
-							document.querySelector(".file-empty-feedback").style.visibility="hidden";
-							createDropzone.processQueue();
-						}
-						else{
-							document.querySelector(".file-empty-feedback").style.visibility="visible";
-						}
-					}
-						if(form.id==="edit-brand-form"){
-							console.log("cl")
-							if(editDropzone.getQueuedFiles().length > 0){
-							editDropzone.processQueue();
-							}
-							else{
-								form.submit();
-							}
-					}
-				}
-				form.classList.add('was-validated');
-			}, false);
-		});
+		document.getElementById("submit-restore-form").addEventListener('click', function(e){
+			restoreForm.submit();
+		})
     })
 </script>

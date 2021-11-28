@@ -87,11 +87,17 @@
 <div class="product-status mg-b-15">
     <div class="container-fluid">
 		<div class="row">
-			<div class="breadcome-heading">
-				<form role="search" method="get" id="search-form" class="sr-input-func">
-					<input type="text" name="name" placeholder="Search..." class="search-int form-control">
-					<button type="submit"><i class="fa fa-search"></i></button>
-				</form>
+			<div class="col-lg-12 col-12">
+				<div class="breadcome-heading my-search-row">
+					<form role="search" method="get" id="search-form" class="sr-input-func">
+						<input type="text" name="name"
+							{{#if searchQuery}}
+								value={{searchQuery}}
+							{{/if}}					
+						placeholder="Search..." class="search-int form-control">
+						<button type="submit"><i class="fa fa-search"></i></button>
+					</form>
+				</div>
 			</div>
 		</div>
         <div class="row">
@@ -151,6 +157,9 @@
                        
                     {{#if paginationArray}}
                         <form method="get" action="/categories">
+							{{#if searchQuery}}
+								<input readonly type="text" name="name" style="display: none;" value="{{searchQuery}}"/>
+							{{/if}} 
                             <ul class="my-pagination">
                                 <li class="my-page-item">
                                     <input onchange='this.form.submit();' style="display: none;" id="page-prev" value="{{prevPage}}" type="radio" name="page"/>

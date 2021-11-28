@@ -1,10 +1,24 @@
 const {models} = require('../models');
 const Util = require('../utilities/Util');
 const firebase = require('../firebase');
+const { Op } = require("sequelize");
 const {getStorage, ref, getDownloadURL } = require('firebase/storage');
 class CategoryService{
-    list(limit, page){
-        return models.category.findAll({offset: (page - 1)*limit, limit: limit, raw:true});
+    list(limit, page, name){
+        if(name){
+            return models.category.findAll({
+                offset: (page - 1)*limit, 
+                limit: limit, 
+                raw:true,
+                where:{
+                    catName:{
+                        [Op.substring]: name
+                    }
+            }});
+        }
+        else{
+            return models.category.findAll({offset: (page - 1)*limit, limit: limit, raw:true});
+        }
     }
 
     totalCate(){
@@ -130,7 +144,8 @@ class CategoryService{
         return models.category.destroy({
             where: {
                 catID: catID
-            }
+            },
+            force: true,
         });
     }
 
@@ -144,6 +159,13 @@ class CategoryService{
                 catName: catName
             }
         });
+    }
+    countCateQuantity(id){
+        return models.product.count({
+            where:{
+                catID: id
+            }
+        })
     }
 }   
 

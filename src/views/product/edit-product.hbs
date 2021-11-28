@@ -412,7 +412,7 @@
                                                         </div> -->
                                                         <div class="dropzone-pro mg-tb-30">
                                                             <div id="dropzone1" class="multi-uploader-cs">
-                                                                <form action="/upload" class="dropzone dropzone-custom needsclick" id="demo1-upload">
+                                                                <form action="/upload" class="dropzone dropzone-custom needsclick" id="update-image">
                                                                     <div class="dz-message needsclick download-custom">
                                                                         <i class="fa fa-download" aria-hidden="true"></i>
                                                                         <h2>Drop files here or click to upload.</h2>
@@ -699,8 +699,9 @@
    <script>
 		let attriRowId;
         $(document).ready(function(){
+
             const myAddProductForm = document.forms["add-product-form"];
-          
+
             $('#editAttributesModal').on('show.bs.modal', function (event) {
                 const button = $(event.relatedTarget) ;// Button that triggered the modal
                 const recipient1 = button.data('color'); // Extract info from data-* attributes
