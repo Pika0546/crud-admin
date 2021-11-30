@@ -26,7 +26,7 @@ class ProductController{
         currentPage = (pageNumber && !Number.isNaN(pageNumber)) ? parseInt(pageNumber) : 1;
         currentPage = (currentPage > 0) ? currentPage : 1;
         currentPage = (currentPage <= totalPage) ? currentPage : totalPage
-        currentPage = (currentPage <= totalPage) ? currentPage : totalPage;
+        currentPage = (currentPage < 1) ? 1 : currentPage;
         Promise.all([ ProductService.list(productPerPage, currentPage, name, brandid, cateid, genderid), ProductService.countAllItem(name, brandid, cateid, genderid)])        .then(([products, total])=>{
             totalProducts = total;
             let paginationArray = [];

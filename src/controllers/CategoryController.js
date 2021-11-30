@@ -16,6 +16,7 @@ class CategoryController{
         currentPage = (pageNumber && !Number.isNaN(pageNumber)) ? parseInt(pageNumber) : 1;
         currentPage = (currentPage > 0) ? currentPage : 1;
         currentPage = (currentPage <= totalPage) ? currentPage : totalPage
+        currentPage = (currentPage < 1) ? 1 : currentPage;
         Promise.all([ CategoryService.list(catePerPage, currentPage, name),  CategoryService.totalCate()])
         .then(([cates, total])=>{
             totalCates = total;

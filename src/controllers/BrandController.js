@@ -17,6 +17,7 @@ class BrandController{
         currentPage = (pageNumber && !Number.isNaN(pageNumber)) ? parseInt(pageNumber) : 1;
         currentPage = (currentPage > 0) ? currentPage : 1;
         currentPage = (currentPage <= totalPage) ? currentPage : totalPage
+        currentPage = (currentPage < 1) ? 1 : currentPage;
         Promise.all([ BrandService.list(brandPerPage, currentPage, name),  BrandService.totalBrand(name)])
         .then(([brands, total])=>{
             totalBrands = total;
