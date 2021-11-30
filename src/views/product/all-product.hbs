@@ -103,7 +103,7 @@
           <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">  
             {{!-- <form method="get"> --}}
               <select onchange="this.form.submit()" class="form-control" name="brandid">
-                <option value="">select brand</option>
+                <option value="">all brands</option>
                   {{#each brands}}
                     {{#if ../selectBrandQuery}}
                         {{#isEqual this.brandID ../selectBrandQuery}}
@@ -123,7 +123,7 @@
           <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">  
             {{!-- <form method="get"> --}}
               <select onchange="this.form.submit()" class="form-control" name="cateid">
-                <option value="">select category</option>
+                <option value="">all categories</option>
                 {{#each categories}}
                   {{#if ../selectCateQuery}}
                     {{#isEqual this.catID ../selectCateQuery}}
@@ -142,7 +142,7 @@
           <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12"> 
             {{!-- <form method="get"> --}}
               <select onchange="this.form.submit()" class="form-control" name="genderid">
-                <option value="">select gender</option>
+                <option value="">all genders</option>
                 {{#if selectGenderQuery}}
 
                   {{#isEqual selectGenderQuery 1}}

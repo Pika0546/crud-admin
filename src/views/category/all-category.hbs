@@ -125,7 +125,7 @@
                                     <td>
                                         <a href="#" data-toggle="modal" data-target="#editCateModal" data-id="{{this.catID}}" data-catname="{{this.catName}}" style="color: black;"><button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
                                         {{#if this.quantity}}
-                                            <a href="/products/{{this.cataSlug}}" style="color: black;"><button data-toggle="tooltip" title="See products" class="pd-setting-ed"><span class="educate-icon educate-course icon-wrap" aria-hidden="true"></span></button></a>
+                                            <a href="/products?cateid={{this.catID}}" style="color: black;"><button data-toggle="tooltip" title="See products" class="pd-setting-ed"><span class="educate-icon educate-course icon-wrap" aria-hidden="true"></span></button></a>
                                         {{else}}
                                             <button title="Delete" data-id={{this.catID}} class="pd-setting-ed" data-toggle="modal" data-target="#deleteCateModal"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
                                         {{/if}}

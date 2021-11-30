@@ -128,7 +128,7 @@
                                     <td>
                                         <a href="#" data-toggle="modal" data-target="#editBrandModal" data-id="{{this.brandID}}" data-brandname="{{this.brandName}}" style="color: black;"><button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
                                         {{#if this.quantity}}
-                                            <a href="/products/{{this.brandSlug}}" style="color: black;"><button data-toggle="tooltip" title="See products" class="pd-setting-ed"><span class="educate-icon educate-course icon-wrap" aria-hidden="true"></span></button></a>
+                                            <a href="/products?brandid={{this.brandID}}" style="color: black;"><button data-toggle="tooltip" title="See products" class="pd-setting-ed"><span class="educate-icon educate-course icon-wrap" aria-hidden="true"></span></button></a>
                                         {{else}}
                                             <button title="Delete" data-id={{this.brandID}} class="pd-setting-ed" data-toggle="modal" data-target="#deleteBrandModal"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
                                         {{/if}}
