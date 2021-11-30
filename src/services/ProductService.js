@@ -636,8 +636,10 @@ class ProductService{
         });
     }
 
-    reviewsItemProduct(id){
+    reviewsItemProduct(id,limit,page){
         return models.comment.findAll({
+            offset: (page - 1)*limit, 
+            limit: limit,
             raw:true,
             where:{
                 proID: id
@@ -786,6 +788,14 @@ class ProductService{
         return models.comment.destroy({
             where:{
                 commentID: id,
+            }
+        })
+    }
+
+    countAllReview(id){
+        return models.comment.count({
+            where:{
+                proID:id
             }
         })
     }

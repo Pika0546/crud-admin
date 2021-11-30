@@ -97,7 +97,7 @@
                     <ul id="myTabedu1" class="tab-review-design">
                         <li class="active"><a href="#description">Details</a></li>
                         <li><a href="#reviews">Images</a></li>
-                        <li><a href="#INFORMATION">Reviews</a></li>
+                        <li><a href="#INFORMATION" id="review-tab-button">Reviews</a></li>
                     </ul>
                     <div id="myTabContent" class="tab-content custom-product-edit">
                         <div class="product-tab-list tab-pane fade active in" id="description">
@@ -435,6 +435,37 @@
                                                 </div>
                                             {{/each}}
                                         </div>
+                                        {{#if paginationArray}}
+                                            <form
+                                                id="pagination-form" 	
+                                                method="get"
+                                                action="/products/edit/{{item.proID}}"
+                                            > 
+                                                <ul class="my-pagination">
+                                                    <li class="my-page-item">
+                                                        <input onchange='this.form.submit();' style="display: none;" id="page-prev" value="{{prevPage}}" type="radio" name="reviewPage"/>
+                                                        <label for="page-prev"  class="my-page-button">Prev</label>
+                                                    </li>
+                                                    {{#each paginationArray}}  
+                                                        {{#if this.isCurrent}}
+                                                            <li class="my-page-item">
+                                                                <input onchange='this.form.submit();' style="display: none;" id="page-{{this.page}}" value="{{this.page}}" type="radio" name="reviewPage"/>
+                                                                <label for="page-{{this.page}}"  class="my-page-link my-current-page">{{this.page}}</label>
+                                                            </li>
+                                                        {{else}}
+                                                            <li class="my-page-item">
+                                                                <input onchange='this.form.submit();' style="display: none;" id="page-{{this.page}}" value="{{this.page}}" type="radio" name="reviewPage"/>
+                                                                <label for="page-{{this.page}}"  class="my-page-link">{{this.page}}</label>
+                                                            </li>
+                                                        {{/if}}
+                                                    {{/each}}
+                                                    <li class="my-page-item">
+                                                        <input onchange='this.form.submit();' style="display: none;" id="page-next" value="{{nextPage}}" type="radio" name="reviewPage"/>
+                                                        <label for="page-next"  class="my-page-button">Next</label>
+                                                    </li>
+                                                </ul>
+                                            </form>
+                                        {{/if}}
                                     </div>
                                 </div>
                             </div>
@@ -589,7 +620,10 @@
 			return "images";    
 		}
         $(document).ready(function(){
-
+            if(document.getElementById("pagination-form")){
+                console.log("ha")
+                $("#review-tab-button").tab('show');
+            }
             const myAddProductForm = document.forms["add-product-form"];
             const deleteForm = document.getElementById("delete-product-form");
             const imageCheckboxs=document.getElementsByName("productImages");

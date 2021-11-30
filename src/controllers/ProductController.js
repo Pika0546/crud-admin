@@ -13,6 +13,11 @@ let currentPage = 1;
 let totalPage = 1;
 let totalProducts = 0;
 
+const reviewPerpage = 5;
+let currentReviewPage = 1
+let totalReviewPage = 1;
+let totalReviews = 0;
+
 class ProductController{
 
     //[GET] /
@@ -169,9 +174,47 @@ class ProductController{
             // console.log(item);
             item.proDate = new Date(item.createdAt).toLocaleString("vi-VN");
             // const proImage = ProductService.imagesItemProduct(product.proID);
-            
-            Promise.all([ BrandService.listAll(), CategoryService.listAll(), ProductService.detailsItemProduct(proID), ProductService.imagesItemProduct(proID), ProductService.reviewsItemProduct(proID)])
-                .then(([brands, categories, details, images, reviews])=>{
+            const pageNumber = req.query.reviewPage;
+            currentReviewPage = (pageNumber && !Number.isNaN(pageNumber)) ? parseInt(pageNumber) : 1;
+            currentReviewPage = (currentReviewPage > 0) ? currentReviewPage : 1;
+            currentReviewPage = (currentReviewPage <= totalReviewPage) ? currentReviewPage : totalReviewPage
+            currentReviewPage = (currentReviewPage < 1) ? 1 : currentReviewPage;
+            Promise.all([ 
+                BrandService.listAll(), 
+                CategoryService.listAll(), 
+                ProductService.detailsItemProduct(proID), 
+                ProductService.imagesItemProduct(proID), 
+                ProductService.reviewsItemProduct(proID, reviewPerpage, currentReviewPage), 
+                ProductService.countAllReview(proID)
+            ])
+                .then(([brands, categories, details, images, reviews, total])=>{
+                    totalReviews = total;
+                    let paginationArray = [];
+                    totalReviewPage = Math.ceil(totalReviews/reviewPerpage);
+                    let pageDisplace = Math.min(totalReviewPage - currentReviewPage + 2, maximumPagination);
+                    if(currentReviewPage === 1){
+                        pageDisplace -= 1;
+                    }
+                    for(let i = 0 ; i < pageDisplace; i++){
+                        if(currentReviewPage === 1){
+                            paginationArray.push({
+                                page: currentReviewPage + i,
+                                isCurrent:  (currentReviewPage + i)===currentReviewPage
+                            });
+                        }
+                        else{
+                            paginationArray.push({
+                                page: currentReviewPage + i - 1,
+                                isCurrent:  (currentReviewPage + i - 1)===currentReviewPage
+                            });
+                        }
+                    }
+                    console.log("edit");
+                    console.log(pageDisplace);
+                    console.log(paginationArray);
+                    if(pageDisplace < 2){
+                        paginationArray=[];
+                    }
                     item.brands=brands;
                     item.categories=categories;
                     for(let i = 0 ; i < details.length;i++){
@@ -187,7 +230,10 @@ class ProductController{
                         item,
                         details,
                         images,
-                        reviews
+                        reviews,
+                        paginationArray,
+                        prevPage: (currentReviewPage > 1) ? currentReviewPage - 1 : 1,
+                        nextPage: (currentReviewPage < totalReviewPage) ? currentReviewPage + 1 : totalReviewPage,
                     });
             })
             .catch(err=>{
