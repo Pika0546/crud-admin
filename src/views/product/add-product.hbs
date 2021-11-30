@@ -106,30 +106,34 @@
                                 <label>Brand:</label>
                                 <div class="form-group">
                                     <select name="proBrand" class="form-control">
-                                        <option value="1" selected="">Crazy Bunny</option>
-                                        <option value="2">Moustache Monster</option>
-                                        <option value="3">Crazy Rockpanda</option>
-                                        <option value="4">Zombie Popsicle</option>
-                                        <option value="5">Devil Monster</option>
+                                        {{#each brands}}
+                                              <option value="{{this.brandID}}">{{this.brandName}}</option>
+                                        {{/each}}
                                     </select>
                                 </div>
                                 <label>Category:</label>
                                 <div class="form-group">
                                     <select name="proCate" class="form-control">
-                                        <option value="1" selected="">T-Shirt</option>
-                                        <option value="2">Backpack</option>
-                                        <option value="3">Cap</option>
-                                        <option value="4">Sneaker</option>
+                                        {{#each categories}}
+                                              <option value="{{this.catID}}">{{this.catName}}</option>
+                                        {{/each}}
                                     </select>
                                 </div>
+								<label>Price($):</label>
+                                <div class="form-group">
+                                    <input name="proPrice" type="number" min="0" class="form-control"  placeholder="Price" value="" required>
+									<div class="invalid-feedback">
+										Please provide a valid price.
+									</div>
+								</div>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                                 <label>Gender:</label>
                                 <div class="form-group">
                                     <select name="proGender" class="form-control">
-                                        <option value="1" selected="">Men</option>
-                                        <option value="2">Women</option>
-                                        <option value="0">Unisex</option>
+                                        <option value="0" selected="">Men</option>
+                                        <option value="1">Women</option>
+                                        <option value="2">Unisex</option>
                                     </select>
                                 </div>
                                 <label>Summary description:</label>
@@ -165,9 +169,7 @@
                                             <tr>
                                                 <th>No</th>
                                                 <th>Color</th>
-                                                <th>Size</th>
                                                 <th>Quantity</th>
-                                                <th>Price ($)</th>
                                                 <th>Setting</th>
                                             </tr>
                                         </table>
@@ -239,13 +241,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label for="addSizeBox">Size:</label>
-                                                <input required name="proSizeModal" id="addSizeBox" name="coursename" type="text" maxlength="255"  class="form-control" placeholder="Size">
-												 <div class="invalid-feedback">
-													Please provide a valid size.
-												</div>
-											</div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="form-group">
@@ -255,13 +250,6 @@
 													Please provide a valid quantity.
 												</div>
 										    </div>
-                                            <div class="form-group">
-                                                <label for="addPriceBox">Price ($):</label>
-                                                <input required name="proPriceModal" id="addPriceBox" name="coursename" type="number" min="0"  class="form-control" placeholder="Price">
-                                            	<div class="invalid-feedback">
-													Please provide a valid price.
-												</div>
-											</div>
                                         </div>
                                       </div>
                                   </div>
@@ -302,25 +290,11 @@
 														</div>
 													</div>
 												</div>
-												<div class="form-group">
-													<label for="editSizeBox">Size:</label>
-													<input required name="proEditSize" id="editSizeBox" name="coursename" type="text" maxlength="255"  class="form-control" placeholder="Size">
-													<div class="invalid-feedback">
-														Please provide a valid size.
-													</div>
-												</div>
 											</div>
 											<div class="col-lg-6">
 												<div class="form-group">
 													<label for="editQuantityBox">Quantity:</label>
 													<input required name="proEditQuantity" id="editQuantityBox" name="coursename" type="number" min="0"  class="form-control" placeholder="Quantity">
-													<div class="invalid-feedback">
-														Please provide a valid Quantity.
-													</div>
-												</div>
-												<div class="form-group">
-													<label for="editPriceBox">Price ($):</label>
-													<input required name="proEditPrice" id="editPriceBox" name="coursename" type="number" min="0" class="form-control" placeholder="Price">
 													<div class="invalid-feedback">
 														Please provide a valid Quantity.
 													</div>
@@ -343,280 +317,258 @@
 </div>
 
 	<!-- jquery
-		============================================ -->
-    <script src="/js/vendor/jquery-1.12.4.min.js"></script>
-    <!-- bootstrap JS
-		============================================ -->
-    <script src="/js/bootstrap.min.js"></script>
-    <!-- wow JS
-		============================================ -->
-    <script src="/js/wow.min.js"></script>
-    <!-- price-slider JS
-		============================================ -->
-    <script src="/js/jquery-price-slider.js"></script>
-    <!-- meanmenu JS
-		============================================ -->
-    <script src="/js/jquery.meanmenu.js"></script>
-    <!-- owl.carousel JS
-		============================================ -->
-    <script src="/js/owl.carousel.min.js"></script>
-    <!-- sticky JS
-		============================================ -->
-    <script src="/js/jquery.sticky.js"></script>
-    <!-- scrollUp JS
-		============================================ -->
-    <script src="/js/jquery.scrollUp.min.js"></script>
-    <!-- counterup JS
-		============================================ -->
-    <script src="/js/counterup/jquery.counterup.min.js"></script>
-    <script src="/js/counterup/waypoints.min.js"></script>
-    <script src="/js/counterup/counterup-active.js"></script>
-    <!-- dropzone JS
-		============================================ -->
-    {{!-- <script src="/js/dropzone/dropzone.js"></script> --}}
-    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
-    <!-- mCustomScrollbar JS
-		============================================ -->
-    <script src="/js/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
-    <script src="/js/scrollbar/mCustomScrollbar-active.js"></script>
-    <!-- metisMenu JS
-		============================================ -->
-    <script src="/js/metisMenu/metisMenu.min.js"></script>
-    <script src="/js/metisMenu/metisMenu-active.js"></script>
-    <!-- data table JS
-		============================================ -->
-    <script src="/js/data-table/bootstrap-table.js"></script>
-    <script src="/js/data-table/tableExport.js"></script>
-    <script src="/js/data-table/data-table-active.js"></script>
-    <script src="/js/data-table/bootstrap-table-editable.js"></script>
-    <script src="/js/data-table/bootstrap-editable.js"></script>
-    <script src="/js/data-table/bootstrap-table-resizable.js"></script>
-    <script src="/js/data-table/colResizable-1.5.source.js"></script>
-    <script src="/js/data-table/bootstrap-table-export.js"></script>
-    <!--  editable JS
-        ============================================ -->
-    <script src="/js/editable/jquery.mockjax.js"></script>
-    <script src="/js/editable/mock-active.js"></script>
-    <script src="/js/editable/select2.js"></script>
-    <script src="/js/editable/moment.min.js"></script>
-    <script src="/js/editable/bootstrap-datetimepicker.js"></script>
-    <script src="/js/editable/bootstrap-editable.js"></script>
-    <script src="/js/editable/xediable-active.js"></script>
-    <!-- datapicker JS
-		============================================ -->
-    <script src="/js/datapicker/bootstrap-datepicker.js"></script>
-    <script src="/js/datapicker/datepicker-active.js"></script>
-    <!-- colorpicker JS
-		============================================ -->
-    <script src="/js/colorpicker/jquery.spectrum.min.js"></script>
-    <script src="/js/colorpicker/color-picker-active.js"></script>
-    <!-- Chart JS
-        ============================================ -->
-    <script src="/js/chart/jquery.peity.min.js"></script>
-    <script src="/js/peity/peity-active.js"></script>
-    <!-- tab JS
-        ============================================ -->
-    <script src="/js/tab.js"></script>
-    <!-- morrisjs JS
-		============================================ -->
-    {{!-- <script src="/js/morrisjs/raphael-min.js"></script>
-    <script src="/js/morrisjs/morris.js"></script>
-    <script src="/js/morrisjs/morris-active.js"></script> --}}
-    <!-- morrisjs JS
-		============================================ -->
-    <script src="/js/sparkline/jquery.sparkline.min.js"></script>
-    <script src="/js/sparkline/jquery.charts-sparkline.js"></script>
-    <script src="/js/sparkline/sparkline-active.js">    </script>
-    <!-- calendar JS
-		============================================ -->
-    <script src="/js/calendar/moment.min.js"></script>
-    <script src="/js/calendar/fullcalendar.min.js"></script>
-    <script src="/js/calendar/fullcalendar-active.js"></script>
-        <!-- form validate JS
-		============================================ -->
-    <script src="/js/form-validation/jquery.form.min.js"></script>
-    <script src="/js/form-validation/jquery.validate.min.js"></script>
-    <script src="/js/form-validation/form-active.js"></script>
-    <!-- plugins JS
-		============================================ -->
-    <script src="/js/plugins.js"></script>
-    <!-- main JS
-		============================================ -->
-    <script src="/js/main.js"></script>
-    <!-- tawk chat JS
-		============================================ -->
-    <!-- <script src="/js/tawk-chat.js"></script> -->
-    <script>
-		let attriRowId;
-		let myDropzone;
-		function paramNameForSend() {
-			return "images";
-		}
+	============================================ -->
+<script src="/js/vendor/jquery-1.12.4.min.js"></script>
+<!-- bootstrap JS
+	============================================ -->
+<script src="/js/bootstrap.min.js"></script>
+<!-- wow JS
+	============================================ -->
+<script src="/js/wow.min.js"></script>
+<!-- price-slider JS
+	============================================ -->
+<script src="/js/jquery-price-slider.js"></script>
+<!-- meanmenu JS
+	============================================ -->
+<script src="/js/jquery.meanmenu.js"></script>
+<!-- owl.carousel JS
+	============================================ -->
+<script src="/js/owl.carousel.min.js"></script>
+<!-- sticky JS
+	============================================ -->
+<script src="/js/jquery.sticky.js"></script>
+<!-- scrollUp JS
+	============================================ -->
+<script src="/js/jquery.scrollUp.min.js"></script>
+<!-- counterup JS
+	============================================ -->
+<script src="/js/counterup/jquery.counterup.min.js"></script>
+<script src="/js/counterup/waypoints.min.js"></script>
+<script src="/js/counterup/counterup-active.js"></script>
+<!-- dropzone JS
+	============================================ -->
+{{!-- <script src="/js/dropzone/dropzone.js"></script> --}}
+<script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+<!-- mCustomScrollbar JS
+	============================================ -->
+<script src="/js/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="/js/scrollbar/mCustomScrollbar-active.js"></script>
+<!-- metisMenu JS
+	============================================ -->
+<script src="/js/metisMenu/metisMenu.min.js"></script>
+<script src="/js/metisMenu/metisMenu-active.js"></script>
+<!-- data table JS
+	============================================ -->
+<script src="/js/data-table/bootstrap-table.js"></script>
+<script src="/js/data-table/tableExport.js"></script>
+<script src="/js/data-table/data-table-active.js"></script>
+<script src="/js/data-table/bootstrap-table-editable.js"></script>
+<script src="/js/data-table/bootstrap-editable.js"></script>
+<script src="/js/data-table/bootstrap-table-resizable.js"></script>
+<script src="/js/data-table/colResizable-1.5.source.js"></script>
+<script src="/js/data-table/bootstrap-table-export.js"></script>
+<!--  editable JS
+	============================================ -->
+<script src="/js/editable/jquery.mockjax.js"></script>
+<script src="/js/editable/mock-active.js"></script>
+<script src="/js/editable/select2.js"></script>
+<script src="/js/editable/moment.min.js"></script>
+<script src="/js/editable/bootstrap-datetimepicker.js"></script>
+<script src="/js/editable/bootstrap-editable.js"></script>
+<script src="/js/editable/xediable-active.js"></script>
+<!-- datapicker JS
+	============================================ -->
+<script src="/js/datapicker/bootstrap-datepicker.js"></script>
+<script src="/js/datapicker/datepicker-active.js"></script>
+<!-- colorpicker JS
+	============================================ -->
+<script src="/js/colorpicker/jquery.spectrum.min.js"></script>
+<script src="/js/colorpicker/color-picker-active.js"></script>
+<!-- Chart JS
+	============================================ -->
+<script src="/js/chart/jquery.peity.min.js"></script>
+<script src="/js/peity/peity-active.js"></script>
+<!-- tab JS
+	============================================ -->
+<script src="/js/tab.js"></script>
+<!-- morrisjs JS
+	============================================ -->
+{{!-- <script src="/js/morrisjs/raphael-min.js"></script>
+<script src="/js/morrisjs/morris.js"></script>
+<script src="/js/morrisjs/morris-active.js"></script> --}}
+<!-- morrisjs JS
+	============================================ -->
+<script src="/js/sparkline/jquery.sparkline.min.js"></script>
+<script src="/js/sparkline/jquery.charts-sparkline.js"></script>
+<script src="/js/sparkline/sparkline-active.js">    </script>
+<!-- calendar JS
+	============================================ -->
+<script src="/js/calendar/moment.min.js"></script>
+<script src="/js/calendar/fullcalendar.min.js"></script>
+<script src="/js/calendar/fullcalendar-active.js"></script>
+	<!-- form validate JS
+	============================================ -->
+<script src="/js/form-validation/jquery.form.min.js"></script>
+<script src="/js/form-validation/jquery.validate.min.js"></script>
+<script src="/js/form-validation/form-active.js"></script>
+<!-- plugins JS
+	============================================ -->
+<script src="/js/plugins.js"></script>
+<!-- main JS
+	============================================ -->
+<script src="/js/main.js"></script>
+<!-- tawk chat JS
+	============================================ -->
+<!-- <script src="/js/tawk-chat.js"></script> -->
+<script>
+	let attriRowId;
+	let myDropzone;
+	function paramNameForSend() {
+		return "images";
+	}
+	
+	$(document).ready(function(){
+		Dropzone.options.createProductForm = { // The camelized version of the ID of the form element
+			// The configuration we've talked about above
+			autoProcessQueue: false,
+			uploadMultiple: true,
+			parallelUploads: 100,
+			maxFiles: 2,
+			acceptedFiles: "image/*",
+			addRemoveLinks: true,
+			paramName: paramNameForSend,
+			previewsContainer: document.querySelector('#imagePreviewContainer'),
+			// The setting up of the dropzone
+			init: function() {
+				myDropzone = this;
+				// First change the button to actually tell Dropzone to process the queue.
+				{{!-- this.element.querySelector("button[type=submit]").addEventListener("click", function(e) {
+					// Make sure that the form isn't actually being sent.
+					if(myDropzone.checkValidity()){
+						e.preventDefault();
+						e.stopPropagation();		
+						
+					}
+				}); --}}
+				// Listen to the sendingmultiple event. In this case, it's the sendingmultiple event instead
+				// of the sending event because uploadMultiple is set to true.
+				this.on("sendingmultiple", function() {
+				// Gets triggered when the form is actually being sent.
+				// Hide the success button or the complete form.
+					console.log("Sending");
+				});
+				this.on("successmultiple", function(files, response) {
+				// Gets triggered when the files have successfully been sent.
+				// Redirect user or notify of success.
+					window.location = response;
+					console.log("Success");
+					console.log(files); 
+				});
+				this.on("errormultiple", function(files, response) {
+				// Gets triggered when there was an error sending the files.
+				// Maybe show form again, and notify user of error
+				}); 
+			}
+		}	
+		const myAddProductForm = document.forms["add-product-form"];
 		
-        $(document).ready(function(){
-			Dropzone.options.createProductForm = { // The camelized version of the ID of the form element
-				// The configuration we've talked about above
-				autoProcessQueue: false,
-				uploadMultiple: true,
-				parallelUploads: 100,
-				maxFiles: 2,
-				acceptedFiles: "image/*",
-				addRemoveLinks: true,
-				paramName: paramNameForSend,
-				previewsContainer: document.querySelector('#imagePreviewContainer'),
-				// The setting up of the dropzone
-				init: function() {
-					myDropzone = this;
-					// First change the button to actually tell Dropzone to process the queue.
-					{{!-- this.element.querySelector("button[type=submit]").addEventListener("click", function(e) {
-						// Make sure that the form isn't actually being sent.
-						if(myDropzone.checkValidity()){
-							e.preventDefault();
-							e.stopPropagation();		
-							
-						}
-					}); --}}
-					// Listen to the sendingmultiple event. In this case, it's the sendingmultiple event instead
-					// of the sending event because uploadMultiple is set to true.
-					this.on("sendingmultiple", function() {
-					// Gets triggered when the form is actually being sent.
-					// Hide the success button or the complete form.
-						console.log("Sending");
-					});
-					this.on("successmultiple", function(files, response) {
-					// Gets triggered when the files have successfully been sent.
-					// Redirect user or notify of success.
-					 window.location = response;
-						console.log("Success");
-						console.log(files); 
-					});
-					this.on("errormultiple", function(files, response) {
-					// Gets triggered when there was an error sending the files.
-					// Maybe show form again, and notify user of error
-					}); 
-				}
-			}	
-            const myAddProductForm = document.forms["add-product-form"];
-          
-            $('#editAttributesModal').on('show.bs.modal', function (event) {
-                const button = $(event.relatedTarget) ;// Button that triggered the modal
-                const recipient1 = button.data('color'); // Extract info from data-* attributes
-                const recipient2 = button.data('size');
-                const recipient3 = button.data('quantity');
-                const recipient4 = button.data('price');
-				attriRowId = button.data("id");
-                const modal = $(this);
-                $("#hex1").spectrum({
-                    color: recipient1,
-                    preferredFormat: "hex",
-                    showInput: true,
-                });
+		$('#editAttributesModal').on('show.bs.modal', function (event) {
+			const button = $(event.relatedTarget) ;// Button that triggered the modal
+			let recipient1 = button.data('color'); // Extract info from data-* attributes
+			let recipient3 = button.data('quantity');
+			attriRowId = button.data("id");
+			const modal = $(this);
+			$("#hex1").spectrum({
+				color: recipient1,
+				preferredFormat: "hex",
+				showInput: true,
+			});
+			modal.find('.modal-body #hex1').val(recipient1);
+			$("#hex1").css({
+				display: "block",
+			});
+			modal.find('.modal-body #editQuantityBox').val(recipient3);
+		});
 
-                modal.find('.modal-body #hex1').val(recipient1);
-                $("#hex1").css({
-                    display: "block",
-                });
-                modal.find('.modal-body #editSizeBox').val(recipient2);
-                modal.find('.modal-body #editQuantityBox').val(recipient3);
-                modal.find('.modal-body #editPriceBox').val(recipient4);
-            });
-
-			// Fetch all the forms we want to apply custom Bootstrap validation styles to
-			const forms = document.getElementsByClassName('needs-validation');
-			// Loop over them and prevent submission
-			const validation = Array.prototype.filter.call(forms, function(form) {
-				form.addEventListener('submit', function(event) {
-					event.preventDefault();
-				if (form.checkValidity() === false) {
-					event.stopPropagation();
-					
-				}else{
-					if(form.classList.contains("dropzone")){
-						if($("#add-product-status-table tr").length < 2){
-							document.querySelector(".attri-empty-feedback").style.visibility="visible";
+		// Fetch all the forms we want to apply custom Bootstrap validation styles to
+		const forms = document.getElementsByClassName('needs-validation');
+		// Loop over them and prevent submission
+		const validation = Array.prototype.filter.call(forms, function(form) {
+			form.addEventListener('submit', function(event) {
+				event.preventDefault();
+			if (form.checkValidity() === false) {
+				event.stopPropagation();
+				
+			}else{
+				if(form.classList.contains("dropzone")){
+					if($("#add-product-status-table tr").length < 2){
+						document.querySelector(".attri-empty-feedback").style.visibility="visible";
+					}
+					else{
+						document.querySelector(".attri-empty-feedback").style.visibility="hidden";
+						if(myDropzone.getQueuedFiles().length > 0){
+							console.log("oke");
+							document.querySelector(".file-empty-feedback").style.visibility="hidden";
+							myDropzone.processQueue();
 						}
 						else{
-							document.querySelector(".attri-empty-feedback").style.visibility="hidden";
-							if(myDropzone.getQueuedFiles().length > 0){
-								console.log("oke");
-								document.querySelector(".file-empty-feedback").style.visibility="hidden";
-								myDropzone.processQueue();
-							}
-							else{
-								document.querySelector(".file-empty-feedback").style.visibility="visible";
-							}
+							document.querySelector(".file-empty-feedback").style.visibility="visible";
 						}
 					}
 				}
-				form.classList.add('was-validated');
-				}, false);
-			});
-
-			
+			}
+			form.classList.add('was-validated');
+			}, false);
 		});
 
-		function removeRow(row){
-			const attriTable = document.getElementById("add-product-status-table");
-			attriTable.deleteRow(row);
-		}
-		function onEditAtribute(){
-			let editAttriForm = document.forms["edit-modal"];
-			if(editAttriForm.checkValidity()){
-				let colors = document.getElementsByName("colors[]");
-				let sizes = document.getElementsByName("sizes[]");
-				let prices = document.getElementsByName("price[]");
-				let quantity = document.getElementsByName("quantity[]");
-				let colorBox = editAttriForm["proEditColor"];
-				let sizeBox = editAttriForm["proEditSize"];
-				let priceBox = editAttriForm["proEditPrice"];
-				let quantityBox = editAttriForm["proEditQuantity"];
-				colors[attriRowId-1].value = colorBox.value;
-				sizes[attriRowId-1].value = sizeBox.value;
-				prices[attriRowId-1].value = priceBox.value;
-				quantity[attriRowId-1].value = quantityBox.value;
-				$("#editAttributesModal").modal('hide');
-			}
-			return false;
-		}
+		
+	});
 
-		function onAddAtribute(){
-			let addAttriForm = document.forms["add-modal"];
-			if(addAttriForm.checkValidity()){
-				let colorBox = addAttriForm["proColorModal"];
-				let sizeBox = addAttriForm["proSizeModal"];
-				let priceBox = addAttriForm["proPriceModal"];
-				let quantityBox = addAttriForm["proQuantityModal"];
-				const attriTable = $("#add-product-status-table");	
-				const newRow = `
-				<tr>
-					<td>` + $("#add-product-status-table tr").length + `</td>
-					<td> <input name="colors[]" class="my-attribute-input my-attribute-input-color" style="background: ${colorBox.value}" readonly type="text" maxlength="255" value=${colorBox.value} /></td>
-					<td> <input name="sizes[]" class="my-attribute-input" readonly type="text" maxlength="255" value=${sizeBox.value} /></td>
-					<td> <input name="quantity[]" class="my-attribute-input" readonly type="number" value=${quantityBox.value} /></td>
-					<td> <input name="price[]" class="my-attribute-input" readonly type="number" value=${priceBox.value} /></td>
-					<td> 
-						<a href="#" data-toggle="modal" data-target="#editAttributesModal" data-id=${ $("#add-product-status-table tr").length} data-color=${colorBox.value} data-size=${sizeBox.value} data-quantity=${quantityBox.value} data-price=${priceBox.value} style="color: black; cursor:pointer;"><button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
-						<button onClick="removeRow(${$("#add-product-status-table tr").length})" data-toggle="tooltip" title="Trash" class="pd-setting-ed" style="color: black; cursor:pointer"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-					</td>
-				</tr>	
-				`;
-				{{!-- <tr>
-					<th>No</th>
-					<th>Color</th>
-					<th>Size</th>
-					<th>Quantity</th>
-					<th>Price ($)</th>
-					<th>Setting</th>
-				</tr> --}}
-				attriTable.append(newRow);
-				document.querySelector(".attri-empty-feedback").style.visibility="hidden";
-				$("#addAttributesModal").modal('hide');
-			}
-			return false;
+	function removeRow(row){
+		const attriTable = document.getElementById("add-product-status-table");
+		attriTable.deleteRow(row);
+	}
+	function onEditAtribute(){
+		let editAttriForm = document.forms["edit-modal"];
+		if(editAttriForm.checkValidity()){
+			let colors = document.getElementsByName("colors[]");
+			let quantity = document.getElementsByName("quantity[]");
+			let colorBox = editAttriForm["proEditColor"];
+			let quantityBox = editAttriForm["proEditQuantity"];
+			colors[attriRowId-1].value = colorBox.value;
+			colors[attriRowId-1].style.backgroundColor=colorBox.value;
+			quantity[attriRowId-1].value = quantityBox.value;
+			document.querySelectorAll('.my-toggle-edit-modal')[attriRowId - 1].dataset.color = colorBox.value;
+			document.querySelectorAll('.my-toggle-edit-modal')[attriRowId - 1].dataset.quantity = quantityBox.value;
+			$("#editAttributesModal").modal('hide');
 		}
-    
-	
-	</script>
-    <script>
+		return false;
+	}
 
-    </script>
+	function onAddAtribute(){
+		let addAttriForm = document.forms["add-modal"];
+		if(addAttriForm.checkValidity()){
+			let colorBox = addAttriForm["proColorModal"];
+			let quantityBox = addAttriForm["proQuantityModal"];
+			const attriTable = $("#add-product-status-table");	
+			const newRow = `
+			<tr>
+				<td>` + $("#add-product-status-table tr").length + `</td>
+				<td> <input name="colors[]" class="my-attribute-input my-attribute-input-color" style="background: ${colorBox.value}" readonly type="text" maxlength="255" value=${colorBox.value} /></td>
+				<td> <input name="quantity[]" class="my-attribute-input" readonly type="number" value=${quantityBox.value} /></td>
+				<td> 
+					<a class="my-toggle-edit-modal" href="#" data-toggle="modal" data-target="#editAttributesModal" data-id=${ $("#add-product-status-table tr").length} data-color=${colorBox.value}  data-quantity=${quantityBox.value}  style="color: black; cursor:pointer;"><button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
+					<button onClick="removeRow(${$("#add-product-status-table tr").length})" data-toggle="tooltip" title="Trash" class="pd-setting-ed" style="color: black; cursor:pointer"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+				</td>
+			</tr>	
+			`;
+		
+			attriTable.append(newRow);
+			document.querySelector(".attri-empty-feedback").style.visibility="hidden";
+			$("#addAttributesModal").modal('hide');
+		}
+		return false;
+	}
+
+
+</script>

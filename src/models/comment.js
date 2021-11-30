@@ -9,11 +9,15 @@ module.exports = function(sequelize, DataTypes) {
     },
     userID: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: 'user',
         key: 'f_ID'
       }
+    },
+    authorName: {
+      type: DataTypes.STRING(255),
+      allowNull: false
     },
     rate: {
       type: DataTypes.INTEGER,

@@ -77,22 +77,107 @@
 
  <div class="product-status mg-b-15">
     <div class="container-fluid">
+      <form role="search" method="get" id="search-form" class="sr-input-func" style="width: 100%;">
+        <div class="row">
+        <div class="col-lg-12 col-12">
+          <div class="breadcome-heading my-search-row">
+            {{!-- <form role="search" method="get" id="search-form" class="sr-input-func"> --}}
+             <div class="my-search-group">
+                  <input type="text" name="name"
+                    {{#if searchQuery}}
+                    value={{searchQuery}}
+                    {{/if}}					
+                placeholder="Search..." class="search-int form-control">
+                <button type="submit"><i class="fa fa-search"></i></button>
+             </div>
+            {{!-- </form> --}}
+          </div>
+        </div>
+        </div>
+        <div class="row my-search-row">
+        <div class="col-lg-2 col-md-6 col-sm-6 col-xs-6">
+          <h4 style="margin-top: 10px !important">Show Products of:</h4>
+        </div>
+            {{!-- Brand  --}}
+            {{!-- <a href="#" id="group" data-type="select" data-pk="1" data-value="0" data-source="/brands" data-title="Select group">All</a> --}}
+          <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">  
+            {{!-- <form method="get"> --}}
+              <select onchange="this.form.submit()" class="form-control" name="brandid">
+                <option value="">select brand</option>
+                  {{#each brands}}
+                    {{#if ../selectBrandQuery}}
+                        {{#isEqual this.brandID ../selectBrandQuery}}
+                            <option value="{{this.brandID}}" selected = "">{{this.brandName}}</option>
+                        {{else}}
+                            <option value="{{this.brandID}}">{{this.brandName}}</option>
+                        {{/isEqual}}
+                    {{else}}
+                        <option value="{{this.brandID}}">{{this.brandName}}</option>
+                    {{/if}}
+                  {{/each}}
+              </select>
+            {{!-- </form> --}}
+          </div>
+            {{!-- - Category --}}
+            {{!-- <a href="#" id="group1" data-type="select" data-pk="1" data-value="0" data-source="/categories" data-title="Select group">All</a> --}}
+          <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">  
+            {{!-- <form method="get"> --}}
+              <select onchange="this.form.submit()" class="form-control" name="cateid">
+                <option value="">select category</option>
+                {{#each categories}}
+                  {{#if ../selectCateQuery}}
+                    {{#isEqual this.catID ../selectCateQuery}}
+                        <option value="{{this.catID}}" selected = "">{{this.catName}}</option>
+                    {{else}}
+                        <option value="{{this.catID}}">{{this.catName}}</option>
+                    {{/isEqual}}
+                  {{else}}
+                    <option value="{{this.catID}}">{{this.catName}}</option>
+                  {{/if}}
+                {{/each}}
+              </select>
+            {{!-- </form> --}}
+          </div>
+            {{!-- - Gender --}}
+          <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12"> 
+            {{!-- <form method="get"> --}}
+              <select onchange="this.form.submit()" class="form-control" name="genderid">
+                <option value="">select gender</option>
+                {{#if selectGenderQuery}}
+
+                  {{#isEqual selectGenderQuery 1}}
+                    <option value="0">Men</option>
+                    <option value="1" selected="">Women</option>
+                    <option value="2">Unisex</option>
+                  {{/isEqual}}
+                  {{#isEqual selectGenderQuery 2}}
+                    <option value="0">Men</option>
+                    <option value="1">Women</option>
+                    <option value="2" selected="">Unisex</option>
+                  {{/isEqual}}
+                {{else}}
+                    {{#isEqual selectGenderQuery 0}}
+                        <option value="0" selected="">Men</option>
+                        <option value="1">Women</option>
+                        <option value="2">Unisex</option>
+                    {{else}}
+                        <option value="0">Men</option>
+                        <option value="1">Women</option>
+                        <option value="2">Unisex</option>
+                    {{/isEqual}}
+                {{/if}}
+              </select>
+            {{!-- </form> --}}
+            {{!-- <a href="#" id="group2" data-type="select" data-pk="1" data-value="0" data-source="/genders" data-title="Select group">All</a> --}}
+          </div>
+			<div class="add-product">
+				<a href="/products/add">Add Product</a>
+			</div>
+        </div>
+      </form>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="product-status-wrap">
-                     <h4>Show Products of: Brand 
-                        <a href="#" id="group" data-type="select" data-pk="1" data-value="0" data-source="/brands" data-title="Select group">All</a>
-                        - Category
-                        <a href="#" id="group1" data-type="select" data-pk="1" data-value="0" data-source="/categories" data-title="Select group">All</a>
-                        - Gender
-                        <a href="#" id="group2" data-type="select" data-pk="1" data-value="0" data-source="/genders" data-title="Select group">All</a>
-                    </h4>
-                    <div class="add-product">
-                        <a href="/products/add">Add Product</a>
-                    </div>
-                    <div>
-                        <a href="/products/bin"><i class="fa fa-trash-o" aria-hidden="true" style="margin-right: 5px;"></i>Trash Can</a>
-                    </div>
                     <div class="asset-inner">
                         <table>
                             <tr>
@@ -102,86 +187,48 @@
                                 <th>Brand</th>
                                 <th>Category</th>
                                 <th>Gender</th>
+                                <th>Price ($)</th>
+                                <th>Rating</th>
                                 <th>Quantity</th>
                                 <th>Action</th>
                             </tr>
-                            <tr>
-                                <td>1</td>
-                                <td><img src="/img/items/01.png" alt="" /></td>
-                                <td>Luxury Crazy Bunny</td>
-                                <td>Crazy Bunny</td>
-                                <td>T-Shirt</td>
-                                <td>Women</td>
-                                <td>110</td>
-                                <td>
-                                    {{!-- thay số 1 trong href dưới này bằng id của product --}}
-                                    <a href="/products/view/1" style="color: black;"><button data-toggle="tooltip" title="Details" class="pd-setting-ed"><i class="fa fa-info-circle" aria-hidden="true"></i></button></a>
-                                    
-                                    {{!-- thay số 1 trong href dưới này bằng id của product --}}
-                                    <a href="/products/edit/1" style="color: black;"><button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
-                                    <button title="Delete" class="pd-setting-ed" data-toggle="modal" data-target="#DangerModalalert"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td><img src="/img/items/11.png" alt="" /></td>
-                                <td>Zombie Popsicle 120</td>
-                                <td>Zombie Popsicle</td>
-                                <td>T-Shirt</td>
-                                <td>Men</td>
-                                <td>70</td>
-                                <td>
-                                    <a href="/products/view/1" style="color: black;"><button data-toggle="tooltip" title="Details" class="pd-setting-ed"><i class="fa fa-info-circle" aria-hidden="true"></i></button></a>
-                                    <a href="/products/edit/1" style="color: black;"><button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
-                                    <button title="Delete" class="pd-setting-ed" data-toggle="modal" data-target="#DangerModalalert"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td><img src="/img/items/17.png" alt="" /></td>
-                                <td>Simple Moustache Monster 10</td>
-                                <td>Moustache Monster</td>
-                                <td>T-Shirt</td>
-                                <td>Women</td>
-                                <td>50</td>
-                                <td>
-                                    <a href="/products/view/1" style="color: black;"><button data-toggle="tooltip" title="Details" class="pd-setting-ed"><i class="fa fa-info-circle" aria-hidden="true"></i></button></a>
-                                    <a href="/products/edit/1" style="color: black;"><button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
-                                    <button title="Delete" class="pd-setting-ed" data-toggle="modal" data-target="#DangerModalalert"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td><img src="/img/items/31.png" alt="" /></td>
-                                <td>Cool Bunny Sneaker</td>
-                                <td>Crazy Bunny</td>
-                                
-                                <td>Sneaker</td>
-                                <td>Unisex</td>
-                                <td>10</td>
-                                <td>
-                                    <a href="/products/view/1" style="color: black;"><button data-toggle="tooltip" title="Details" class="pd-setting-ed"><i class="fa fa-info-circle" aria-hidden="true"></i></button></a>
-                                    <a href="/products/edit/1" style="color: black;"><button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
-                                    <button title="Delete" class="pd-setting-ed" data-toggle="modal" data-target="#DangerModalalert"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td><img src="/img/items/09.png" alt="" /></td>
-                                <td>Deluxe Moustache Monster 11</td>
-                                <td>Moustache Monster</td>
-                                <td>T-Shirt</td>
-                                <td>Men</td>
-                                <td>80</td>
-                                <td>
-                                    <a href="/products/view/1" style="color: black;"><button data-toggle="tooltip" title="Details" class="pd-setting-ed"><i class="fa fa-info-circle" aria-hidden="true"></i></button></a>
-                                    <a href="/products/edit/1" style="color: black;"><button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
-                                    <button title="Delete" class="pd-setting-ed" data-toggle="modal" data-target="#DangerModalalert"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                                </td>
-                            </tr>
+                            {{#each products}}
+                                <tr>
+                                    <td>{{this.No}}</td>
+                                    <td><img src="{{this.image}}" alt="{{this.proName}}" /></td>
+                                    <td>{{this.proName}}</td>
+                                    <td>{{this.brand}}</td>
+                                    <td>{{this.category}}</td>
+                                    <td>{{this.gender}}</td>
+                                    <td>{{this.price}}</td>
+                                    <td>
+                                      {{#isBigger this.rating 0}}
+                                          <i class="educate-icon educate-star" style="color: #ffb463;"></i>
+                                      {{/isBigger}}
+                                      {{#isBigger this.rating 1}}
+                                          <i class="educate-icon educate-star" style="color: #ffb463;"></i>
+                                      {{/isBigger}}
+                                      {{#isBigger this.rating 2}}
+                                          <i class="educate-icon educate-star" style="color: #ffb463;"></i>
+                                      {{/isBigger}}
+                                      {{#isBigger this.rating 3}}
+                                          <i class="educate-icon educate-star" style="color: #ffb463;"></i>
+                                      {{/isBigger}}
+                                      {{#isBigger this.rating 4}}
+                                          <i class="educate-icon educate-star" style="color: #ffb463;"></i>
+                                      {{/isBigger}}
+                                    </td>
+                                    <td>{{this.quantity}}</td>
+                                    <td>
+                                      {{!-- <a href="/products/view/{{this.proID}}" style="color: black;"><button data-toggle="tooltip" title="Details" class="pd-setting-ed"><i class="fa fa-info-circle" aria-hidden="true"></i></button></a> --}}
+                                      <a href="/products/edit/{{this.proID}}" style="color: black;"><button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
+                                      <button data-id="{{this.proID}}" title="Delete" class="pd-setting-ed" data-toggle="modal" data-target="#deleteProductModal"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                    </td>
+                                </tr>
+                            {{/each}}
                         </table>
                     </div>
-                    <div id="DangerModalalert" class="modal modal-edu-general FullColor-popup-DangerModal fade" role="dialog">
+                    <div  id="deleteProductModal" class="modal modal-edu-general FullColor-popup-DangerModal fade" role="dialog">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-close-area modal-close-df">
@@ -193,21 +240,55 @@
                                     <!-- <p>If you delete this product, they can not access the shop's website anymore.</p> -->
                                 </div>
                                 <div class="modal-footer danger-md">
-                                    <a data-dismiss="modal" href="#">Cancel</a>
-                                    <a href="/products">Delete</a>
+                                    <button class="btn btn-danger " type="button" data-dismiss="modal">Cancel</button>
+                                    <form method="post" style="display: none;" id="delete-product-form"></form>
+									<button class="btn btn-danger" id="submit-delete-form" type="button">Delete</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="custom-pagination">
-                        <ul class="pagination">
-                            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                        </ul>
-                    </div>
+                    {{#if paginationArray}}
+                        <form 	
+                          method="get"
+                          action="/products"
+						            > 
+                          {{#if searchQuery}}
+                            <input readonly type="text" name="name" style="display: none;" value="{{searchQuery}}"/>
+                          {{/if}}
+						  {{#if selectBrandQuery}}
+                            <input readonly type="number" name="brandid" style="display: none;" value="{{selectBrandQuery}}"/>
+                          {{/if}}
+                          {{#if selectCateQuery}}
+                            <input readonly type="number" name="cateid" style="display: none;" value="{{selectCateQuery}}"/>
+                          {{/if}}
+                          {{#if selectGenderQuery}}
+                            <input readonly type="number" name="genderid" style="display: none;" value="{{selectGenderQuery}}"/>
+                          {{/if}} 
+                          <ul class="my-pagination">
+                              <li class="my-page-item">
+                                  <input onchange='this.form.submit();' style="display: none;" id="page-prev" value="{{prevPage}}" type="radio" name="page"/>
+                                  <label for="page-prev"  class="my-page-button">Prev</label>
+                              </li>
+                              {{#each paginationArray }}  
+                                  {{#if this.isCurrent}}
+                                      <li class="my-page-item">
+                                          <input onchange='this.form.submit();' style="display: none;" id="page-{{this.page}}" value="{{this.page}}" type="radio" name="page"/>
+                                          <label for="page-{{this.page}}"  class="my-page-link my-current-page">{{this.page}}</label>
+                                      </li>
+                                  {{else}}
+                                      <li class="my-page-item">
+                                          <input onchange='this.form.submit();' style="display: none;" id="page-{{this.page}}" value="{{this.page}}" type="radio" name="page"/>
+                                          <label for="page-{{this.page}}"  class="my-page-link">{{this.page}}</label>
+                                      </li>
+                                  {{/if}}
+                              {{/each}}
+                              <li class="my-page-item">
+                                  <input onchange='this.form.submit();' style="display: none;" id="page-next" value="{{nextPage}}" type="radio" name="page"/>
+                                  <label for="page-next"  class="my-page-button">Next</label>
+                              </li>
+                          </ul>
+                        </form>
+                    {{/if}}
                 </div>
             </div>
         </div>
@@ -301,3 +382,18 @@
     <!-- tawk chat JS
 		============================================ -->
     <!-- <script src="/js/tawk-chat.js"></script> -->
+	<script>
+		$(document).ready(function(){
+			const deleteForm = document.getElementById("delete-product-form");
+			document.getElementById("submit-delete-form").addEventListener('click', function(e){
+				deleteForm.submit();
+			});
+			console.log($('#deleteProductModal'));
+			$('#deleteProductModal').on('show.bs.modal', function (event) {
+				let button = $(event.relatedTarget) // Button that triggered the modal
+				let id = button.data('id') // Extract info from data-* attributes
+				let modal = $(this);
+				modal.find('#delete-product-form').attr('action', '/products/delete/' + id +'?_method=DELETE' );
+			});
+		})
+	</script>

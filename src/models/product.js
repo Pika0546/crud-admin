@@ -59,6 +59,10 @@ module.exports = function(sequelize, DataTypes) {
     isFeature: {
       type: DataTypes.INTEGER,
       allowNull: false
+    },
+    price: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: true
     }
   }, {
     sequelize,

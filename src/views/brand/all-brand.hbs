@@ -151,7 +151,7 @@
                                 </div>
                                 <div class="modal-footer danger-md">
                                     <button class="btn btn-danger " type="button" data-dismiss="modal">Cancel</button>
-                    				<form method="post" id="delete-brand-form"></form>
+                    				<form method="post" style="display: none;" id="delete-brand-form"></form>
 									<button class="btn btn-danger" id="submit-delete-form"  type="button">Delete</button>
                                 </div>
                             </div>
@@ -406,6 +406,7 @@
             addRemoveLinks: true,
             paramName: paramNameForSend,
             previewsContainer: document.querySelector('#imagePreviewContainer'),
+			
             // The setting up of the dropzone
             init: function() {
                 createDropzone = this;
@@ -425,7 +426,7 @@
 					// Gets triggered when there was an error sending the files.
 					// Maybe show form again, and notify user of error
 				}); 
-            }
+			}
         }	
 		 Dropzone.options.editBrandForm = { // The camelized version of the ID of the form element
             // The configuration we've talked about above
@@ -447,8 +448,7 @@
 						console.log("Sending");
 				});
 				this.on("success", function(files, response) {
-					// Gets triggered when the files have successfully been sent.
-					// Redirect user or notify of success.
+					
 						window.location = response;
 						console.log("Success");
 				});
@@ -493,7 +493,6 @@
 				}else{
 					if(form.id==="create-brand-form"){
 						if(createDropzone.getQueuedFiles().length > 0){
-							console.log("oke");
 							document.querySelector(".file-empty-feedback").style.visibility="hidden";
 							createDropzone.processQueue();
 						}
@@ -501,15 +500,13 @@
 							document.querySelector(".file-empty-feedback").style.visibility="visible";
 						}
 					}
-						if(form.id==="edit-brand-form"){
-							console.log("cl")
-							if(editDropzone.getQueuedFiles().length > 0){
+					if(form.id==="edit-brand-form"){
+						if(editDropzone.getQueuedFiles().length > 0){
 							editDropzone.processQueue();
-							}
-							else{
-								form.submit();
-							}
-						
+						}
+						else{
+							form.submit();
+						}
 					}
 				}
 				form.classList.add('was-validated');

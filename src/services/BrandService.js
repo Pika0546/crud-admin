@@ -25,8 +25,24 @@ class BrandService{
         }
     }
 
-    totalBrand(){
-        return models.brand.count();
+    listAll(){
+        return models.brand.findAll({raw:true});
+    }
+
+    totalBrand(name){
+        if(name){
+            return models.brand.count({
+               where:{
+                    brandName:{
+                        [Op.substring]: name
+                    }
+               }
+            });
+        }
+        else{
+            return models.brand.count();
+        }
+        
     }
 
     totalTrashBrand(){

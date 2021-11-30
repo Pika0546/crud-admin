@@ -179,7 +179,7 @@
 #search-form button{
     position: absolute;
     top: 8px;
-    right: -5px;
+    right: 5px;
     color: #999;
     transition: .5s ease-out;
     font-size: 14px;
@@ -194,3 +194,14 @@
     margin: 10px 0;
 }
 
+
+#update-image-form{
+    cursor: unset !important;
+    padding: 0 !important;
+    border: none;
+}
+
+.my-search-group{
+    width: 200px;
+    position:relative;
+}

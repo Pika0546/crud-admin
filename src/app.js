@@ -8,7 +8,7 @@ const handlebars  = require('express-handlebars');
 const methodOverride = require('method-override');
 const route = require('./routes');
 const app = express();
-const port = 3000;
+const port = 3006;
 
 
 // view engine setup
@@ -21,13 +21,19 @@ app.engine('.hbs',
 				this._sections[name] = options.fn(this);
 				return null;
 			},
-			isBigger: function(a,b){
-				return a > b;
+			isBigger: function(v1, v2, options) {
+				if(v1 > v2) {
+				  return options.fn(this);
+				}
+				return options.inverse(this);
+			},
+			isEqual: function(v1, v2, options) {
+				if(v1 === v2) {
+				  return options.fn(this);
+				}
+				return options.inverse(this);
 			},
 			sum: function(a,b){
-				console.log(a);
-				console.log(b);
-				console.log(a+b);
 				return a + b;
 			}
 		}

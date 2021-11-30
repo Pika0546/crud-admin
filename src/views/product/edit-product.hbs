@@ -1,6 +1,6 @@
 {{#section 'head'}}
     <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">   
     <title>Edit Product</title>
     <meta name="description" content="">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
@@ -42,7 +42,7 @@
     <link rel="stylesheet" href="/css/colorpicker/colorpicker.css">
     <!-- dropzone CSS
 		============================================ -->
-    <link rel="stylesheet" href="/css/dropzone/dropzone.css">
+    <link href="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone.css" rel="stylesheet" type="text/css" />
     <!-- educate icon CSS
 		============================================ -->
     <link rel="stylesheet" href="/css/educate-custon-icon.css">
@@ -90,8 +90,8 @@
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="add-product">
-                    <a href="#" style="color: black; position: relative; background: transparent; padding: 0px"><button data-toggle="modal" data-target="#DangerModalalert" title="Edit" class="pd-setting-ed"><i class="fa fa-trash-o" aria-hidden="true"></i></button></a>
-                    <!-- <button title="Delete" class="pd-setting-ed" data-toggle="modal" data-target="#DangerModalalert" style="color: black; position: relative; background: transparent; padding: 0px"><i class="fa fa-trash-o" aria-hidden="true"></i></button> -->
+                    <a href="#" style="color: black; position: relative; background: transparent; padding: 0px"><button data-toggle="modal" data-target="#deleteProductModal" title="Edit" class="pd-setting-ed"><i class="fa fa-trash-o" aria-hidden="true"></i></button></a>
+                    <!-- <button title="Delete" class="pd-setting-ed" data-toggle="modal" data-target="#deleteProductModal" style="color: black; position: relative; background: transparent; padding: 0px"><i class="fa fa-trash-o" aria-hidden="true"></i></button> -->
                 </div>
                 <div class="product-payment-inner-st">
                     <ul id="myTabedu1" class="tab-review-design">
@@ -104,72 +104,100 @@
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div class="review-content-section">
-                                        <form class="needs-validation" method="post" action="/products/update" name="editProductForm" id="edit-product-form" novalidate> 
+                                        <form class="needs-validation" method="post" action="/products/edit/detail/{{item.proID}}?_method=PUT" name="editProductForm" id="edit-product-form" novalidate> 
                                             <div class="row">
-                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                                    <label>Name:</label>
-                                                    <div class="form-group">
-                                                        <input name="editNameBox" type="text" class="form-control" value="Luxury Crazy Bunny" required>
-														<div class="invalid-feedback">
-															Please provide a valid name.
-														</div>
-													</div>
-                                                    <label>Brand:</label>
-                                                    <div class="form-group">
-                                                        <select name="editBrandBox" class="form-control">
-                                                            <option value="1" selected="">Crazy Bunny</option>
-                                                            <option value="2">Moustache Monster</option>
-                                                            <option value="3">Crazy Rockpanda</option>
-                                                            <option value="4">Zombie Popsicle</option>
-														</select>
-                                                    </div>
-                                                    <label>Category:</label>
-                                                    <div class="form-group">
-                                                        <select name="editCateBox" class="form-control">
-                                                            <option value="1" selected="">T-Shirt</option>
-                                                            <option value="2">Backpack</option>
-                                                            <option value="3">Cap</option>
-                                                            <option value="4">Sneaker</option>
+                                                {{#with item}}
+                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                        <label>Name:</label>
+                                                        <div class="form-group">
+                                                            <input name="editNameBox" type="text" class="form-control" value="{{proName}}" required>
+                                                            <div class="invalid-feedback">
+                                                                Please provide a valid name.
+                                                            </div>
+                                                        </div>
+                                                        <label>Brand:</label>
+                                                        <div class="form-group">
+                                                            <select name="editBrandBox" class="form-control">
+                                                                {{#each brands}}
+                                                                    {{#isEqual this.brandID ../brandID}}
+                                                                        <option value="{{this.brandID}}" selected = "">{{this.brandName}}</option>
+                                                                    {{else}}
+                                                                        <option value="{{this.brandID}}">{{this.brandName}}</option>
+                                                                    {{/isEqual}}
+                                                                {{/each}}
                                                             </select>
+                                                        </div>
+                                                       
+                                                        <label>Category:</label>
+                                                        <div class="form-group">
+                                                            <select name="editCateBox" class="form-control">
+                                                                {{#each categories}}
+                                                                    {{#isEqual this.catID ../catID}}
+                                                                        <option value="{{this.catID}}" selected = "">{{this.catName}}</option>
+                                                                    {{else}}
+                                                                        <option value="{{this.catID}}">{{this.catName}}</option>
+                                                                    {{/isEqual}}
+                                                                {{/each}}
+                                                            </select>
+                                                        </div>
+                                                        <label>Created date:</label>
+                                                        <div class="form-group">
+                                                            <input name="birthdate" type="text" class="form-control" required value="{{proDate}}" readonly="">
+                                                        </div>
+                                                        <label>Quantity sold:</label>
+                                                        <div class="form-group">
+                                                            <input  type="number" class="form-control" required value="{{sold}}" readonly="">
+                                                        </div>
+                                                        <label>Price($):</label>
+                                                        <div class="form-group">
+                                                            <input name="proPrice" type="number" min="0"  class="form-control"  placeholder="Price" value="{{price}}" required>
+                                                        </div>
                                                     </div>
-                                                    <label>Created date:</label>
-                                                    <div class="form-group">
-                                                        <input name="birthdate" type="text" class="form-control" required value="16/11/2021" readonly="">
+                                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                        <label>Gender:</label>
+                                                        <div class="form-group">
+                                                            <select required name="editGenderBox" class="form-control">
+                                                                {{#isEqual sex 0}}
+                                                                    <option value="0" selected="">Men</option>
+                                                                    <option value="1">Women</option>
+                                                                    <option value="2">Unisex</option>
+                                                                {{/isEqual}}
+                                                                {{#isEqual sex 1}}
+                                                                    <option value="0">Men</option>
+                                                                    <option value="1" selected="">Women</option>
+                                                                    <option value="2">Unisex</option>
+                                                                {{/isEqual}}
+                                                                {{#isEqual sex 2}}
+                                                                    <option value="0">Men</option>
+                                                                    <option value="1">Women</option>
+                                                                    <option value="2" selected="">Unisex</option>
+                                                                {{/isEqual}}
+                                                            </select>
+                                                        </div>
+                                                        <label>Summary description:</label>
+                                                        <div class="form-group res-mg-t-15">
+                                                            <input required name="editSubDesBox" type="text" class="form-control"  value="{{description}}">
+                                                            <div class="invalid-feedback">
+                                                                Please provide a valid description.
+                                                            </div>
+                                                        </div>
+                                                        <label>Full description:</label>
+                                                        <div class="form-group edit-ta-resize">
+                                                            <textarea name="editDesBox" class="form-control" required>{{fullDescription}}</textarea>
+                                                            <div class="invalid-feedback">
+                                                                Please provide a valid description.
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group edit-ta-resize">
+                                                            {{#isEqual isFeature 1}}
+                                                                <input name="editFeatureBox" id="proFeature" type="checkbox" class="i-checks" checked=""/>
+                                                            {{else}}
+                                                                <input name="editFeatureBox" id="proFeature" type="checkbox" class="i-checks"/>
+                                                            {{/isEqual}}
+                                                            <label for="proFeature">Mark as Feature Product</label> 
+                                                        </div>
                                                     </div>
-                                                    <label>Quantity sold:</label>
-                                                    <div class="form-group">
-                                                        <input  type="number" class="form-control" required value="11200" readonly="">
-                                                    </div>
-
-                                                </div>
-                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                                    <label>Gender:</label>
-                                                    <div class="form-group">
-                                                        <select required name="editGenderBox" class="form-control">
-                                                            <option value="1" selected="">Men</option>
-                                                            <option value="2">Women</option>
-                                                            <option value="3">Unisex</option>
-                                                        </select>
-                                                    </div>
-                                                    <label>Summary description:</label>
-                                                    <div class="form-group res-mg-t-15">
-                                                        <input name="editSubDesBox" type="text" class="form-control"  value="Lorem ipsum dolor sit amet of">
-														<div class="invalid-feedback">
-															Please provide a valid description.
-														</div>
-													</div>
-                                                    <label>Full description:</label>
-                                                    <div class="form-group edit-ta-resize">
-                                                        <textarea name="editDesBox" class="form-control" required>Lorem ipsum dolor sit amet of, consectetur adipiscing elitable. Vestibulum tincidunt est vitae ultrices accumsan.</textarea>
-														<div class="invalid-feedback">
-															Please provide a valid description.
-														</div>
-													</div>
-                                                    <div class="form-group edit-ta-resize">
-                                                        <input name="editFeatureBox" id="proFeature" type="checkbox" class="i-checks"/>
-														<label for="proFeature">Mark as Feature Product</label> 
-                                                    </div>
-                                                </div>
+                                                {{/with}}    
                                             </div>
                                             <div class="row">
                                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -183,46 +211,26 @@
                                                                 <tr>
                                                                     <th>No</th>
                                                                     <th>Color</th>
-                                                                    <th>Size</th>
                                                                     <th>Quantity</th>
-                                                                    <th>Price ($)</th>
                                                                     <th>Setting</th>
                                                                 </tr>
-                                                                <tr>
-                                                                    <td>1</td>
-                                                                    <td><input name="colors[]" class="my-attribute-input my-attribute-input-color" style="background: #39f5dc" readonly type="text" value="#39f5dc" /></td>
-                                                                    <td><input name="sizes[]" class="my-attribute-input" readonly type="text" value="Small" /></td>
-                                                                    <td><input name="quantity[]" class="my-attribute-input" readonly type="number" value="35"/></td>
-                                                                    <td><input name="price[]" class="my-attribute-input" readonly type="number" value="100" /></td>
-                                                                    <td>
-                                                                        <a href="#" data-id="1" data-toggle="modal" data-target="#editAttributesModal" data-color="#39f5dc" data-size="Small" data-quantity="35" data-price="1500" style="color: black;"><button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
-																		<button onClick="removeRow(1)" data-toggle="tooltip" title="Trash" class="pd-setting-ed" style="color: black; cursor:pointer"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>2</td>
-                                                                    <td><input name="colors[]" class="my-attribute-input my-attribute-input-color" style="background: #39f5dc" readonly type="text" value="#39f5dc" /></td>
-                                                                    <td><input name="sizes[]" class="my-attribute-input" readonly type="text" value="Small" /></td>
-                                                                    <td><input name="quantity[]" class="my-attribute-input" readonly type="number" value="35"/></td>
-                                                                    <td><input name="price[]" class="my-attribute-input" readonly type="number" value="100" /></td>
-                                                                    <td>
-                                                                        <a href="#" data-id="2" data-toggle="modal" data-target="#editAttributesModal" data-color="#39f5dc" data-size="Small" data-quantity="35" data-price="1500" style="color: black;"><button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
-																		<button onClick="removeRow(2)" data-toggle="tooltip" title="Trash" class="pd-setting-ed" style="color: black; cursor:pointer"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>3</td>
-                                                                    <td><input  name="colors[]" class="my-attribute-input my-attribute-input-color" style="background: #39f5dc" readonly type="text" value="#39f5dc" /></td>
-                                                                    <td><input name="sizes[]" class="my-attribute-input" readonly type="text" value="Small" /></td>
-                                                                    <td><input name="quantity[]" class="my-attribute-input" readonly type="number" value="35"/></td>
-                                                                    <td><input name="price[]" class="my-attribute-input" readonly type="number" value="100" /></td>
-                                                                    <td>
-                                                                        <a href="#" data-id="3" data-toggle="modal" data-target="#editAttributesModal" data-color="#39f5dc" data-size="Small" data-quantity="35" data-price="1500" style="color: black;"><button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
-																		<button onClick="removeRow(3)" data-toggle="tooltip" title="Trash" class="pd-setting-ed" style="color: black; cursor:pointer"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                                                                    </td>
-                                                                </tr>
+                                                                {{#each details}}
+                                                                    <tr>
+                                                                        <td>{{this.No}} <input name="detailID" value="{{this.detailID}}" style="display: none;" readonly/></td>
+                                                                        <td><input name="colors" class="my-attribute-input my-attribute-input-color" style="background: {{this.color}}" readonly type="text" value="{{this.color}}" /></td>
+                                                                        <td><input name="quantity" class="my-attribute-input" readonly type="number" value="{{this.quantity}}"/></td>
+                                                                        <td>
+                                                                            <a class="my-toggle-edit-modal" href="#" data-id="{{this.No}}" data-toggle="modal" data-target="#editAttributesModal" data-color="{{this.color}}" data-quantity="{{this.quantity}}"  style="color: black;"><button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
+                                                                            <button onClick="removeRow({{this.No}})" data-toggle="tooltip" title="Trash" class="pd-setting-ed" style="color: black; cursor:pointer"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                                                        </td>
+                                                                    </tr>
+                                                                   
+                                                                {{/each}}
                                                             </table>
                                                         </div>
+                                                        <div class="attri-empty-feedback" style="color: #dc3545;font-size: 80%; visibility:hidden;">
+										                    Please add at least one attribute.
+									                    </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -230,7 +238,7 @@
                                                 <div class="col-lg-12">
                                                     <div class="payment-adress">
                                                         <!-- <button type="submit" class="btn btn-primary waves-effect waves-light">Submit</button> -->
-                                                        <a href="/products/edit/1"><button type="submit" class="btn btn-primary waves-effect waves-light">Update</button></a>
+                                                        <button type="submit" class="btn btn-primary waves-effect waves-light">Update</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -263,13 +271,6 @@
 																			</div>
 																		</div>
 																	</div>
-																	<div class="form-group">
-																		<label for="addSizeBox">Size:</label>
-																		<input required name="proSizeModal" id="addSizeBox" name="coursename" type="text"  class="form-control" placeholder="Size">
-																		<div class="invalid-feedback">
-																			Please provide a valid size.
-																		</div>
-																	</div>
 																</div>
 																<div class="col-lg-6">
 																	<div class="form-group">
@@ -277,13 +278,6 @@
 																		<input required name="proQuantityModal" id="addQuantityBox" name="coursename" type="number" min="0" class="form-control" placeholder="Quantity">
 																		<div class="invalid-feedback">
 																			Please provide a valid quantity.
-																		</div>
-																	</div>
-																	<div class="form-group">
-																		<label for="addPriceBox">Price ($):</label>
-																		<input required name="proPriceModal" id="addPriceBox" name="coursename" type="number" min="0"  class="form-control" placeholder="Price">
-																		<div class="invalid-feedback">
-																			Please provide a valid price.
 																		</div>
 																	</div>
 																</div>
@@ -326,25 +320,11 @@
 																			</div>
 																		</div>
 																	</div>
-																	<div class="form-group">
-																		<label for="editSizeBox">Size:</label>
-																		<input required name="proEditSize" id="editSizeBox" name="coursename" type="text"  class="form-control" placeholder="Size">
-																		<div class="invalid-feedback">
-																			Please provide a valid size.
-																		</div>
-																	</div>
 																</div>
 																<div class="col-lg-6">
 																	<div class="form-group">
 																		<label for="editQuantityBox">Quantity:</label>
-																		<input required name="proEditQuantity" id="editQuantityBox" name="coursename" type="number" min="0"  class="form-control" placeholder="Quantity">
-																		<div class="invalid-feedback">
-																			Please provide a valid Quantity.
-																		</div>
-																	</div>
-																	<div class="form-group">
-																		<label for="editPriceBox">Price ($):</label>
-																		<input required name="proEditPrice" id="editPriceBox" name="coursename" type="number" min="0" class="form-control" placeholder="Price">
+																		<input required name="proEditQuantity" id="editQuantityBox" type="number" min="0"  class="form-control" placeholder="Quantity">
 																		<div class="invalid-feedback">
 																			Please provide a valid Quantity.
 																		</div>
@@ -368,85 +348,47 @@
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div class="review-content-section">
-                                        <!-- <div id="dropzone1" class="pro-ad addcoursepro">
-                                            <form action="#" class="dropzone dropzone-custom needsclick add-professors" id="demo1-upload"> -->
-                                                <div class="row">
-                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                        <!-- <div class="form-group">
-                                                            <input name="number" type="text" class="form-control" placeholder="Course Name" value="Apps Development">
+                                        <form method="post" action="/products/edit/image/{{item.proID}}?_method=PUT" class="dropzone dropzone-custom needsclick" id="update-image-form">
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    {{#each images}}
+                                                        {{!-- <div class="form-group">
+                                                            <label>Image {{this.No}}:</label>
                                                         </div>
+                                                        <img class="my-edit-img" src="{{this.proImage}}" alt="Image {{this.No}}" /> --}}
                                                         <div class="form-group">
-                                                            <input type="text" class="form-control" placeholder="Course Start Date" value="12/10/2017">
+                                                            <input style="display: none;" id="checkbox{{this.No}}" type="checkbox" name="productImages" value="{{this.proImage}}">       
+                                                            {{!-- <label for="checkbox{{this.No}}"> Select to remove</label> --}}
                                                         </div>
-                                                        <div class="form-group">
-                                                            <input type="text" class="form-control" placeholder="Course Duration" value="6 Months">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <input type="text" class="form-control" placeholder="Course Price" value="$400">
-                                                        </div> -->
-                                                        <div class="form-group">
-                                                            <label>Image 1:</label>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <img class="my-edit-img" src="/img/items/01.png" alt="" />
-                                                            <button data-toggle="tooltip" title="Delete" class="pd-setting-ed"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Image 2:</label>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <img class="my-edit-img" src="/img/items/01.png" alt="" />
-                                                            <button data-toggle="tooltip" title="Delete" class="pd-setting-ed"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Add more images:</label>
-                                                        </div>
-                                                        <!-- <div class="form-group alert-up-pd">
+                                                    {{/each}}
+
+                                                
+                                                    <div class="form-group">
+                                                        <label>Add more images:</label>
+                                                    </div>
+                                                    <div class="dropzone-pro mg-tb-30">
+                                                        <div id="dropzone1" class="multi-uploader-cs">
                                                             <div class="dz-message needsclick download-custom">
-                                                                <i class="fa fa-download edudropnone" aria-hidden="true"></i>
-                                                                <h2 class="edudropnone">Drop image here or click to upload.</h2>
-                                                                <p class="edudropnone"><span class="note needsclick">(This is just a demo dropzone. Selected image is <strong>not</strong> actually uploaded.)</span>
-                                                                </p>
-                                                                <input name="imageico" class="hd-pro-img" type="text" />
-                                                            </div>
-                                                        </div> -->
-                                                        <div class="dropzone-pro mg-tb-30">
-                                                            <div id="dropzone1" class="multi-uploader-cs">
-                                                                <form action="/upload" class="dropzone dropzone-custom needsclick" id="update-image">
-                                                                    <div class="dz-message needsclick download-custom">
-                                                                        <i class="fa fa-download" aria-hidden="true"></i>
-                                                                        <h2>Drop files here or click to upload.</h2>
-                                                                        <p><span class="note needsclick">(This is just a demo dropzone. Selected files are <strong>not</strong> actually uploaded.)</span>
-                                                                        </p>
-                                                                    </div>
-                                                                </form>
+                                                                <i class="fa fa-download" aria-hidden="true"></i>
+                                                                <h2>Drop files here or click to upload.</h2>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <!-- <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                                        <div class="form-group res-mg-t-15">
-                                                            <input type="text" class="form-control" placeholder="Department" value="CSE">
-                                                        </div>
-                                                        <div class="form-group edit-ta-resize">
-                                                            <textarea name="description">Lorem ipsum dolor sit amet of, consectetur adipiscing elitable. Vestibulum tincidunt est vitae ultrices accumsan.</textarea>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <input type="text" class="form-control" placeholder="Course Professor" value="Selima sha">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <input type="text" class="form-control" placeholder="Year" value="1 Year">
-                                                        </div>
-                                                    </div> -->
+                                                     <div class="file-empty-feedback" style="color: #dc3545;font-size: 80%; visibility:hidden">
+                                                            Please add at least one photo.
+                                                    </div>
+                                                    <div id="imagePreviewContainer" class="dropzone-previews"></div>
                                                 </div>
-                                                <div class="row">
-                                                    <div class="col-lg-12">
-                                                        <div class="payment-adress">
-                                                            <a href="/products/edit/1"><button type="submit" class="btn btn-primary waves-effect waves-light">Update</button></a>
-                                                        </div>
+                                            </div>
+                                            
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <div class="payment-adress">
+                                                       <button type="submit" id="submit-image" class="btn btn-primary waves-effect waves-light">Update</button>
                                                     </div>
                                                 </div>
-                                            <!-- </form> -->
-                                        <!-- </div> -->
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -456,100 +398,42 @@
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div class="review-content-section">
                                         <div class="chat-discussion" style="height: auto">
-                                            <div class="chat-message">
-                                                <!-- <div class="profile-hdtc">
-                                                      <img class="message-avatar" src="/img/contact/1.jpg" alt="">
-                                                </div> -->
-                                                <div class="message" style="margin-left: 0px">
-                                                    <a class="message-author" href="/users/guest/1"> Michael Smith </a>
-                                                    <span class="message-date"> Mon Jan 26 2015 - 18:39:23 </span>
-                                                    <span class="message-content"><b>Lorem ipsum dolor sit amet</b></span>
-                                                    <span class="message-content">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
-                                                    </span>
-                                                    <div class="m-t-md mg-t-10">
-                                                        <div class="review-item-rating">
-                                                            <i class="educate-icon educate-star"></i>
-                                                            <i class="educate-icon educate-star"></i>
-                                                            <i class="educate-icon educate-star"></i>
-                                                            <i class="educate-icon educate-star"></i>
-                                                            <i class="educate-icon educate-star-half"></i>
+                                            {{#each reviews}}
+                                                <div class="chat-message">
+                                                    <!-- <div class="profile-hdtc">
+                                                        <img class="message-avatar" src="/img/contact/1.jpg" alt="">
+                                                    </div> -->
+                                                    <div class="message" style="margin-left: 0px">
+                                                        {{#if this.userID}}
+                                                            <a class="message-author" href="/users/guest/{{this.userID}}"> {{this.authorName}} </a>
+                                                        {{else}}
+                                                            <label class="message-author"> {{this.authorName}} </label>
+                                                        {{/if}}
+                                                        <span class="message-date"> {{this.date}} </span>
+                                                        <span class="message-content"><b>{{this.sumary}}</b></span>
+                                                        <span class="message-content">{{this.com}}
+                                                        </span>
+                                                        <div class="m-t-md mg-t-10">
+                                                            <div class="review-item-rating">
+                                                                <i class="educate-icon educate-star"></i>
+                                                                {{#isBigger this.rate 1}}
+                                                                    <i class="educate-icon educate-star"></i>
+                                                                {{/isBigger}}
+                                                                {{#isBigger this.rate 2}}
+                                                                    <i class="educate-icon educate-star"></i>
+                                                                {{/isBigger}}
+                                                                {{#isBigger this.rate 3}}
+                                                                    <i class="educate-icon educate-star"></i>
+                                                                {{/isBigger}}
+                                                                {{#isBigger this.rate 4}}
+                                                                    <i class="educate-icon educate-star"></i>
+                                                                {{/isBigger}}
+                                                            </div>
+                                                            <button data-id="{{this.commentID}}" title="Delete" class="pd-setting-ed" data-toggle="modal" data-target="#deleteViewModal"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
                                                         </div>
-                                                        <button title="Delete" class="pd-setting-ed" data-toggle="modal" data-target="#DangerModalalert1"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                                                        <!-- <a class="btn btn-xs btn-default"><i class="fa fa-trash-o"></i></a> -->
-                                                        <!-- <a class="btn btn-xs btn-success"><i class="fa fa-heart"></i> Love</a> -->
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="chat-message">
-                                                <!-- <div class="profile-hdtc">
-                                                      <img class="message-avatar" src="/img/contact/2.jpg" alt="">
-                                                </div> -->
-                                                <div class="message" style="margin-left: 0px">
-                                                    <a class="message-author" href="/users/guest/1"> Karl Jordan </a>
-                                                    <span class="message-date">  Fri Jan 25 2015 - 11:12:36 </span>
-                                                    <span class="message-content"><b>Lorem ipsum dolor sit amet</b></span>
-                                                    <span class="message-content">
-                                                            Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover.
-                                                            </span>
-                                                    <div class="m-t-md mg-t-10">
-                                                        <div class="review-item-rating">
-                                                            <i class="educate-icon educate-star"></i>
-                                                            <i class="educate-icon educate-star"></i>
-                                                            <i class="educate-icon educate-star"></i>
-                                                            <i class="educate-icon educate-star"></i>
-                                                            <i class="educate-icon educate-star-half"></i>
-                                                        </div>
-                                                        <button title="Delete" class="pd-setting-ed" data-toggle="modal" data-target="#DangerModalalert1"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="chat-message">
-                                                <!-- <div class="profile-hdtc">
-                                                      <img class="message-avatar" src="/img/contact/3.jpg" alt="">
-                                                </div> -->
-                                                <div class="message" style="margin-left: 0px">
-                                                    <a class="message-author" href=""> Mark Smith </a>
-                                                    <span class="message-date">  Fri Jan 25 2015 - 11:12:36 </span>
-                                                    <span class="message-content"><b>Lorem ipsum dolor sit amet</b></span>
-                                                    <span class="message-content">
-                                                            There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration.
-                                                            </span>
-                                                    <div class="m-t-md mg-t-10">
-                                                        <div class="review-item-rating">
-                                                            <i class="educate-icon educate-star"></i>
-                                                            <i class="educate-icon educate-star"></i>
-                                                            <i class="educate-icon educate-star"></i>
-                                                            <i class="educate-icon educate-star"></i>
-                                                            <i class="educate-icon educate-star"></i>
-                                                        </div>
-                                                        <button title="Delete" class="pd-setting-ed" data-toggle="modal" data-target="#DangerModalalert1"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="chat-message">
-                                                <!-- <div class="profile-hdtc">
-                                                      <img class="message-avatar" src="/img/contact/4.jpg" alt="">
-                                                </div> -->
-                                                <div class="message" style="margin-left: 0px">
-                                                    <a class="message-author" href=""> Alice Jordan </a>
-                                                    <span class="message-date">  Fri Jan 25 2015 - 11:12:36 </span>
-                                                    <span class="message-content"><b>Lorem ipsum dolor sit amet</b></span>
-                                                    <span class="message-content">
-                                                            All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet.
-                                                                It uses a dictionary of over 200 Latin words.
-                                                            </span>
-                                                    <div class="m-t-md mg-t-10">
-                                                        <div class="review-item-rating">
-                                                            <i class="educate-icon educate-star"></i>
-                                                            <i class="educate-icon educate-star"></i>
-                                                            <i class="educate-icon educate-star"></i>
-                                                            <i class="educate-icon educate-star"></i>
-                                                            <i class="educate-icon educate-star"></i>
-                                                        </div>
-                                                        <button title="Delete" class="pd-setting-ed" data-toggle="modal" data-target="#DangerModalalert1"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            {{/each}}
                                         </div>
                                     </div>
                                 </div>
@@ -557,7 +441,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="DangerModalalert" class="modal modal-edu-general FullColor-popup-DangerModal fade" role="dialog">
+                <div id="deleteProductModal" class="modal modal-edu-general FullColor-popup-DangerModal fade" role="dialog">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-close-area modal-close-df">
@@ -569,13 +453,15 @@
                                 <!-- <p>If you delete this product, they can not access the shop's website anymore.</p> -->
                             </div>
                             <div class="modal-footer danger-md">
-                                <a data-dismiss="modal" href="#">Cancel</a>
-                                <a href="/products">Delete</a>
+                                <button class="btn btn-danger " type="button" data-dismiss="modal">Cancel</button>
+                                <form method="post" style="display: none;" id="delete-product-form" action="/products/delete/{{item.proID}}?_method=DELETE"></form>
+                                <button class="btn btn-danger" id="submit-delete-form" type="button">Delete</button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div id="DangerModalalert1" class="modal modal-edu-general FullColor-popup-DangerModal fade" role="dialog">
+
+                <div id="deleteViewModal" class="modal modal-edu-general FullColor-popup-DangerModal fade" role="dialog">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-close-area modal-close-df">
@@ -587,8 +473,9 @@
                                 <p>If you delete this review, it can not be shown on the shop's website anymore.</p>
                             </div>
                             <div class="modal-footer danger-md">
-                                <a data-dismiss="modal" href="#">Cancel</a>
-                                <a href="/products/edit/1">Delete</a>
+                                <button class="btn btn-danger " type="button" data-dismiss="modal">Cancel</button>
+                                <form method="post" style="display: none;" id="delete-review-form" ></form>
+                                <button class="btn btn-danger" id="submit-delete-review-form" type="button">Delete</button>
                             </div>
                         </div>
                     </div>
@@ -629,7 +516,7 @@
     <script src="/js/counterup/counterup-active.js"></script>
     <!-- dropzone JS
 		============================================ -->
-    <script src="/js/dropzone/dropzone.js"></script>
+    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
     <!-- mCustomScrollbar JS
 		============================================ -->
     <script src="/js/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
@@ -698,16 +585,25 @@
     <!-- <script src="/js/tawk-chat.js"></script> -->
    <script>
 		let attriRowId;
+        function paramNameForSend() {
+			return "images";    
+		}
         $(document).ready(function(){
 
             const myAddProductForm = document.forms["add-product-form"];
-
+            const deleteForm = document.getElementById("delete-product-form");
+            const imageCheckboxs=document.getElementsByName("productImages");
+            const upImageBtn = $("#submit-image");
+            const myHiddenEditImage=document.querySelectorAll(".my-edit-img");
+            const nCheckbox = imageCheckboxs.length;
+            const imageForm = document.getElementById("update-image-form");
+			document.getElementById("submit-delete-form").addEventListener('click', function(e){
+				deleteForm.submit();
+			});
             $('#editAttributesModal').on('show.bs.modal', function (event) {
                 const button = $(event.relatedTarget) ;// Button that triggered the modal
                 const recipient1 = button.data('color'); // Extract info from data-* attributes
-                const recipient2 = button.data('size');
                 const recipient3 = button.data('quantity');
-                const recipient4 = button.data('price');
 				attriRowId = button.data("id");
                 const modal = $(this);
                 $("#hex1").spectrum({
@@ -720,9 +616,7 @@
                 $("#hex1").css({
                     display: "block",
                 });
-                modal.find('.modal-body #editSizeBox').val(recipient2);
                 modal.find('.modal-body #editQuantityBox').val(recipient3);
-                modal.find('.modal-body #editPriceBox').val(recipient4);
             });
 
 			// Fetch all the forms we want to apply custom Bootstrap validation styles to
@@ -734,13 +628,106 @@
 					event.preventDefault();
 					event.stopPropagation();
 				}else{
+                    if(forms.id==="edit-product-form"){
+                        if($("#product-attri-table tr").length < 2){
+						    document.querySelector(".attri-empty-feedback").style.visibility="visible";
+                        }else{
+                            document.querySelector(".attri-empty-feedback").style.visibility="hidden";
+                        }
+                    }else{
+                        
+                    }
 				}
 				
 				form.classList.add('was-validated');
 				}, false);
 			});
+            let myDropzone;
+
+            let imageURLs = [];
+            for(let i = 0 ; i < nCheckbox ; i ++){
+                imageURLs.push(imageCheckboxs[i].value);
+            }
+			 Dropzone.options.updateImageForm = { // The camelized version of the ID of the form element
+                // The configuration we've talked about above
+                autoProcessQueue: false,
+                uploadMultiple: false,
+                parallelUploads: 100,
+                maxFiles: 2-(nCheckbox),
+                acceptedFiles: "image/*",
+                addRemoveLinks: true,
+                paramName: paramNameForSend,
+                previewsContainer: document.querySelector('#imagePreviewContainer'),
+                
+                // The setting up of the dropzone
+                init: function() {
+                    myDropzone = this;
+                    // First change the button to actually tell Dropzone to process the queue.
+                    this.on("sendingmultiple", function() {
+                            console.log("Sending");
+                    });
+                    this.on("success", function(files, response) {
+                        window.location = response;
+                        console.log("Success");
+                    });
+                    this.on("errormultiple", function(files, response) {
+
+                    });
+                     this.on("addedfile", function(file) {
+                         
+                        for(let i = 0 ; i < nCheckbox; i++){
+                            if(imageCheckboxs[i].value === file.url){
+                                imageCheckboxs[i].checked=false;
+                                break;
+                            }
+                        }
+                    });
+                    this.on("removedfile", function(file){
+                        
+                        for(let i = 0 ; i < nCheckbox; i++){
+                            if(imageCheckboxs[i].value === file.url){
+                                myDropzone.options.maxFiles += 1;
+                               imageCheckboxs[i].checked=true;
+                               break;
+                            }
+                        }
+                    })
+                    for(let i = 0 ; i < nCheckbox ; i ++){
+                        let mockFile = { name: "Image" + (i+1), size: 12345, url: imageURLs[i] };
+                        let callback = null; // Optional callback when it's done
+                        let crossOrigin = null; // Added to the `img` tag for crossOrigin handling
+                        let resizeThumbnail = false; // Tells Dropzone whether it should resize the image first
+                        myDropzone.displayExistingFile(mockFile, mockFile.url, callback, crossOrigin, resizeThumbnail);
+                    }
+                }
+            }	
 			
-			
+
+            upImageBtn.click(function(e){
+                e.preventDefault();
+                if(myDropzone.getQueuedFiles().length > 0){
+                    myDropzone.processQueue();
+                }else{
+                    if($("input[name='productImages']:checked").length === nCheckbox){
+						document.querySelector(".file-empty-feedback").style.visibility="visible";
+
+                    }else{
+                        document.querySelector(".file-empty-feedback").style.visibility="hidden";
+
+                        imageForm.submit();
+
+                    }
+                }
+            })
+             $('#deleteViewModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget) // Button that triggered the modal
+                var id = button.data('id') // Extract info from data-* attributes
+                var modal = $(this);
+                modal.find('#delete-review-form').attr('action', '/products/edit/review/' + id +'?_method=DELETE' );
+            });
+            document.getElementById("submit-delete-review-form").addEventListener('click', function(e){
+                document.getElementById("delete-review-form").submit();
+            });
 		});
 
 		function removeRow(row){
@@ -750,18 +737,15 @@
 		function onEditAtribute(){
 			let editAttriForm = document.forms["edit-modal"];
 			if(editAttriForm.checkValidity()){
-				let colors = document.getElementsByName("colors[]");
-				let sizes = document.getElementsByName("sizes[]");
-				let prices = document.getElementsByName("price[]");
-				let quantity = document.getElementsByName("quantity[]");
-				let colorBox = editAttriForm["proColorModal"];
-				let sizeBox = editAttriForm["proSizeModal"];
-				let priceBox = editAttriForm["proPriceModal"];
-				let quantityBox = editAttriForm["proQuantityModal"];
+				let colors = document.getElementsByName("colors");
+				let quantity = document.getElementsByName("quantity");
+				let colorBox = editAttriForm["proEditColor"];
+				let quantityBox = editAttriForm["proEditQuantity"];
 				colors[attriRowId-1].value = colorBox.value;
-				sizes[attriRowId-1].value = sizeBox.value;
-				prices[attriRowId-1].value = priceBox.value;
 				quantity[attriRowId-1].value = quantityBox.value;
+                colors[attriRowId-1].style.backgroundColor=colorBox.value;
+                document.querySelectorAll('.my-toggle-edit-modal')[attriRowId - 1].dataset.color = colorBox.value;
+                document.querySelectorAll('.my-toggle-edit-modal')[attriRowId - 1].dataset.quantity = quantityBox.value;
 				$("#editAttributesModal").modal('hide');
 			}
 			return false;
@@ -772,32 +756,22 @@
 			console.log("add");
 			if(addAttriForm.checkValidity()){
 				let colorBox = addAttriForm["proColorModal"];
-				let sizeBox = addAttriForm["proSizeModal"];
-				let priceBox = addAttriForm["proPriceModal"];
 				let quantityBox = addAttriForm["proQuantityModal"];
 				const attriTable = $("#product-attri-table");	
 				const newRow = `
 				<tr>
 					<td>` + $("#product-attri-table tr").length + `</td>
-					<td> <input name="colors[]" class="my-attribute-input my-attribute-input-color" style="background: ${colorBox.value}" readonly type="text" value=${colorBox.value} /></td>
-					<td> <input name="sizes[]" class="my-attribute-input" readonly type="text" value=${sizeBox.value} /></td>
-					<td> <input name="quantity[]" class="my-attribute-input" readonly type="number" value=${quantityBox.value} /></td>
-					<td> <input name="price[]" class="my-attribute-input" readonly type="number" value=${priceBox.value} /></td>
+					<td> <input name="colors" class="my-attribute-input my-attribute-input-color" style="background: ${colorBox.value}" readonly type="text" value=${colorBox.value} /></td>
+					<td> <input name="quantity" class="my-attribute-input" readonly type="number" value=${quantityBox.value} /></td>
 					<td> 
-						<a href="#" data-toggle="modal" data-target="#editAttributesModal" data-id=${ $("#product-attri-table tr").length} data-color=${colorBox.value} data-size=${sizeBox.value} data-quantity=${quantityBox.value} data-price=${priceBox.value} style="color: black; cursor:pointer;"><button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
+						<a class="my-toggle-edit-modal" href="#" data-toggle="modal" data-target="#editAttributesModal" data-id=${ $("#product-attri-table tr").length} data-color=${colorBox.value} data-quantity=${quantityBox.value} style="color: black; cursor:pointer;"><button data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
 						<button onClick="removeRow(${$("#product-attri-table tr").length})" data-toggle="tooltip" title="Trash" class="pd-setting-ed" style="color: black; cursor:pointer"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
 					</td>
 				</tr>	
 				`;
-				{{!-- <tr>
-					<th>No</th>
-					<th>Color</th>
-					<th>Size</th>
-					<th>Quantity</th>
-					<th>Price ($)</th>
-					<th>Setting</th>
-				</tr> --}}
+			
 				attriTable.append(newRow);
+                document.querySelector(".attri-empty-feedback").style.visibility="hidden";
 				$("#addAttributesModal").modal('hide');
 			}
 			return false;

@@ -21,6 +21,11 @@ class CategoryService{
         }
     }
 
+    listAll(){
+        return models.category.findAll({raw:true});
+    }
+
+
     totalCate(){
         return models.category.count();
     }

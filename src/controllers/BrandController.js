@@ -1,15 +1,13 @@
+const product = require('../models/product');
 const BrandService = require('../services/BrandService');
+const ProductService = require('../services/ProductService');
 const Util = require('../utilities/Util');
 
 const brandPerPage = 5;
-
 const maximumPagination = 5;
 let currentPage = 1;
 let totalPage = 1;
 let totalBrands = 0;
-let currentPageDel = 1;
-let totalPageDel = 1;
-let totalBrandsDel = 0;
 class BrandController{
     //[GET] /
     allBrand(req, res, next){
@@ -19,7 +17,7 @@ class BrandController{
         currentPage = (pageNumber && !Number.isNaN(pageNumber)) ? parseInt(pageNumber) : 1;
         currentPage = (currentPage > 0) ? currentPage : 1;
         currentPage = (currentPage <= totalPage) ? currentPage : totalPage
-        Promise.all([ BrandService.list(brandPerPage, currentPage, name),  BrandService.totalBrand()])
+        Promise.all([ BrandService.list(brandPerPage, currentPage, name),  BrandService.totalBrand(name)])
         .then(([brands, total])=>{
             totalBrands = total;
             let paginationArray = [];
@@ -130,7 +128,6 @@ class BrandController{
                 layout:false,
             })
         })
-        
     }
 
     //[PUT] /edit/:id
@@ -263,3 +260,51 @@ class BrandController{
 }
 
 module.exports = new BrandController;
+
+// products.foreach(product=>{
+//     let promiseArr=[
+//         ProductService.brandProduct(id),
+//         ProductService.catProduct(id),
+//         ProductService.firstImageProduct(id),
+//         ProductService.countProductQuantity(id),
+//     ]
+
+//     Promise.all(promiseArr)
+//     .then((result)=>{
+//         //promiseArr có 4 promise nên
+//         //result sẽ là mảng 4 phần tử là kết quả của 4 promise trên
+//         //result[0] là brand
+//         //result[1] là cat
+//         //result[2] là image
+//         //result[3] là quantity
+//     })
+// })
+
+// const countPro = products.map(product=>{
+//     return ProductService.countProductQuantity(product.proId);
+// })
+
+// const proImage = products.map(product=>{
+//     return ProductService.firstImageProduct(product.proId);
+// })
+
+
+// const proBrand = products.map(product=>{
+//     return ProductService.brandProduct(product.proId);
+// })
+
+
+// const proCate = products.map(product=>{
+//     return ProductService.catProduct(product.proId);
+// })
+
+// let myProArr = countPro.concat(proImage, proBrand, proCate);
+// //gọi n là length của products
+// Promise.all(myProArr)
+//     .then((result)=>{
+//         //result lúc này:
+//         //n phần tử đầu là n cái quantity của n products
+//         //n phần tử tiếp thep là n cái proImage của n products
+//         //n phần tử tiếp nữa là n cái proBrand của n products
+//         //n phần tử cuối là n cái proCate của n product
+//     })

@@ -18,6 +18,8 @@ class Util{
         const endIndex = url.search("?");
         return url.subString(startIndex, endIndex);
     }
+
+    
 }
 
 module.exports = new Util;

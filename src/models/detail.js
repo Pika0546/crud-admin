@@ -23,14 +23,6 @@ module.exports = function(sequelize, DataTypes) {
     color: {
       type: DataTypes.STRING(255),
       allowNull: false
-    },
-    size: {
-      type: DataTypes.STRING(255),
-      allowNull: false
-    },
-    price: {
-      type: DataTypes.INTEGER,
-      allowNull: false
     }
   }, {
     sequelize,
